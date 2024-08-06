@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "747187675082",
+    "project_id": "nebu-guid-master",
+    "storage_bucket": "nebu-guid-master.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747187675082:android:45979eb1e3f4b7ea947933",
+        "android_client_info": {
+          "package_name": "com.example.nebu_guid_master"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYDC7ddMrZIYsUgyj9TmChGg7do1T5Xmo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
