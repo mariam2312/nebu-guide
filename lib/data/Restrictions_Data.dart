@@ -1,5 +1,5 @@
 var RestrictionsData = {
-  "Short_Description": " Navigation To System Migration ",
+  "Short_Description": "Navigation To System Migration ",
   "Description": "To go to the migration from an old system to save the codes",
   "Short_Description_Ar": " لتسجيل الاكواد بالنظام السابق الي النظام الجديد ",
   "Description_Ar": " الذهاب الي تسجيل النظام السابق ",
