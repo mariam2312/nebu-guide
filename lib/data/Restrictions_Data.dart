@@ -1,3 +1,5 @@
+import '../models/Restriction.dart';
+
 var RestrictionsData = {
   "Short_Description": "Navigation To System Migration ",
   "Description": "To go to the migration from an old system to save the codes",
@@ -19,3 +21,20 @@ var RestrictionsData = {
   "Blurred": true,
   "Dev_Mode": false,
 };
+
+
+Restriction R1 =  Restriction(
+  Allowed_Plans:  ["basic", "pro", "vip"] ,
+  Short_Description: "Navigation To System Migration " ,
+  Blurred: true ,
+  Description:  ,
+  Description_Ar: ,
+  Dev_Mode: ,
+  Material_Type: ,
+  Photo_Url:  ,
+  Role_Permission: ,
+  Short_Description_Ar: ,
+  Store_Type:  ,
+  Visible:
+);
+
