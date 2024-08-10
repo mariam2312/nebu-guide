@@ -61,6 +61,7 @@ class _InfoBankScreenState extends State<InfoBankScreen> {
           setState(() {
             infoBanksList = infoBankList;
             guideProvider.setInfoBankList(infobankList: infoBankList);
+            print(infoBankList);
           });
         }
       });
@@ -71,12 +72,12 @@ class _InfoBankScreenState extends State<InfoBankScreen> {
     InfoBank infobank1=InfoBank(
       Material_Path: "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
       Material_Path_List: [],
-      Tip_Title: " حسابات مفتوحة",
+      Tip_Title: "open account",
       Tip_Section: "حسابات",
       Related_Screen: "شاشة حسابات",
       Related_App_Screen: "openaccount_Screen",
 Tip_Description_Idea: " الهدف من تصميم مؤشز تغيير المصنعية هو التسهيل علي المستخدم و ايضا منع الاخطاء الحسابية و منع الحسابات المكررة ",
-      Tip_Description_Info: " هل تعلم ان متوسط وقت حساب اجمالي قيمة منتج  بالطريقة اليدوية هي ٤٥ ثانية اما عن طريق النظام  فهي ٥ ثوان فقط",
+      Tip_Description_Info: "مصنعيه",
       Tip_Main_Description: "  يتم تغيير قيمة المصنعية عن طريق تغيير مكان المؤشر ، تحريكه يمينا تقل المصنعية ،اما يسارا فتزيد المصنعية مع تحديث السعر الاجمالي في نفس الوقت ",
       Tip_Tech_Details: " يمكن تغيير المصنعية حتي و ان اختفت ",
       Is_ComingSoon: false,
@@ -93,10 +94,10 @@ Is_Material_Lottie: true,
       Is_Material_Picture: false,
       Is_Material_YouTube: false,
       Is_Step_By_Step: false,
-      Is_New: false,
+      Is_New: true,
       Is_Basic: true,
       Is_FAQ: false ,
-      Is_Official: false,);
+      Is_Official: false, date:Timestamp.fromDate(DateTime.now()),);
     final CollectionReference infobankReference = FirebaseFirestore.instance.collection('InfoBankData');
     infobankReference.doc('OpenAcoount').set( infobank1.toMap(Material_Path: 'InfoBankData/OpenAcoount'));
 
@@ -131,20 +132,29 @@ Is_Material_Lottie: true,
     itemCount: guideProvider.infoBankList.length, // number of items
     itemBuilder: (context, index) {
     InfoBank infoBank = guideProvider.infoBankList[index];
-    return Container(
-    padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(color: Colors.black,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 7,
-            offset: const Offset(0, 3), // changes position of shadow
-          ),
-        ],
-        borderRadius: BorderRadius.circular(20), // circular edge
+    return GestureDetector( onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => InfoScreen(infoBank: infoBank),
+        ),
+      );
+    },
+      child: Container(
+      padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(color: Colors.black,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 7,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
+          borderRadius: BorderRadius.circular(20), // circular edge
+        ),
+      child: Center(child: Text("(${index+1})${infoBank.Tip_Title}",style: const TextStyle(color: Colors.amber,fontSize: 20,fontWeight: FontWeight.bold),)),
       ),
-    child: Center(child: Text("(${index+1})${infoBank.Tip_Title}",style: const TextStyle(color: Colors.amber,fontSize: 20,fontWeight: FontWeight.bold),)),
     );
     },
     ),
@@ -156,4 +166,32 @@ Is_Material_Lottie: true,
     )]));
     })
     );}
+}
+class InfoScreen extends StatelessWidget {
+  final InfoBank infoBank;
+
+  InfoScreen({required this.infoBank});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(infoBank.Tip_Title!),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            SizedBox(height: 100,),
+            Center(
+              child: Text(
+                infoBank.Tip_Title ?? '',
+                style: const TextStyle(fontSize: 18),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

@@ -5,6 +5,7 @@ import 'package:nebu_guid_master/screens/Info_Bank_Screen.dart';
 import 'package:nebu_guid_master/screens/Restrictions_Screen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'models/Info.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
           home: const MyHomePage(title: 'NEBU Guide'),
           routes: {
             InfoBankScreen.id: (context) => InfoBankScreen(),
-            RestrictionsScreen.id: (context) => RestrictionsScreen(),
+            RestrictionsScreen.id: (context) => const RestrictionsScreen(),
           }),
     );
   }
@@ -53,12 +54,29 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+
   @override
   Widget build(BuildContext context) {
+    var guideProvider = Provider.of<GuideProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Center(child: Text(widget.title)),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: SearchDelegateClass(guideProvider.infoBankList),
+              );
+            },
+            icon: const Icon(
+              Icons.search,
+            ),
+          )
+        ],
       ),
       body: Center(
         child: Column(
@@ -111,3 +129,146 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+class SearchDelegateClass extends SearchDelegate {
+  final List<InfoBank> infoBankList;
+
+  SearchDelegateClass(this.infoBankList);
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    if (query.toLowerCase() == 'new') {
+      final suggestions = infoBankList.where((element) => element.Is_New!).toList();
+      return ListView.builder(
+        itemCount: suggestions.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(suggestions[index].Tip_Title ?? ''),
+
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => InfoScreen(infoBank: suggestions[index]),
+                ),
+              );
+            },
+          );
+        },
+      );
+    } else {
+      final suggestions = infoBankList.where((element) {
+        final title = element.Tip_Title?.toLowerCase() ?? '';
+        final section = element.Tip_Section?.toLowerCase() ?? '';
+        final description = element.Tip_Description_Info?.toLowerCase() ?? '';
+
+        return title.contains(query.toLowerCase()) ||
+            section.contains(query.toLowerCase()) ||
+            description.contains(query.toLowerCase());
+      }).toList();
+      return ListView.builder(
+        itemCount: suggestions.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(suggestions[index].Tip_Title ?? ''),
+
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => InfoScreen(infoBank: suggestions[index]),
+                ),
+              );
+            },
+          );
+        },
+      );
+    }
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    if (query.toLowerCase() == 'new') {
+      final suggestions = infoBankList.where((element) => element.Is_New!)
+          .toList();
+      return ListView.builder(
+        itemCount: suggestions.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(suggestions[index].Tip_Title ?? ''),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(suggestions[index].Tip_Section ?? ''),
+                Text(suggestions[index].Tip_Description_Info ?? ''),
+              ],
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      InfoScreen(infoBank: suggestions[index]),
+                ),
+              );
+            },
+          );
+        },
+      );
+    } else {
+      final suggestions = infoBankList.where((element) {
+        final title = element.Tip_Title?.toLowerCase() ?? '';
+        final section = element.Tip_Section?.toLowerCase() ?? '';
+        final description = element.Tip_Description_Info?.toLowerCase() ?? '';
+
+        return title.contains(query.toLowerCase()) ||
+            section.contains(query.toLowerCase()) ||
+            description.contains(query.toLowerCase());
+      }).toList();
+      return ListView.builder(
+        itemCount: suggestions.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(suggestions[index].Tip_Title ?? ''),
+            // subtitle: Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     Text(suggestions[index].Tip_Section ?? ''),
+            //     Text(suggestions[index].Tip_Description_Info ?? ''),
+            //   ],
+            // ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      InfoScreen(infoBank: suggestions[index]),
+                ),
+              );
+            },
+          );
+        },
+      );
+    }
+  }}

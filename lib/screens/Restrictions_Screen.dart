@@ -93,16 +93,16 @@ class _InfoBankScreenState extends State<RestrictionsScreen> {
     restrictionsDataCollection.doc('MainOperations').set(restriction1.toMap(Material_Path: 'RestrictionsData/MainOperations'));
 
   }
-  Future<void> deleteRestrictionsToFirestore() async {
-    final CollectionReference restrictionsDataCollection = FirebaseFirestore.instance.collection('RestrictionsData');
-    restrictionsDataCollection.doc('MainOperations').delete();
-
-  }
+  // Future<void> deleteRestrictionsToFirestore() async {
+  //   final CollectionReference restrictionsDataCollection = FirebaseFirestore.instance.collection('RestrictionsData');
+  //   restrictionsDataCollection.doc('MainOperations').delete();
+  //
+  // }
   @override
   void initState() {
     super.initState();
     restrictionsToFirestore();
-    deleteRestrictionsToFirestore();
+   // deleteRestrictionsToFirestore();
     callStream();
   }
 
