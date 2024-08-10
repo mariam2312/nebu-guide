@@ -59,25 +59,85 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     var guideProvider = Provider.of<GuideProvider>(context, listen: false);
-
+    final TextEditingController _searchController = TextEditingController();
+    List<InfoBank> _searchResults = [];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Center(child: Text(widget.title)),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showSearch(
-                context: context,
-                delegate: SearchDelegateClass(guideProvider.infoBankList),
-              );
-            },
-            icon: const Icon(
-              Icons.search,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                _searchController.clear(); // clear the search field
+                setState(() {
+                  _searchResults = guideProvider.infoBankList; // show all items initially
+                });
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true, // allow the sheet to be scrollable
+                  builder: (BuildContext context) {
+                    return StatefulBuilder(
+                      builder: (context, setState) {
+                        return Container(
+                          height: MediaQuery.of(context).size.height * 0.8, // adjust the height
+                          child: Column(
+                            children: [
+                              TextField(
+                                controller: _searchController,
+                                decoration: InputDecoration(
+                                  labelText: 'Search',
+                                  prefixIcon: Icon(Icons.search),
+                                ),
+                                onChanged: (text) {
+                                  setState(() {
+                                    if (text.isEmpty) {
+                                      _searchResults = guideProvider.infoBankList;
+                                    } else if (text.toLowerCase() == 'new') {
+                                      _searchResults = guideProvider.infoBankList.where((element) => element.Is_New == true).toList();
+                                    } else {
+                                      _searchResults = guideProvider.infoBankList.where((element) {
+                                        final title = element.Tip_Title?.toLowerCase() ?? '';
+                                        final section = element.Tip_Section?.toLowerCase() ?? '';
+                                        final description = element.Tip_Description_Info?.toLowerCase() ?? '';
+
+                                        return title.contains(text.toLowerCase()) ||
+                                            section.contains(text.toLowerCase()) ||
+                                            description.contains(text.toLowerCase());
+                                      }).toList();
+                                    }
+                                  });
+                                },
+                              ),
+                              Expanded(
+                                child: ListView.builder(
+                                  itemCount: _searchResults.length,
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      title: Text(_searchResults[index].Tip_Title ?? ''),
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => InfoScreen(infoBank: _searchResults[index]),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                );
+              },
             ),
-          )
-        ],
-      ),
+          ]
+    ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -129,146 +189,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-class SearchDelegateClass extends SearchDelegate {
-  final List<InfoBank> infoBankList;
-
-  SearchDelegateClass(this.infoBankList);
-
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-        icon: const Icon(Icons.clear),
-        onPressed: () {
-          query = '';
-        },
-      ),
-    ];
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.arrow_back),
-      onPressed: () {
-        close(context, null);
-      },
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    if (query.toLowerCase() == 'new') {
-      final suggestions = infoBankList.where((element) => element.Is_New!).toList();
-      return ListView.builder(
-        itemCount: suggestions.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(suggestions[index].Tip_Title ?? ''),
-
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => InfoScreen(infoBank: suggestions[index]),
-                ),
-              );
-            },
-          );
-        },
-      );
-    } else {
-      final suggestions = infoBankList.where((element) {
-        final title = element.Tip_Title?.toLowerCase() ?? '';
-        final section = element.Tip_Section?.toLowerCase() ?? '';
-        final description = element.Tip_Description_Info?.toLowerCase() ?? '';
-
-        return title.contains(query.toLowerCase()) ||
-            section.contains(query.toLowerCase()) ||
-            description.contains(query.toLowerCase());
-      }).toList();
-      return ListView.builder(
-        itemCount: suggestions.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(suggestions[index].Tip_Title ?? ''),
-
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => InfoScreen(infoBank: suggestions[index]),
-                ),
-              );
-            },
-          );
-        },
-      );
-    }
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    if (query.toLowerCase() == 'new') {
-      final suggestions = infoBankList.where((element) => element.Is_New!)
-          .toList();
-      return ListView.builder(
-        itemCount: suggestions.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(suggestions[index].Tip_Title ?? ''),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(suggestions[index].Tip_Section ?? ''),
-                Text(suggestions[index].Tip_Description_Info ?? ''),
-              ],
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      InfoScreen(infoBank: suggestions[index]),
-                ),
-              );
-            },
-          );
-        },
-      );
-    } else {
-      final suggestions = infoBankList.where((element) {
-        final title = element.Tip_Title?.toLowerCase() ?? '';
-        final section = element.Tip_Section?.toLowerCase() ?? '';
-        final description = element.Tip_Description_Info?.toLowerCase() ?? '';
-
-        return title.contains(query.toLowerCase()) ||
-            section.contains(query.toLowerCase()) ||
-            description.contains(query.toLowerCase());
-      }).toList();
-      return ListView.builder(
-        itemCount: suggestions.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(suggestions[index].Tip_Title ?? ''),
-            // subtitle: Column(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
-            //     Text(suggestions[index].Tip_Section ?? ''),
-            //     Text(suggestions[index].Tip_Description_Info ?? ''),
-            //   ],
-            // ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      InfoScreen(infoBank: suggestions[index]),
-                ),
-              );
-            },
-          );
-        },
-      );
-    }
-  }}
