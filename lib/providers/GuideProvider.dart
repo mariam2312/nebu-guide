@@ -28,5 +28,8 @@ class GuideProvider extends ChangeNotifier {
   void clearRestrictionsList() {
     restrictionsList.clear();
     notifyListeners();
+  }  void clearInfoList() {
+    infoBankList.clear();
+    notifyListeners();
   }
 }

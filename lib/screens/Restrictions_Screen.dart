@@ -10,6 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import '../data/Restrictions_Data.dart';
 import '../models/Restriction.dart';
 import '../providers/FirestoreDataBase.dart';
 import '../providers/GuideProvider.dart';
@@ -24,20 +25,21 @@ class RestrictionsScreen extends StatefulWidget {
 
 class _InfoBankScreenState extends State<RestrictionsScreen> {
   List<Restriction> restrictionsList = [];
-
   //stream and subscription
-  StreamSubscription<QuerySnapshot>? restrictionsSubscription;
-  Stream<QuerySnapshot>?restrictionsStream;
+  StreamSubscription<DocumentSnapshot>? restrictionsSubscription;
+  Stream<DocumentSnapshot>? restrictionsStream;
 
   void cancelAllSubscriptions() {
     restrictionsSubscription?.cancel();
     debugPrint(" Cancel Subscriptions !!! ");
   }
+
   @override
   void dispose() {
     cancelAllSubscriptions();
     super.dispose();
   }
+
   @override
   void deactivate() {
     cancelAllSubscriptions();
@@ -49,21 +51,22 @@ class _InfoBankScreenState extends State<RestrictionsScreen> {
       var database = Provider.of<FirestoreDataBase>(context, listen: false);
       var guideProvider = Provider.of<GuideProvider>(context, listen: false);
       // stream
-      restrictionsStream = database.restrictionsStream();
-      List <Restriction>restrictionList = [];
+      restrictionsStream = database.allRestrictionsStream();
+
       // listen
       restrictionsSubscription = restrictionsStream?.listen((event) {
-        if (event.docs.isNotEmpty) {
-          List<QueryDocumentSnapshot> documents = event.docs;
-          restrictionsList = [];
+        if (event.exists) {
+          Map<String, dynamic> bigMap = event.data() as Map<String, dynamic>;
+          Map<String, dynamic> allRestrictionsData = bigMap['restrictions'];
 
-          if (documents.isNotEmpty) {
-            for (var element in documents) {
-              Map<String, dynamic> documentData = element.data() as Map<String, dynamic>;
+          List<Restriction> restrictionList = [];
 
-              restrictionList.add(Restriction.fromMap(documentData));
-            }
-          }
+          // Iterate over the allRestrictionsData map
+          allRestrictionsData.forEach((key, value) {
+            Restriction restriction = Restriction.fromMap(value);
+            restrictionList.add(restriction);
+          });
+
           setState(() {
             restrictionsList = restrictionList;
             guideProvider.setRestrictionList(restrictionList: restrictionList);
@@ -72,32 +75,53 @@ class _InfoBankScreenState extends State<RestrictionsScreen> {
       });
     });
   }
+  // void callStream() {
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     //get data from database as stream
+  //     var database = Provider.of<FirestoreDataBase>(context, listen: false);
+  //     var guideProvider = Provider.of<GuideProvider>(context, listen: false);
+  //     // stream
+  //     restrictionsStream = database.allRestrictionsStream();
+  //
+  //     // listen
+  //     restrictionsSubscription = restrictionsStream?.listen((event) {
+  //       if (event.exists) {
+  //         Map<String, dynamic> allRestrictionsData = event.data() as Map<String, dynamic>;
+  //         List<Restriction> restrictionList = [];
+  //
+  //
+  //         // Iterate over the allRestrictionsData map
+  //         allRestrictionsData.forEach((key, value) {
+  //           Restriction restriction =Restriction.fromMap(value);
+  //           restrictionList.add(restriction);
+  //         });
+  //
+  //         setState(() {
+  //           restrictionsList = restrictionList;
+  //           guideProvider.setRestrictionList(restrictionList: restrictionList);
+  //         });
+  //       }
+  //     });
+  //   });
+  // }
+
   Future<void> restrictionsToFirestore() async {
-    Restriction restriction1 =Restriction(
-      Short_Description: "Main Operations",
-      Description: "To go to the migration from an old system to save the codes",
-      Short_Description_Ar:" لتسجيل الاكواد بالنظام السابق الي النظام الجديد ",
-      Description_Ar: " الذهاب الي تسجيل النظام السابق ",
-      Role_Permission: [
-      "Owner",
-      "Manager",
-      "Purchaser",
-      "Accountant",
-      ],
-      Allowed_Plans: [  "vip"],
-      Store_Type: ["Retail",],
-      Material_Type: ["Gold_Silver" ,"Gold", "Silver"],
-      Photo_Url: "",
-      Visible: true,
-      Blurred: true,
-      Dev_Mode: false,
-    );
+
 
 
     final CollectionReference restrictionsDataCollection = FirebaseFirestore.instance.collection('RestrictionsData');
-    restrictionsDataCollection.doc('MainOperations').set(restriction1.toMap(Material_Path: 'RestrictionsData/MainOperations'));
+    final Map<String, dynamic> bigMap = {
+      'restrictions': {}
+    };
 
+    for (var restriction in restrictions) {
+      final Map<String, dynamic> restrictionMap = restriction.toMap(Material_Path: 'RestrictionsData/AllRestrictionsData');
+      bigMap['restrictions'][restriction.Title!] = restrictionMap;
+    }
+
+    restrictionsDataCollection.doc('AllRestrictionsData').set(bigMap);
   }
+
   Future<void> deleteAllRestrictionsToFirestore() async {
     final CollectionReference restrictionsDataCollection = FirebaseFirestore.instance.collection('RestrictionsData');
 
@@ -122,58 +146,127 @@ class _InfoBankScreenState extends State<RestrictionsScreen> {
     var guideProvider = Provider.of<GuideProvider>(context, listen: false);
     final pdf = pw.Document();
     final checkmarkImage = await _loadIconAsImage(Icons.check, 24.0, PdfColors.green);
-
-
     final font = await rootBundle.load("Assets/HelveticaWorld-Bold.ttf");
     final ttf = pw.Font.ttf(font);
-    pdf.addPage(
+
+    final int maxRowsPerPage = 20; // Adjust as needed
+    final List<List<Restriction>> paginatedRestrictions = [];
+
+    // Split data into chunks
+    for (int i = 0; i < guideProvider.restrictionsList.length; i += maxRowsPerPage) {
+      int end = (i + maxRowsPerPage < guideProvider.restrictionsList.length)
+          ? i + maxRowsPerPage
+          : guideProvider.restrictionsList.length;
+      paginatedRestrictions.add(guideProvider.restrictionsList.sublist(i, end));
+    }
+
+    // Create pages
+    for (var restrictions in paginatedRestrictions) {
+      pdf.addPage(
         pw.Page(
-            build: (pw.Context context) {
-              return
-                pw.Column(children: [pw.Text("Restrictions",style: pw.TextStyle(fontSize: 30)),
-                  pw.SizedBox(height: 30),
-                  pw.Table(
+          build: (pw.Context context) {
+            return pw.Column(
+              children: [
+                pw.Text("Restrictions", style: pw.TextStyle(fontSize: 30)),
+                pw.SizedBox(height: 30),
+                pw.Table(
                   border: pw.TableBorder.all(),
                   children: [
                     pw.TableRow(
                       children: [
-                        pw.Center(child:pw.Text('VIP',)),
-                        pw.Center(child:pw.Text('PRO', )),
-                        pw.Center(child:pw.Text('BASIC', )),
-                        pw.Center(child:pw.Text('الامكانيات', style: pw.TextStyle(font: ttf,),textDirection: pw.TextDirection.rtl)),
+                        pw.Center(child: pw.Text('VIP')),
+                        pw.Center(child: pw.Text('PRO')),
+                        pw.Center(child: pw.Text('BASIC')),
+                        pw.Center(child: pw.Text('الامكانيات', style: pw.TextStyle(font: ttf,), textDirection: pw.TextDirection.rtl)),
                       ],
                     ),
-
-                    for (var restriction in guideProvider.restrictionsList)
+                    for (var restriction in restrictions)
                       pw.TableRow(
                         children: [
                           restriction.Allowed_Plans!.contains("vip")
-                              ? pw.Center(child:pw.Image(checkmarkImage))
+                              ? pw.Center(child: pw.Image(checkmarkImage))
                               : pw.Container(),
                           restriction.Allowed_Plans!.contains("pro")
-                              ? pw.Center(child:pw.Image(checkmarkImage))
+                              ? pw.Center(child: pw.Image(checkmarkImage))
                               : pw.Container(),
                           restriction.Allowed_Plans!.contains("basic")
-                              ? pw.Center(child:pw.Image(checkmarkImage))
+                              ? pw.Center(child: pw.Image(checkmarkImage))
                               : pw.Container(),
-                          pw.Center(child:pw.Text("${restriction.Short_Description?.split(" ").take(3).join(" ")} "))
-
+                          pw.Center(child: pw.Text("${restriction.Title?.split(" ").take(3).join(" ")} "))
                         ],
                       ),
                   ],
-                )]);
-            }));
-    final Uint8List bytes = await pdf.save();
+                )
+              ],
+            );
+          },
+        ),
+      );
+    }
 
+    final Uint8List bytes = await pdf.save();
     final directory = await getTemporaryDirectory();
     final file = File('${directory.path}/Restrictions.pdf');
     await file.writeAsBytes(bytes);
     await OpenFile.open(file.path);
-
-    // final outputFile = await _getOutputFile();
-    // await outputFile.writeAsBytes(await pdf.save());
-    // return outputFile;
   }
+
+  // Future generatePdf() async {
+  //   var guideProvider = Provider.of<GuideProvider>(context, listen: false);
+  //   final pdf = pw.Document();
+  //   final checkmarkImage = await _loadIconAsImage(Icons.check, 24.0, PdfColors.green);
+  //
+  //
+  //   final font = await rootBundle.load("Assets/HelveticaWorld-Bold.ttf");
+  //   final ttf = pw.Font.ttf(font);
+  //   pdf.addPage(
+  //       pw.Page(
+  //           build: (pw.Context context) {
+  //             return
+  //               pw.Column(children: [pw.Text("Restrictions",style: pw.TextStyle(fontSize: 30)),
+  //                 pw.SizedBox(height: 30),
+  //                 pw.Table(
+  //                 border: pw.TableBorder.all(),
+  //                 children: [
+  //                   pw.TableRow(
+  //                     children: [
+  //                       pw.Center(child:pw.Text('VIP',)),
+  //                       pw.Center(child:pw.Text('PRO', )),
+  //                       pw.Center(child:pw.Text('BASIC', )),
+  //                       pw.Center(child:pw.Text('الامكانيات', style: pw.TextStyle(font: ttf,),textDirection: pw.TextDirection.rtl)),
+  //                     ],
+  //                   ),
+  //
+  //                   for (var restriction in guideProvider.restrictionsList)
+  //                     pw.TableRow(
+  //                       children: [
+  //                         restriction.Allowed_Plans!.contains("vip")
+  //                             ? pw.Center(child:pw.Image(checkmarkImage))
+  //                             : pw.Container(),
+  //                         restriction.Allowed_Plans!.contains("pro")
+  //                             ? pw.Center(child:pw.Image(checkmarkImage))
+  //                             : pw.Container(),
+  //                         restriction.Allowed_Plans!.contains("basic")
+  //                             ? pw.Center(child:pw.Image(checkmarkImage))
+  //                             : pw.Container(),
+  //                         pw.Center(child:pw.Text("${restriction.Title?.split(" ").take(3).join(" ")} "))
+  //
+  //                       ],
+  //                     ),
+  //                 ],
+  //               )]);
+  //           }));
+  //   final Uint8List bytes = await pdf.save();
+  //
+  //   final directory = await getTemporaryDirectory();
+  //   final file = File('${directory.path}/Restrictions.pdf');
+  //   await file.writeAsBytes(bytes);
+  //   await OpenFile.open(file.path);
+  //
+  //   // final outputFile = await _getOutputFile();
+  //   // await outputFile.writeAsBytes(await pdf.save());
+  //   // return outputFile;
+  // }
   Future<pw.ImageProvider> _loadIconAsImage(IconData icon, double size, PdfColor circleColor) async {
     final recorder = ui.PictureRecorder();
     final canvasSize = size;
@@ -211,19 +304,7 @@ class _InfoBankScreenState extends State<RestrictionsScreen> {
     final uint8List = byteData!.buffer.asUint8List();
     return pw.MemoryImage(uint8List);
   }
-  // Future<File> _getOutputFile() async {
-  //   final directory = await getTemporaryDirectory();
-  //   final filePath = '${directory.path}/restriction.pdf';
-  //   return File(filePath);
-  // }
 
-  // Future<void> openPdf(File file) async {
-  //   final result = await OpenFile.open(file.path);
-  //   if (result.type != ResultType.done) {
-  //     // Handle error or provide feedback
-  //     print('Failed to open file: ${result.message}');
-  //   }
-  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
