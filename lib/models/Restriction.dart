@@ -1,6 +1,6 @@
 class Restriction {
   //  details
-  String? Short_Description;
+  String? Short_Description;  String? Title;
   String? Description;
   String? Short_Description_Ar;
   String? Description_Ar;
@@ -14,7 +14,7 @@ class Restriction {
   bool? Dev_Mode;
 
   Restriction(
-      {required this.Short_Description,
+      {required this.Short_Description,required this.Title,
       this.Description,
       this.Short_Description_Ar,
       this.Description_Ar,
@@ -29,7 +29,7 @@ class Restriction {
 
   Map<String, dynamic> toMap({required String Material_Path}) {
     return {
-      "Short_Description": Short_Description,
+      "Short_Description": Short_Description,"Title": Title,
       "Description": Description,
       "Short_Description_Ar": Short_Description_Ar,
       "Description_Ar": Description_Ar,
@@ -45,7 +45,7 @@ class Restriction {
   }
 
   factory Restriction.fromMap(Map<String, dynamic> data) {
-    final String? Short_Description = data['Short_Description']??"";
+    final String? Short_Description = data['Short_Description']??"";final String? Title = data['Title']??"";
     final String? Description = data['Description']??"";
     final String? Short_Description_Ar = data['Short_Description_Ar']??"";
     final String? Description_Ar = data['Description_Ar']??"";
@@ -61,7 +61,7 @@ class Restriction {
     final bool? Dev_Mode = data['Dev_Mode'] ?? false;
 
     return Restriction(
-      Short_Description: Short_Description,
+      Short_Description: Short_Description,Title: Title,
       Description: Description,
       Short_Description_Ar: Short_Description_Ar,
       Description_Ar: Description_Ar,

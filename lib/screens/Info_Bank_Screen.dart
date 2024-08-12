@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
+import '../data/Info_Bank_Data.dart';
 import '../models/Info.dart';
 import '../providers/FirestoreDataBase.dart';
 import '../providers/GuideProvider.dart';
@@ -19,8 +20,8 @@ class _InfoBankScreenState extends State<InfoBankScreen> {
   List<InfoBank> infoBanksList = [];
 
   //stream and subscription
-  StreamSubscription<QuerySnapshot>? infoBankSubscription;
-  Stream<QuerySnapshot>?infoBankStream;
+  StreamSubscription<DocumentSnapshot>? infoBankSubscription;
+  Stream<DocumentSnapshot>?infoBankStream;
 
   void cancelAllSubscriptions() {
     infoBankSubscription?.cancel();
@@ -43,73 +44,134 @@ class _InfoBankScreenState extends State<InfoBankScreen> {
       var guideProvider = Provider.of<GuideProvider>(context, listen: false);
       // stream
       infoBankStream = database.infoBankStream();
-      List <InfoBank>infoBankList = [];
+
       // listen
       infoBankSubscription = infoBankStream?.listen((event) {
-        if (event.docs.isNotEmpty) {
+        if (event.exists) {
+          Map<String, dynamic> bigMap = event.data() as Map<String, dynamic>;
+          Map<String, dynamic> allRestrictionsData = bigMap['info'];
 
-          List<QueryDocumentSnapshot> documents = event.docs;
-          infoBanksList = [];
+          List<InfoBank> infoList = [];
 
-          if (documents.isNotEmpty) {
-            documents.forEach((element) {
-              Map<String, dynamic> documentData = element.data() as Map<String, dynamic>;
+          // Iterate over the allRestrictionsData map
+          allRestrictionsData.forEach((key, value) {
+            InfoBank restriction = InfoBank.fromMap(value);
+            infoList.add(restriction);
+          });
 
-              infoBankList.add(InfoBank.fromMap(documentData));
-            });
-          }
           setState(() {
-            infoBanksList = infoBankList;
-            guideProvider.setInfoBankList(infobankList: infoBankList);
-            print(infoBankList);
+            infoBanksList = infoList;
+            guideProvider.setInfoBankList(infobankList: infoBanksList);
           });
         }
       });
     });
   }
-  Future<void> infoBankToFirestore() async {
-
-    InfoBank infobank1=InfoBank(
-      Material_Path: "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
-      Material_Path_List: [],
-      Tip_Title: "open account",
-      Tip_Section: "حسابات",
-      Related_Screen: "شاشة حسابات",
-      Related_App_Screen: "openaccount_Screen",
-Tip_Description_Idea: " الهدف من تصميم مؤشز تغيير المصنعية هو التسهيل علي المستخدم و ايضا منع الاخطاء الحسابية و منع الحسابات المكررة ",
-      Tip_Description_Info: "مصنعيه",
-      Tip_Main_Description: "  يتم تغيير قيمة المصنعية عن طريق تغيير مكان المؤشر ، تحريكه يمينا تقل المصنعية ،اما يسارا فتزيد المصنعية مع تحديث السعر الاجمالي في نفس الوقت ",
-      Tip_Tech_Details: " يمكن تغيير المصنعية حتي و ان اختفت ",
-      Is_ComingSoon: false,
-      Is_ForOwner: true,
-      Is_For_Admin: true,
-      Is_For_SalesTeam: true,
-      Is_Take_Time: false,
-      Is_Optional: false,
-      Is_Required: true,
-      Android_Ver: 133,
-      IOS_Ver: 94,
-      Tip_Order_Number: "1",
-Is_Material_Lottie: true,
-      Is_Material_Picture: false,
-      Is_Material_YouTube: false,
-      Is_Step_By_Step: false,
-      Is_New: true,
-      Is_Basic: true,
-      Is_FAQ: false ,
-      Is_Official: false, date:Timestamp.fromDate(DateTime.now()),);
-    final CollectionReference infobankReference = FirebaseFirestore.instance.collection('InfoBankData');
-    infobankReference.doc('OpenAcoount').set( infobank1.toMap(Material_Path: 'InfoBankData/OpenAcoount'));
-
-
-  }
+  // void callStream() {
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     //get data from database as stream
+  //     var database = Provider.of<FirestoreDataBase>(context, listen: false);
+  //     var guideProvider = Provider.of<GuideProvider>(context, listen: false);
+  //     // stream
+  //     infoBankStream = database.infoBankStream();
+  //     List <InfoBank>infoBankList = [];
+  //     // listen
+  //     infoBankSubscription = infoBankStream?.listen((event) {
+  //       if (event.docs.isNotEmpty) {
+  //
+  //         List<QueryDocumentSnapshot> documents = event.docs;
+  //         infoBanksList = [];
+  //
+  //         if (documents.isNotEmpty) {
+  //           documents.forEach((element) {
+  //             Map<String, dynamic> documentData = element.data() as Map<String, dynamic>;
+  //
+  //             infoBankList.add(InfoBank.fromMap(documentData));
+  //           });
+  //         }
+  //         setState(() {
+  //           infoBanksList = infoBankList;
+  //           guideProvider.setInfoBankList(infobankList: infoBankList);
+  //           print(infoBankList);
+  //         });
+  //       }
+  //     });
+  //   });
+  // }
+//   Future<void> infoBankToFirestore() async {
+//
+//     InfoBank infobank1=InfoBank(
+//       Material_Path: "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
+//       Material_Path_List: [],
+//       Tip_Title: "open account",
+//       Tip_Section: "حسابات",
+//       Related_Screen: "شاشة حسابات",
+//       Related_App_Screen: "openaccount_Screen",
+// Tip_Description_Idea: " الهدف من تصميم مؤشز تغيير المصنعية هو التسهيل علي المستخدم و ايضا منع الاخطاء الحسابية و منع الحسابات المكررة ",
+//       Tip_Description_Info: "مصنعيه",
+//       Tip_Main_Description: "  يتم تغيير قيمة المصنعية عن طريق تغيير مكان المؤشر ، تحريكه يمينا تقل المصنعية ،اما يسارا فتزيد المصنعية مع تحديث السعر الاجمالي في نفس الوقت ",
+//       Tip_Tech_Details: " يمكن تغيير المصنعية حتي و ان اختفت ",
+//       Is_ComingSoon: false,
+//       Is_ForOwner: true,
+//       Is_For_Admin: true,
+//       Is_For_SalesTeam: true,
+//       Is_Take_Time: false,
+//       Is_Optional: false,
+//       Is_Required: true,
+//       Android_Ver: 133,
+//       IOS_Ver: 94,
+//       Tip_Order_Number: "1",
+// Is_Material_Lottie: true,
+//       Is_Material_Picture: false,
+//       Is_Material_YouTube: false,
+//       Is_Step_By_Step: false,
+//       Is_New: true,
+//       Is_Basic: true,
+//       Is_FAQ: false ,
+//       Is_Official: false, date:Timestamp.fromDate(DateTime.now()),);
+//     final CollectionReference infobankReference = FirebaseFirestore.instance.collection('InfoBankData');
+//     infobankReference.doc('OpenAcoount').set( infobank1.toMap(Material_Path: 'InfoBankData/OpenAcoount'));
+//
+//
+//   }
   @override
   void initState() {
     super.initState();
-    infoBankToFirestore();
+   // infoBankToFirestore();
     callStream();
   }
+  Future<void> infoToFirestore() async {
 
+
+
+    final CollectionReference restrictionsDataCollection = FirebaseFirestore.instance.collection('InfoBankData');
+    final Map<String, dynamic> bigMap = {
+      'info': {}
+    };
+
+    for (var infoBank in infoBankList) {
+      final Map<String, dynamic> infoMap = infoBank.toMap(Material_Path: 'InfoBankData/AllInfoData');
+      bigMap['info'][infoBank.Tip_Title!] = infoMap;
+    }
+
+    restrictionsDataCollection.doc('AllInfoData').set(bigMap);
+  }
+
+  Future<void> deleteAllInfoToFirestore() async {
+    final CollectionReference infoDataCollection = FirebaseFirestore.instance.collection('InfoBankData');
+
+    // Get all documents in the collection
+    QuerySnapshot snapshot = await infoDataCollection.get();
+
+    // Loop through the documents and delete each one
+    for (DocumentSnapshot document in snapshot.docs) {
+      await document.reference.delete();
+    }
+
+    // Clear the restrictionsList in the GuideProvider
+    var guideProvider = Provider.of<GuideProvider>(context, listen: false);
+    guideProvider.clearInfoList();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,7 +182,8 @@ Is_Material_Lottie: true,
       return Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
-          children: [
+          children: [         ElevatedButton(onPressed: (){infoToFirestore();}, child: Text("set")),
+            ElevatedButton(onPressed: (){deleteAllInfoToFirestore();}, child: Text("delete")),
             (guideProvider.infoBankList.isNotEmpty)?
     Expanded(
     child: GridView.builder(

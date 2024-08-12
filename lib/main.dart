@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               TextField(
                                 controller: _searchController,
                                 decoration: InputDecoration(
-                                  labelText: 'Search',
+                                  labelText: 'Search in Info Bank',
                                   prefixIcon: Icon(Icons.search),
                                 ),
                                 onChanged: (text) {
@@ -113,16 +113,44 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: ListView.builder(
                                   itemCount: _searchResults.length,
                                   itemBuilder: (context, index) {
-                                    return ListTile(
-                                      title: Text(_searchResults[index].Tip_Title ?? ''),
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => InfoScreen(infoBank: _searchResults[index]),
+                                    final item = _searchResults[index];
+                                    return Container(
+                                      height: 300,
+                                      child: Card(
+                                        margin: EdgeInsets.all(8.0),
+                                        child: Container(
+                                          height: 300, // Set the height of the Container
+                                          child: ListTile(
+                                            contentPadding: EdgeInsets.all(0), // Remove the default padding
+                                            leading: Stack(
+                                              children: [
+                                                Image.asset(
+                                                  'Assets/images/iPhone.png', // Use local asset
+                                                  width: 200,
+                                                  height: 200,
+                                                  fit: BoxFit.contain,
+                                                ),
+                                                Image.asset(
+                                                  'Assets/images/openaccount.jpeg', // Use local asset
+                                                  width: 200,
+                                                  height: 200,
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ],
+                                            ),
+                                            title: Text(item.Tip_Title ?? ''),
+                                            subtitle: Text(item.Tip_Description_Info ?? ''),
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) => InfoScreen(infoBank: _searchResults[index]),
+                                                ),
+                                              );
+                                            },
                                           ),
-                                        );
-                                      },
+                                        ),
+                                      ),
                                     );
                                   },
                                 ),
@@ -189,3 +217,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
