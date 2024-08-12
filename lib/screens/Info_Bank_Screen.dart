@@ -106,7 +106,7 @@ Is_Material_Lottie: true,
   @override
   void initState() {
     super.initState();
-    infoBankToFirestore();
+   // infoBankToFirestore();
     callStream();
   }
 
