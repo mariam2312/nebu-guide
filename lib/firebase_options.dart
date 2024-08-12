@@ -41,49 +41,48 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBvzalqkN9VeJFsY_yhKFsegbOyAxJN6DY',
-    appId: '1:747187675082:web:e44cea524076dea1947933',
-    messagingSenderId: '747187675082',
-    projectId: 'nebu-guid-master',
-    authDomain: 'nebu-guid-master.firebaseapp.com',
-    storageBucket: 'nebu-guid-master.appspot.com',
-    measurementId: 'G-Q3PRM6W8QG',
+    apiKey: 'AIzaSyCsTyPGvFr2dKHmLvV_kXsKK1CzJI1GHgs',
+    appId: '1:1082544707586:web:8f6c7e806838d665f8ef1b',
+    messagingSenderId: '1082544707586',
+    projectId: 'nebu-guide',
+    authDomain: 'nebu-guide.firebaseapp.com',
+    storageBucket: 'nebu-guide.appspot.com',
+    measurementId: 'G-QSJE8VF0DF',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCYDC7ddMrZIYsUgyj9TmChGg7do1T5Xmo',
-    appId: '1:747187675082:android:45979eb1e3f4b7ea947933',
-    messagingSenderId: '747187675082',
-    projectId: 'nebu-guid-master',
-    storageBucket: 'nebu-guid-master.appspot.com',
+    apiKey: 'AIzaSyBzT47xryzEs4078xFw3W9fN6OveuQmG1I',
+    appId: '1:1082544707586:android:641f3f5e4dc157b7f8ef1b',
+    messagingSenderId: '1082544707586',
+    projectId: 'nebu-guide',
+    storageBucket: 'nebu-guide.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDMhW0Urk5mkxTkf-RsvXwLr-Ps2su3lGM',
-    appId: '1:747187675082:ios:5af2ca74b5f46a45947933',
-    messagingSenderId: '747187675082',
-    projectId: 'nebu-guid-master',
-    storageBucket: 'nebu-guid-master.appspot.com',
-    iosBundleId: 'com.example.nebuGuidMaster',
+    apiKey: 'AIzaSyDboxP7TIR2zRzUF4oG-2fMS6SHmZ1OAP8',
+    appId: '1:1082544707586:ios:c6268a3ed522ceaaf8ef1b',
+    messagingSenderId: '1082544707586',
+    projectId: 'nebu-guide',
+    storageBucket: 'nebu-guide.appspot.com',
+    iosBundleId: 'com.nebusystems.nebu_guide',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDMhW0Urk5mkxTkf-RsvXwLr-Ps2su3lGM',
-    appId: '1:747187675082:ios:5af2ca74b5f46a45947933',
-    messagingSenderId: '747187675082',
-    projectId: 'nebu-guid-master',
-    storageBucket: 'nebu-guid-master.appspot.com',
-    iosBundleId: 'com.example.nebuGuidMaster',
+    apiKey: 'AIzaSyDboxP7TIR2zRzUF4oG-2fMS6SHmZ1OAP8',
+    appId: '1:1082544707586:ios:c6268a3ed522ceaaf8ef1b',
+    messagingSenderId: '1082544707586',
+    projectId: 'nebu-guide',
+    storageBucket: 'nebu-guide.appspot.com',
+    iosBundleId: 'com.nebusystems.nebu_guide',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBvzalqkN9VeJFsY_yhKFsegbOyAxJN6DY',
-    appId: '1:747187675082:web:9010889b9d848de3947933',
-    messagingSenderId: '747187675082',
-    projectId: 'nebu-guid-master',
-    authDomain: 'nebu-guid-master.firebaseapp.com',
-    storageBucket: 'nebu-guid-master.appspot.com',
-    measurementId: 'G-1Z9N29BE5K',
+    apiKey: 'AIzaSyCsTyPGvFr2dKHmLvV_kXsKK1CzJI1GHgs',
+    appId: '1:1082544707586:web:c76d98ee1b1a026cf8ef1b',
+    messagingSenderId: '1082544707586',
+    projectId: 'nebu-guide',
+    authDomain: 'nebu-guide.firebaseapp.com',
+    storageBucket: 'nebu-guide.appspot.com',
+    measurementId: 'G-X64RT2HQJT',
   );
-
 }

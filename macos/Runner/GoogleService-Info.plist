@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyDMhW0Urk5mkxTkf-RsvXwLr-Ps2su3lGM</string>
+	<string>AIzaSyDboxP7TIR2zRzUF4oG-2fMS6SHmZ1OAP8</string>
 	<key>GCM_SENDER_ID</key>
-	<string>747187675082</string>
+	<string>1082544707586</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.nebuGuidMaster</string>
+	<string>com.nebusystems.nebu_guide</string>
 	<key>PROJECT_ID</key>
-	<string>nebu-guid-master</string>
+	<string>nebu-guide</string>
 	<key>STORAGE_BUCKET</key>
-	<string>nebu-guid-master.appspot.com</string>
+	<string>nebu-guide.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:747187675082:ios:5af2ca74b5f46a45947933</string>
+	<string>1:1082544707586:ios:c6268a3ed522ceaaf8ef1b</string>
 </dict>
 </plist>

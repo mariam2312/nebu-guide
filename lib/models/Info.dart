@@ -1,4 +1,8 @@
-class InfoBank {
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class Info {
+  Timestamp? date;
+
   String? Material_Path;
   List<dynamic>? Material_Path_List;
   //  details
@@ -37,9 +41,10 @@ class InfoBank {
   bool? Is_FAQ;
   bool? Is_Official;
 
-  InfoBank({
+  Info({
     required this.Material_Path,
     this.Material_Path_List,
+    this.date,
     required this.Tip_Title,
     required this.Tip_Section,
     required this.Related_Screen,
@@ -73,6 +78,7 @@ class InfoBank {
       'Material_Path': Material_Path,
       'Material_Path_List': Material_Path_List,
       'Tip_Title': Tip_Title,
+      'Date': date,
       'Tip_Section': Tip_Section,
       'Related_Screen': Related_Screen,
       'Related_App_Screen': Related_App_Screen,
@@ -101,7 +107,7 @@ class InfoBank {
     };
   }
 
-  factory InfoBank.fromMap(Map<String, dynamic> data) {
+  factory Info.fromMap(Map<String, dynamic> data) {
     final String? materialPath = data['Material_Path'] ?? "";
     final List<dynamic>? materialPathList = data['Material_Path_List'] ?? [];
     final String? tipTitle = data['Tip_Title'] ?? "";
@@ -131,7 +137,10 @@ class InfoBank {
     final bool? isFAQ = data['Is_FAQ'] ?? false;
     final bool? isOfficial = data['Is_Official'] ?? false;
 
-    return InfoBank(
+    final Timestamp? date = data["Date"];
+
+    return Info(
+        date: date,
         Material_Path: materialPath,
         Material_Path_List: materialPathList,
         Tip_Title: tipTitle,

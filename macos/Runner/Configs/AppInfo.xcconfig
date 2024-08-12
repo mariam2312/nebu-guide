@@ -8,7 +8,7 @@
 PRODUCT_NAME = nebu_guid_master
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.nebuGuidMaster
+PRODUCT_BUNDLE_IDENTIFIER = com.nebusystems.nebu_guide
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2024 com.example. All rights reserved.
