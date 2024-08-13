@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class InfoBank {
+class Info {
   Timestamp? date;
   String? Material_Path;
   List<dynamic>? Material_Path_List;
@@ -40,7 +40,7 @@ class InfoBank {
   bool? Is_FAQ;
   bool? Is_Official;
 
-  InfoBank({
+  Info({
     required this.Material_Path,  this. date,
     this.Material_Path_List,
     required this.Tip_Title,
@@ -71,7 +71,7 @@ class InfoBank {
     this.Is_Official,
   });
 
-  Map<String, dynamic> toMap({required String Material_Path}) {
+  Map<String, dynamic> toMap({required String Path}) {
     return {
       'Material_Path': Material_Path,'date': date,
       'Material_Path_List': Material_Path_List,
@@ -104,7 +104,7 @@ class InfoBank {
     };
   }
 
-  factory InfoBank.fromMap(Map<String, dynamic> data) {
+  factory Info.fromMap(Map<String, dynamic> data) {
     final String? Material_Path = data['Material_Path'] ?? "";   final Timestamp? date = data["date"];
     final List<dynamic>? Material_Path_List = data['Material_Path_List'] ?? [];
     final String? Tip_Title = data['Tip_Title'] ?? "";
@@ -134,7 +134,7 @@ class InfoBank {
     final bool? Is_FAQ = data['Is_FAQ'] ?? false;
     final bool? Is_Official = data['Is_Official'] ?? false;
 
-    return InfoBank(
+    return Info(
         date:date,
         Material_Path: Material_Path,
         Material_Path_List: Material_Path_List,

@@ -46,17 +46,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/Info.dart';
 
-List<InfoBank> infoBankList = [
+List<Info> infoBankList = [
 
-InfoBank(
+Info(
 Material_Path: "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
 Material_Path_List: [],
-Tip_Title: "open account",
-Tip_Section: "حسابات",
-Related_Screen: "شاشة حسابات",
-Related_App_Screen: "openaccount_Screen",
-Tip_Description_Idea: " الهدف من تصميم مؤشز تغيير المصنعية هو التسهيل علي المستخدم و ايضا منع الاخطاء الحسابية و منع الحسابات المكررة ",
-Tip_Description_Info: "مصنعيه",
+Tip_Title: "sales",
+Tip_Section: "مبيعات",
+Related_Screen: "شاشة مبيعات",
+Related_App_Screen: "sales_Screen",
+Tip_Description_Idea: " الهدف من تصميم مؤشر تغيير المصنعية هو التسهيل علي المستخدم و ايضا منع الاخطاء الحسابية و منع الحسابات المكررة ",
+Tip_Description_Info: "الهدف من تصميم مؤشر تغيير المصنعية هو التسهيل علي المستخدم و ايضا منع الاخطاء الحسابية و منع الحسابات المكررة",
 Tip_Main_Description: "  يتم تغيير قيمة المصنعية عن طريق تغيير مكان المؤشر ، تحريكه يمينا تقل المصنعية ،اما يسارا فتزيد المصنعية مع تحديث السعر الاجمالي في نفس الوقت ",
 Tip_Tech_Details: " يمكن تغيير المصنعية حتي و ان اختفت ",
 Is_ComingSoon: false,
@@ -76,5 +76,34 @@ Is_Step_By_Step: false,
 Is_New: true,
 Is_Basic: true,
 Is_FAQ: false ,
-Is_Official: false, date:Timestamp.fromDate(DateTime.now()),)
+Is_Official: false, date:Timestamp.fromDate(DateTime.now()),),
+  Info(
+Material_Path: "",
+Material_Path_List: [],
+Tip_Title: "open account",
+Tip_Section: "حسابات",
+Related_Screen: "شاشة حسابات",
+Related_App_Screen: "openaccount_Screen",
+Tip_Description_Idea: " الهدف من تصميم مؤشر تغيير المصنعية هو التسهيل علي المستخدم و ايضا منع الاخطاء الحسابية و منع الحسابات المكررة ",
+Tip_Description_Info: "الهدف من تصميم مؤشر تغيير المصنعية هو التسهيل علي المستخدم و ايضا منع الاخطاء الحسابية و منع الحسابات المكررة",
+Tip_Main_Description: "  يتم تغيير قيمة المصنعية عن طريق تغيير مكان المؤشر ، تحريكه يمينا تقل المصنعية ،اما يسارا فتزيد المصنعية مع تحديث السعر الاجمالي في نفس الوقت ",
+Tip_Tech_Details: " يمكن تغيير المصنعية حتي و ان اختفت ",
+Is_ComingSoon: false,
+Is_ForOwner: true,
+Is_For_Admin: true,
+Is_For_SalesTeam: true,
+Is_Take_Time: false,
+Is_Optional: false,
+Is_Required: true,
+Android_Ver: 133,
+IOS_Ver: 94,
+Tip_Order_Number: "1",
+Is_Material_Lottie: true,
+Is_Material_Picture: false,
+Is_Material_YouTube: false,
+Is_Step_By_Step: false,
+Is_New: true,
+Is_Basic: true,
+Is_FAQ: false ,
+Is_Official: false, date:Timestamp.fromDate(DateTime.now()),),
 ];
