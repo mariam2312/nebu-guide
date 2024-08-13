@@ -115,7 +115,7 @@ class _InfoBankScreenState extends State<RestrictionsScreen> {
     };
 
     for (var restriction in restrictions) {
-      final Map<String, dynamic> restrictionMap = restriction.toMap(Material_Path: 'RestrictionsData/AllRestrictionsData');
+      final Map<String, dynamic> restrictionMap = restriction.toMap(Path: 'RestrictionsData/AllRestrictionsData');
       bigMap['restrictions'][restriction.Title!] = restrictionMap;
     }
 
@@ -146,7 +146,7 @@ class _InfoBankScreenState extends State<RestrictionsScreen> {
     var guideProvider = Provider.of<GuideProvider>(context, listen: false);
     final pdf = pw.Document();
     final checkmarkImage = await _loadIconAsImage(Icons.check, 24.0, PdfColors.green);
-    final font = await rootBundle.load("Assets/HelveticaWorld-Bold.ttf");
+    final font = await rootBundle.load("assets/HelveticaWorld-Bold.ttf");
     final ttf = pw.Font.ttf(font);
 
     final int maxRowsPerPage = 20; // Adjust as needed

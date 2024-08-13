@@ -9,11 +9,13 @@ class GuideProvider extends ChangeNotifier {
   /// todo work with this provider as the main provider
   /// for state management of the app
   ///
-  List<InfoBank> infoBankList = [];
+  List<Info> allInfo = [];
   List<Restriction> restrictionsList = [];
-  InfoBank? infobank;
+  Info? infobank;
   Restriction?restriction;
+  bool isTipsAlive = false;
 
+  bool isTitleAvailable = false;
 
   void setRestrictionList({required List<Restriction> restrictionList}) {
     restrictionsList = restrictionList;
@@ -21,15 +23,37 @@ class GuideProvider extends ChangeNotifier {
   }
 
 
-  void setInfoBankList({required List<InfoBank> infobankList}) {
-    infoBankList = infobankList;
+
+
+
+  void setAllTips({required List<Info> value}) {
+    allInfo = value;
+    notifyListeners();
+  }
+
+  void resetAllTips() {
+    allInfo = [];
+    notifyListeners();
+  }
+
+  void setTitleAvailability({required bool value}) {
+    isTitleAvailable = value;
+    notifyListeners();
+  }
+
+  void setTipsAlive() {
+    isTipsAlive = false;
+    notifyListeners();
+  }
+  void setInfoBankList({required List<Info> infobankList}) {
+    allInfo = infobankList;
     notifyListeners();
   }
   void clearRestrictionsList() {
     restrictionsList.clear();
     notifyListeners();
   }  void clearInfoList() {
-    infoBankList.clear();
+    allInfo.clear();
     notifyListeners();
   }
 }

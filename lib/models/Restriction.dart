@@ -27,7 +27,7 @@ class Restriction {
       this.Blurred,
       this.Dev_Mode});
 
-  Map<String, dynamic> toMap({required String Material_Path}) {
+  Map<String, dynamic> toMap({required String Path}) {
     return {
       "Short_Description": Short_Description,"Title": Title,
       "Description": Description,

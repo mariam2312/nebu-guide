@@ -60,7 +60,12 @@ dependencies:
   cloud_firestore: ^4.14.0
   searchfield: ^1.0.9
   open_file: ^3.1.1
-
+  line_icons: ^2.0.1
+  supercharged: ^2.0.0
+  flutter_linkify: 5.0.2
+  smooth_page_indicator: ^1.0.0+2
+  url_launcher: ^6.1.10
+  carousel_slider: ^5.0.0
 
 
 dev_dependencies:
@@ -78,8 +83,8 @@ flutter:
 
 
   assets:
-    - Assets/
-    - Assets/images/
+    - assets/
+    - assets/images/
 
 
 
