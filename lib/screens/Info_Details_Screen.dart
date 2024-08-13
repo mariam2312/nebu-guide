@@ -59,8 +59,8 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
     bool isFAQ = widget.isForAppOfficialFAQ;
     bool isOfficial = widget.isForAppOfficialInfoTip;
 
-    allInfo.sort((a, b) =>
-        (a?.Tip_Order_Number ?? 1).compareTo(b?.Tip_Order_Number ?? 1));
+    allInfo.sort((a, b) => (int.tryParse(a?.Tip_Order_Number ?? "0") ?? 0)
+        .compareTo(int.tryParse(b?.Tip_Order_Number ?? "0") ?? 0));
 
     (isFAQ == true)
         ? allInfo.removeWhere((element) => (element?.Is_FAQ == false))
@@ -210,7 +210,8 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                                       decoration: BoxDecoration(
                                                           borderRadius:
                                                               const BorderRadius
-                                                                  .all(Radius
+                                                                      .all(
+                                                                  Radius
                                                                       .circular(
                                                                           8)),
                                                           color: Colors
@@ -280,7 +281,7 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                                             Padding(
                                                               padding:
                                                                   const EdgeInsets
-                                                                      .only(
+                                                                          .only(
                                                                       bottom: 5,
                                                                       top: 5),
                                                               child:
@@ -768,7 +769,7 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                                               decoration: BoxDecoration(
                                                                   borderRadius:
                                                                       const BorderRadius
-                                                                          .all(
+                                                                              .all(
                                                                           Radius.circular(
                                                                               8)),
                                                                   color: Colors
@@ -842,7 +843,7 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                                                   children: [
                                                                     Padding(
                                                                       padding: const EdgeInsets
-                                                                          .only(
+                                                                              .only(
                                                                           bottom:
                                                                               5,
                                                                           top:
@@ -1237,10 +1238,9 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                                                         allInfo[index]?.Material_Path ==
                                                                             null))
                                                                 ? Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
+                                                                    padding: const EdgeInsets
                                                                             .all(
-                                                                            12.0),
+                                                                        12.0),
                                                                     child:
                                                                         Stack(
                                                                       alignment:
@@ -1282,9 +1282,8 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                                                           ),
                                                                         ),
                                                                         Padding(
-                                                                          padding: const EdgeInsets
-                                                                              .all(
-                                                                              8.0),
+                                                                          padding:
+                                                                              const EdgeInsets.all(8.0),
                                                                           child:
                                                                               Container(
                                                                             decoration:

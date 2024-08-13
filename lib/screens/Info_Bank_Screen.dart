@@ -1,9 +1,11 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
 import '../main.dart';
 import '../models/Info.dart';
 import '../providers/FirestoreDataBase.dart';
@@ -17,13 +19,11 @@ class InfoBankScreen extends StatefulWidget {
 }
 
 class _InfoBankScreenState extends State<InfoBankScreen> {
-
-  List<InfoBank> infoBanksList = [];
+  List<Info> infoBanksList = [];
 
   //stream and subscription
   StreamSubscription<DocumentSnapshot>? infoBankSubscription;
   Stream<DocumentSnapshot>? infoBankStream;
-
 
   void cancelAllSubscriptions() {
     infoBankSubscription?.cancel();
@@ -48,14 +48,14 @@ class _InfoBankScreenState extends State<InfoBankScreen> {
       var database = Provider.of<FirestoreDataBase>(context, listen: false);
       var guideProvider = Provider.of<GuideProvider>(context, listen: false);
       // stream
-      infoBankStream = database.infoBankStream();
-      List <InfoBank>infoBankList = [];
+      //infoBankStream = database.infoBankStream();
+      List<Info> infoBankList = [];
       // listen
       infoBankSubscription = infoBankStream?.listen((event) {
         if (event.exists) {
           // convet event to map
           Map<String, dynamic> data = event.data() as Map<String, dynamic>;
-          // 1- convert data to InfoBank
+          // 1- convert data to Info
           List<Info> infoBankList = [];
           data.forEach((key, value) {
             Info infoBank = Info.fromMap(value);
@@ -65,18 +65,22 @@ class _InfoBankScreenState extends State<InfoBankScreen> {
       });
     });
   }
-  Future<void> infoBankToFirestore() async {
 
-    InfoBank infobank1=InfoBank(
-      Material_Path: "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
+  Future<void> infoBankToFirestore() async {
+    Info infobank1 = Info(
+      Material_Path:
+          "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
       Material_Path_List: [],
       Tip_Title: " حسابات مفتوحة",
       Tip_Section: "حسابات",
       Related_Screen: "شاشة حسابات",
       Related_App_Screen: "openaccount_Screen",
-Tip_Description_Idea: " الهدف من تصميم مؤشز تغيير المصنعية هو التسهيل علي المستخدم و ايضا منع الاخطاء الحسابية و منع الحسابات المكررة ",
-      Tip_Description_Info: " هل تعلم ان متوسط وقت حساب اجمالي قيمة منتج  بالطريقة اليدوية هي ٤٥ ثانية اما عن طريق النظام  فهي ٥ ثوان فقط",
-      Tip_Main_Description: "  يتم تغيير قيمة المصنعية عن طريق تغيير مكان المؤشر ، تحريكه يمينا تقل المصنعية ،اما يسارا فتزيد المصنعية مع تحديث السعر الاجمالي في نفس الوقت ",
+      Tip_Description_Idea:
+          " الهدف من تصميم مؤشز تغيير المصنعية هو التسهيل علي المستخدم و ايضا منع الاخطاء الحسابية و منع الحسابات المكررة ",
+      Tip_Description_Info:
+          " هل تعلم ان متوسط وقت حساب اجمالي قيمة منتج  بالطريقة اليدوية هي ٤٥ ثانية اما عن طريق النظام  فهي ٥ ثوان فقط",
+      Tip_Main_Description:
+          "  يتم تغيير قيمة المصنعية عن طريق تغيير مكان المؤشر ، تحريكه يمينا تقل المصنعية ،اما يسارا فتزيد المصنعية مع تحديث السعر الاجمالي في نفس الوقت ",
       Tip_Tech_Details: " يمكن تغيير المصنعية حتي و ان اختفت ",
       Is_ComingSoon: false,
       Is_ForOwner: true,
@@ -88,19 +92,22 @@ Tip_Description_Idea: " الهدف من تصميم مؤشز تغيير المص�
       Android_Ver: 133,
       IOS_Ver: 94,
       Tip_Order_Number: "1",
-Is_Material_Lottie: true,
+      Is_Material_Lottie: true,
       Is_Material_Picture: false,
       Is_Material_YouTube: false,
       Is_Step_By_Step: false,
       Is_New: false,
       Is_Basic: true,
-      Is_FAQ: false ,
-      Is_Official: false,);
-    final CollectionReference infobankReference = FirebaseFirestore.instance.collection('InfoBankData');
-    infobankReference.doc('OpenAcoount').set( infobank1.toMap(Material_Path: 'InfoBankData/OpenAcoount'));
-
-
+      Is_FAQ: false,
+      Is_Official: false,
+    );
+    final CollectionReference infobankReference =
+        FirebaseFirestore.instance.collection('InfoBankData');
+    infobankReference
+        .doc('OpenAcoount')
+        .set(infobank1.toMap(Material_Path: 'InfoBankData/OpenAcoount'));
   }
+
   @override
   void initState() {
     super.initState();
@@ -577,5 +584,4 @@ Is_Material_Lottie: true,
         ));
     ;
   }
-
 }
