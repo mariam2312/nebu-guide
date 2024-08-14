@@ -55,7 +55,7 @@ dependencies:
   qr: ^3.0.1
   excel: ^3.0.0
   lottie: ^1.2.1
-  google_fonts: ^4.0.3
+  google_fonts: ^4.0.4
   camera: ^0.10.0
   cloud_firestore: ^4.14.0
   searchfield: ^1.0.9
@@ -66,6 +66,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   url_launcher: ^6.1.10
   carousel_slider: ^5.0.0
+  font_awesome_flutter: ^10.4.0
 
 
 dev_dependencies:
@@ -93,14 +94,15 @@ flutter:
 
     - family: HelveticaWorld
       fonts:
-        - asset: Assets/HelveticaWorld-Bold.ttf
+        - asset: assets/HelveticaWorld-Bold.ttf
 
     - family: HelveticaWorld
       fonts:
-        - asset: Assets/HelveticaWorld-Bold.fnt
+        - asset: assets/HelveticaWorld-Regular.ttf
 
     - family: HelveticaWorld
       fonts:
-        - asset: Assets/alfont_com_AlFont_com_PalatinoLTArabic-Regular.ttf
+        - asset: assets/alfont_com_AlFont_com_PalatinoLTArabic-Regular.ttf
+
 
 
