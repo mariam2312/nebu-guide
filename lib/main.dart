@@ -146,11 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 height: 250, width: width/2.5,
                                                 child: Stack(
                                                   children: [
-                                                    Image.asset(
-                                                      'assets/images/iPhone.png', // Use local asset
-                                                      height: 250,
 
-                                                    ),
                                                     Positioned(
                                                       top: 10,
                                                       left: 7,
@@ -162,7 +158,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                                           fit: BoxFit.contain,
                                                         ),
                                                       ),
-                                                    )
+                                                    ), Image.asset(
+                                                      'assets/images/mobleIphone.png', // Use local asset
+                                                      height: 250,
+
+                                                    ),
                                                   ],
                                                 ),
                                               ),

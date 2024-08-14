@@ -66,7 +66,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   url_launcher: ^6.1.10
   carousel_slider: ^5.0.0
-  font_awesome_flutter: ^10.4.0
+
 
 
 dev_dependencies:
@@ -86,23 +86,21 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/fonts/
 
 
 
 
-
-
+  fonts:
     - family: HelveticaWorld
       fonts:
-        - asset: assets/HelveticaWorld-Bold.ttf
+        - asset: assets/fonts/HelveticaWorld-Bold.ttf
 
-    - family: HelveticaWorld
+    - family: NotoSansArabic
       fonts:
-        - asset: assets/HelveticaWorld-Regular.ttf
+        - asset: assets/fonts/NotoSansArabic_Bold.ttf
 
-    - family: HelveticaWorld
-      fonts:
-        - asset: assets/alfont_com_AlFont_com_PalatinoLTArabic-Regular.ttf
+
 
 
 

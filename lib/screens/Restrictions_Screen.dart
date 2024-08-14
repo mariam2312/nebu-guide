@@ -104,9 +104,9 @@ class _InfoBankScreenState extends State<RestrictionsScreen> {
   Future generatePdf() async {
     var guideProvider = Provider.of<GuideProvider>(context, listen: false);
     final pdf = pw.Document();
-    final font = await rootBundle.load("assets/HelveticaWorld-Bold.ttf");
+    final font = await rootBundle.load("assets/fonts/HelveticaWorld-Bold.ttf");
     final ttf = pw.Font.ttf(font);
-    const int maxRowsPerPage = 25;
+    const int maxRowsPerPage = 20;
     final List<List<Restriction>> paginatedRestrictions = [];
     final check = (await rootBundle.load('assets/images/check.png',)).buffer.asUint8List();
 
@@ -126,7 +126,7 @@ class _InfoBankScreenState extends State<RestrictionsScreen> {
               children: [
                 pw.Text("Restrictions", style: const pw.TextStyle(fontSize: 30)),
                 pw.SizedBox(height: 30),
-             pw.Padding( padding: pw.EdgeInsets.all(10),child:  pw.Table(
+             pw.Table(
                   border: pw.TableBorder.all(),
 
                   children: [
@@ -142,23 +142,32 @@ class _InfoBankScreenState extends State<RestrictionsScreen> {
                     for (var restriction in restrictions)
                       pw.TableRow(
                         children: [
-                          restriction.Allowed_Plans!.contains("vip")
-                              ? pw.Center(child: pw.Image( pw.MemoryImage(check),width: 10,height: 10
-                          ))
-                              : pw.Container(),
-                          restriction.Allowed_Plans!.contains("pro")
-                              ? pw.Center(child:pw.Image( pw.MemoryImage(check),width: 10,height: 10
-            ))
-                              : pw.Container(),
-                          restriction.Allowed_Plans!.contains("basic")
-                              ? pw.Center(child:pw.Image( pw.MemoryImage(check),width: 10,height: 10
-            ))
-                              : pw.Container(),
-                          pw.Center(child: pw.Text("${restriction.Title} "))
+                          pw.Container(
+                            height: 30, // adjust the height here
+                            child: restriction.Allowed_Plans!.contains("vip")
+                                ? pw.Center(child: pw.Image(pw.MemoryImage(check), width: 10, height: 10))
+                                : pw.Container(),
+                          ),
+                          pw.Container(
+                            height: 30, // adjust the height here
+                            child: restriction.Allowed_Plans!.contains("pro")
+                                ? pw.Center(child: pw.Image(pw.MemoryImage(check), width: 10, height: 10))
+                                : pw.Container(),
+                          ),
+                          pw.Container(
+                            height: 30, // adjust the height here
+                            child: restriction.Allowed_Plans!.contains("basic")
+                                ? pw.Center(child: pw.Image(pw.MemoryImage(check), width: 10, height: 10))
+                                : pw.Container(),
+                          ),
+                          pw.Container(
+                            height: 30, // adjust the height here
+                            child: pw.Center(child: pw.Text("${restriction.Title}")),
+                          ),
                         ],
                       ),
                   ],
-                ))
+                )
               ],
             );
           },
