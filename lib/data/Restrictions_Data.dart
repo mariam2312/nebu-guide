@@ -64,6 +64,8 @@
 //   }
 // };
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../models/Restriction.dart';
 
 List<Restriction> restrictions = [
@@ -78,12 +80,12 @@ List<Restriction> restrictions = [
       "Manager",
       "Accountant",
     ],
-    Allowed_Plans: ["basic", "pro", "vip"],
+    Allowed_Plans: ["basic"],
     Store_Type: ["Retail", "Wholesale", "HalfRetail", "GoldTrader"],
     Material_Type: ["Gold", "Silver", "Gold_Silver"],
     Photo_Url: "",
     Visible: true,
-    Blurred: true, Title: 'Daily Invoices',
+    Blurred: true, Title: 'Daily Invoices', date:Timestamp.fromDate(DateTime.now())
   ),
   Restriction(
       Short_Description: "review of tax invoices",
@@ -96,12 +98,12 @@ List<Restriction> restrictions = [
         "Manager",
         "Accountant",
       ],
-      Allowed_Plans: ["basic", "pro", "vip"],
+      Allowed_Plans: [ "pro"],
       Store_Type: ["Retail", "Wholesale", "HalfRetail", "GoldTrader"],
       Material_Type: ["Gold", "Silver", "Gold_Silver"],
       Photo_Url: "",
       Visible: true,
-      Blurred: true, Title: 'Review Tax Invoices'
+      Blurred: true, Title: 'Review Tax Invoices', date:Timestamp.fromDate(DateTime.now())
   ),
   Restriction(
       Short_Description: " tax invoices",
@@ -115,12 +117,12 @@ List<Restriction> restrictions = [
         "Manager",
         "Accountant",
       ],
-      Allowed_Plans: ["basic", "pro", "vip"],
+      Allowed_Plans: ["vip"],
       Store_Type: ["Retail", "Wholesale", "HalfRetail", "GoldTrader"],
       Material_Type: ["Gold", "Silver", "Gold_Silver"],
       Photo_Url: "",
       Visible: true,
-      Blurred: true, Title: 'Tax Invoices'
+      Blurred: true, Title: 'Tax Invoices', date:Timestamp.fromDate(DateTime.now())
 
   ),
   Restriction(
@@ -140,7 +142,8 @@ List<Restriction> restrictions = [
       Material_Type: ["Gold", "Silver", "Gold_Silver"],
       Photo_Url:"",
       Visible: true,
-      Blurred: true, Title: 'Open Accounts'
+      Blurred: true, Title: 'Open Accounts',
+      date:Timestamp.fromDate(DateTime.now())
 
 
 
@@ -165,7 +168,8 @@ List<Restriction> restrictions = [
       Photo_Url:"",
       Visible: true,
       Blurred: true,
-      Title: 'Operations Report'
+      Title: 'Operations Report',
+      date:Timestamp.fromDate(DateTime.now())
 
 
 
@@ -190,7 +194,8 @@ List<Restriction> restrictions = [
       Photo_Url:"",
       Visible: true,
       Blurred: true,
-      Title: 'Sales'
+      Title: 'Sales',
+      date:Timestamp.fromDate(DateTime.now())
 
 
 
@@ -215,7 +220,8 @@ List<Restriction> restrictions = [
       Photo_Url:"",
       Visible: true,
       Blurred: true,
-      Title: 'Scrap change'
+      Title: 'Scrap change',
+      date:Timestamp.fromDate(DateTime.now())
 
 
 
@@ -239,7 +245,8 @@ List<Restriction> restrictions = [
       Photo_Url:"",
       Visible: true,
       Blurred: true,
-      Title: 'Purchases'
+      Title: 'Purchases',
+      date:Timestamp.fromDate(DateTime.now())
 
 
 
@@ -264,7 +271,8 @@ List<Restriction> restrictions = [
       Photo_Url:"",
       Visible: true,
       Blurred: true,
-      Title: 'Reservation'
+      Title: 'Reservation',
+      date:Timestamp.fromDate(DateTime.now())
 
 
 
@@ -290,7 +298,8 @@ List<Restriction> restrictions = [
       Photo_Url:"",
       Visible: true,
       Blurred: true,
-      Title: 'Cash Flow'
+      Title: 'Cash Flow',
+      date:Timestamp.fromDate(DateTime.now())
 
 
 
@@ -316,7 +325,8 @@ List<Restriction> restrictions = [
       Photo_Url:"",
       Visible: true,
       Blurred: true,
-      Title: 'Scrap Flow'
+      Title: 'Scrap Flow',
+      date:Timestamp.fromDate(DateTime.now())
 
 
 
@@ -342,7 +352,8 @@ List<Restriction> restrictions = [
       Photo_Url:"",
       Visible: true,
       Blurred: true,
-      Title: 'Goods Flow'
+      Title: 'Goods Flow',
+      date:Timestamp.fromDate(DateTime.now())
 
 
 
@@ -365,7 +376,8 @@ List<Restriction> restrictions = [
       Photo_Url:"",
       Visible: true,
       Blurred: true,
-      Title: 'Reliances'
+      Title: 'Reliances',
+      date:Timestamp.fromDate(DateTime.now())
 
 
 
@@ -389,7 +401,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'Goods Cost'
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
 
   ),
@@ -412,7 +425,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'Gold Exchange'
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
 
   ),
@@ -435,7 +449,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'Special Orders'
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
 
   ),
@@ -457,7 +472,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'Scrap Guardianship'
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
 
   ),
@@ -481,7 +497,8 @@ List<Restriction> restrictions = [
       Blurred: true,
       Title: 'Gold Bars'
 
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
   ),
   Restriction(
@@ -503,7 +520,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'Attendance'
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
 
   ),
@@ -526,7 +544,8 @@ List<Restriction> restrictions = [
       Blurred: true,
       Title: 'Clients'
 
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
   ),
   Restriction(
@@ -550,7 +569,8 @@ List<Restriction> restrictions = [
       Blurred: true,
       Title: 'Uploded Photos'
 
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
   ),
   Restriction(
@@ -574,7 +594,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'Purchase Endorsement'
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
 
   ),
@@ -599,7 +620,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'Coding Files'
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
 
   ),
@@ -625,7 +647,8 @@ List<Restriction> restrictions = [
       Blurred: true,
       Title: 'Reports Extractor'
 
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
   ),
   Restriction(
@@ -649,7 +672,8 @@ List<Restriction> restrictions = [
       Blurred: true,
       Title: 'Inventory'
 
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
   ),  Restriction(
       Short_Description: "It shows the mail screen",
@@ -676,7 +700,8 @@ List<Restriction> restrictions = [
       Blurred: true,
       Title: 'NebuJewellerySystemsWidget'
 
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
   ),Restriction(
       Short_Description: "We can use it for search",
@@ -703,7 +728,8 @@ List<Restriction> restrictions = [
       Blurred: true,
       Title: 'QrcodeWidget'
 
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
   ),
   Restriction(
@@ -731,7 +757,8 @@ List<Restriction> restrictions = [
       Blurred: true,
       Title: 'QrcodeSearchWidget'
 
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
   ),      Restriction(
       Short_Description: "We use it to inquire about the goods data by scaning their barcode",
@@ -757,7 +784,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'BarcodeSearchWidget'
-
+      ,
+      date:Timestamp.fromDate(DateTime.now())
 
 
   ),   Restriction(
@@ -785,9 +813,10 @@ List<Restriction> restrictions = [
       Blurred: true,
       Title: 'SearchByCodeWidget'
 
-
-
-  ),
+      ,
+      date: Timestamp.fromDate(
+        DateTime.now().subtract(Duration(days: 1)),
+      )),
 Restriction(
       Short_Description: "Search for qr number",
       Description: "Search for qr numberby item details like the widget",
@@ -812,8 +841,10 @@ Restriction(
       Visible: true,
       Blurred: true,
       Title: 'SearchByDetailsWidget'
-
-
+    ,
+    date: Timestamp.fromDate(
+      DateTime.now().subtract(Duration(days: 30)),
+    )
 
   ),
 

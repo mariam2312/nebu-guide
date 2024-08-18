@@ -148,8 +148,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   children: [
 
                                                     Positioned(
-                                                      top: 10,
-                                                      left: 7,
+                                                      top: 7,
+                                                      left: 18,
                                                       child: ClipRRect(
                                                         borderRadius: BorderRadius.circular(20),
                                                         child: Image.asset(

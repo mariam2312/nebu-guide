@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Restriction {
   //  details
+  Timestamp? date;
   String? Short_Description;  String? Title;
   String? Description;
   String? Short_Description_Ar;
@@ -14,7 +17,7 @@ class Restriction {
   bool? Dev_Mode;
 
   Restriction(
-      {required this.Short_Description,required this.Title,
+      {required this.Short_Description,required this.Title,required this.date,
       this.Description,
       this.Short_Description_Ar,
       this.Description_Ar,
@@ -29,7 +32,7 @@ class Restriction {
 
   Map<String, dynamic> toMap({required String Path}) {
     return {
-      "Short_Description": Short_Description,"Title": Title,
+      "Short_Description": Short_Description,"Title": Title,"date": date,
       "Description": Description,
       "Short_Description_Ar": Short_Description_Ar,
       "Description_Ar": Description_Ar,
@@ -45,6 +48,7 @@ class Restriction {
   }
 
   factory Restriction.fromMap(Map<String, dynamic> data) {
+    final Timestamp? date = data["date"];
     final String? Short_Description = data['Short_Description']??"";final String? Title = data['Title']??"";
     final String? Description = data['Description']??"";
     final String? Short_Description_Ar = data['Short_Description_Ar']??"";
@@ -61,7 +65,7 @@ class Restriction {
     final bool? Dev_Mode = data['Dev_Mode'] ?? false;
 
     return Restriction(
-      Short_Description: Short_Description,Title: Title,
+      Short_Description: Short_Description,Title: Title,date: date,
       Description: Description,
       Short_Description_Ar: Short_Description_Ar,
       Description_Ar: Description_Ar,

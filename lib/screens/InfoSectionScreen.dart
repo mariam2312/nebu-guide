@@ -180,38 +180,17 @@ class InfoScreen extends StatefulWidget {
 
 class _InfoScreenState extends State<InfoScreen> {
   int _currentIndex = 0;
-  final CarouselSliderController _carouselController=
-  CarouselSliderController() ;
+  final CarouselSliderController _carouselController = CarouselSliderController();
+  bool _isAutoPlay = true;
   final List<String> _images = [
     'assets/images/openaccount1.jpg',
     'assets/images/openaccount2.jpg',
     'assets/images/openaccount3.jpg',
   ];
-  bool _isAutoPlay = true;
 
-  @override
-  void initState() {
-    super.initState();
-    if (widget.infoBank.Material_Path == "") {
-      Future.delayed(const Duration(milliseconds: 100), () {
-        _startSliderAnimation();
-      });}
-  }
 
-  void _startSliderAnimation() {
-    if (widget.infoBank.Material_Path == "") {
-      if (_isAutoPlay) {
-        _carouselController.nextPage();
-        Future.delayed(const Duration(seconds: 3)).then((_) {
-          if (_isAutoPlay) {
-            _startSliderAnimation();
-          }
-        });
-      }
-    }
-  }
 
-  void _onTap(int index) {
+  void onTap(int index) {
     setState(() {
       _currentIndex = index;
       _isAutoPlay = false; // Stop autoplay when a step is tapped
@@ -220,8 +199,6 @@ class _InfoScreenState extends State<InfoScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    String? urlString =widget.infoBank.Material_Path;
-    Uri uri = Uri.parse(urlString!);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.infoBank.Tip_Title!),
@@ -286,19 +263,20 @@ class _InfoScreenState extends State<InfoScreen> {
                   Positioned(
                     top: 0,
                     left: 0,
-                    bottom: 0,right: 0,
-                    child: CarouselSlider(
+                    bottom: 10,right: 0,
+                    child:CarouselSlider(
                       items: _images.map((image) {
                         return ClipRRect(
-                            borderRadius: BorderRadius.circular(40),
-                            child: Image.asset(
-                              image,
-                              fit: BoxFit.contain,
-                            ));
+                          borderRadius: BorderRadius.circular(40),
+                          child: Image.asset(
+                            image,
+                            fit: BoxFit.contain,
+                          ),
+                        );
                       }).toList(),
-                      carouselController: _carouselController ,
+                      carouselController: _carouselController,
                       options: CarouselOptions(
-                        height: 548,
+                        height: 550,
                         autoPlay: _isAutoPlay,
                         autoPlayInterval: const Duration(seconds: 2),
                         enlargeCenterPage: true,
@@ -312,7 +290,8 @@ class _InfoScreenState extends State<InfoScreen> {
                           });
                         },
                       ),
-                    ),
+                    )
+
                   ),
                   Image.asset(
                     'assets/images/mobleIphone.png',
@@ -333,7 +312,7 @@ class _InfoScreenState extends State<InfoScreen> {
                     ],
                   ),
                   GestureDetector(
-                    onTap: () => _onTap(0),
+                    onTap: () => onTap(0),
                     child: Container(
                       height: 100,
                       width: double.infinity,
@@ -348,7 +327,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   ),
                   const SizedBox(height: 5),
                   GestureDetector(
-                    onTap: () => _onTap(1),
+                    onTap: () => onTap(1),
                     child: Container(
                       height: 100,
                       width: double.infinity,
@@ -363,7 +342,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   ),
                   const SizedBox(height: 5),
                   GestureDetector(
-                    onTap: () => _onTap(2),
+                    onTap: () => onTap(2),
                     child: Container(
                       height: 100,
                       width: double.infinity,
