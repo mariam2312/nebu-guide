@@ -158,10 +158,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                                           fit: BoxFit.contain,
                                                         ),
                                                       ),
-                                                    ), Image.asset(
-                                                      'assets/images/mobleIphone.png', // Use local asset
-                                                      height: 250,
+                                                    ), Center(
+                                                      child: Image.asset(
+                                                        'assets/images/mobleIphone.png', // Use local asset
+                                                        height: 250,
 
+                                                      ),
                                                     ),
                                                   ],
                                                 ),

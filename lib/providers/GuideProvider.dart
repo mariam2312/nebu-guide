@@ -46,7 +46,7 @@ class GuideProvider extends ChangeNotifier {
     notifyListeners();
   }
   void setInfoBankList({required List<Info> infobankList}) {
-    allInfo = infobankList;
+      allInfo = infobankList;
     notifyListeners();
   }
   void clearRestrictionsList() {

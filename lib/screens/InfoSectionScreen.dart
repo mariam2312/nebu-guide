@@ -20,63 +20,63 @@ class InfoSectionScreen extends StatefulWidget {
 }
 
 class _InfoSectionScreenState extends State<InfoSectionScreen> {
-  List<Info> infoBanksList = [];
-
-  //stream and subscription
-  StreamSubscription<DocumentSnapshot>? infoBankSubscription;
-  Stream<DocumentSnapshot>?infoBankStream;
-
-  void cancelAllSubscriptions() {
-    infoBankSubscription?.cancel();
-    debugPrint(" Cancel Subscriptions !!! ");
-  }
-  @override
-  void dispose() {
-    cancelAllSubscriptions();
-    super.dispose();
-  }
-  @override
-  void deactivate() {
-    cancelAllSubscriptions();
-    super.deactivate();
-  }
-  void callStream() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      //get data from database as stream
-      var database = Provider.of<FirestoreDataBase>(context, listen: false);
-      var guideProvider = Provider.of<GuideProvider>(context, listen: false);
-      // stream
-      infoBankStream = database.infoBankStream();
-
-      // listen
-      infoBankSubscription = infoBankStream?.listen((event) {
-        if (event.exists) {
-          Map<String, dynamic> bigMap = event.data() as Map<String, dynamic>;
-          Map<String, dynamic> allRestrictionsData = bigMap['info'];
-
-          List<Info> infoList = [];
-
-          // Iterate over the allRestrictionsData map
-          allRestrictionsData.forEach((key, value) {
-            Info restriction = Info.fromMap(value);
-            infoList.add(restriction);
-          });
-
-          setState(() {
-            infoBanksList = infoList;
-            guideProvider.setInfoBankList(infobankList: infoBanksList);
-          });
-        }
-      });
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // infoBankToFirestore();
-    callStream();
-  }
+  // List<Info> infoBanksList = [];
+  //
+  // //stream and subscription
+  // StreamSubscription<DocumentSnapshot>? infoBankSubscription;
+  // Stream<DocumentSnapshot>?infoBankStream;
+  //
+  // void cancelAllSubscriptions() {
+  //   infoBankSubscription?.cancel();
+  //   debugPrint(" Cancel Subscriptions !!! ");
+  // }
+  // @override
+  // void dispose() {
+  //   cancelAllSubscriptions();
+  //   super.dispose();
+  // }
+  // @override
+  // void deactivate() {
+  //   cancelAllSubscriptions();
+  //   super.deactivate();
+  // }
+  // void callStream() {
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     //get data from database as stream
+  //     var database = Provider.of<FirestoreDataBase>(context, listen: false);
+  //     var guideProvider = Provider.of<GuideProvider>(context, listen: false);
+  //     // stream
+  //     infoBankStream = database.infoBankStream();
+  //
+  //     // listen
+  //     infoBankSubscription = infoBankStream?.listen((event) {
+  //       if (event.exists) {
+  //         Map<String, dynamic> bigMap = event.data() as Map<String, dynamic>;
+  //         Map<String, dynamic> allRestrictionsData = bigMap['info'];
+  //
+  //         List<Info> infoList = [];
+  //
+  //         // Iterate over the allRestrictionsData map
+  //         allRestrictionsData.forEach((key, value) {
+  //           Info restriction = Info.fromMap(value);
+  //           infoList.add(restriction);
+  //         });
+  //
+  //         setState(() {
+  //           infoBanksList = infoList;
+  //           guideProvider.setInfoBankList(infobankList: infoBanksList);
+  //         });
+  //       }
+  //     });
+  //   });
+  // }
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // infoBankToFirestore();
+  //   callStream();
+  // }
   Future<void> infoToFirestore() async {
 
 
@@ -293,10 +293,12 @@ class _InfoScreenState extends State<InfoScreen> {
                     )
 
                   ),
-                  Image.asset(
-                    'assets/images/mobleIphone.png',
-                    width: 500,
-                    height: 600,
+                  Center(
+                    child: Image.asset(
+                      'assets/images/mobleIphone.png',
+                      width: 500,
+                      height: 600,
+                    ),
                   ),
                 ],
               );
