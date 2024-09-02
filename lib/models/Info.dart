@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Info {
   Timestamp? date;
-
   String? Material_Path;
   List<dynamic>? Material_Path_List;
   //  details
@@ -73,9 +72,10 @@ class Info {
     this.Is_Official,
   });
 
-  Map<String, dynamic> toMap({required String Material_Path}) {
+  Map<String, dynamic> toMap({required String Path}) {
     return {
       'Material_Path': Material_Path,
+      'date': date,
       'Material_Path_List': Material_Path_List,
       'Tip_Title': Tip_Title,
       'Date': date,
@@ -109,6 +109,7 @@ class Info {
 
   factory Info.fromMap(Map<String, dynamic> data) {
     final String? Material_Path = data['Material_Path'] ?? "";
+    final Timestamp? date = data["date"];
     final List<dynamic>? Material_Path_List = data['Material_Path_List'] ?? [];
     final String? Tip_Title = data['Tip_Title'] ?? "";
     final String? Tip_Section = data['Tip_Section'] ?? "";
@@ -138,6 +139,7 @@ class Info {
     final bool? Is_Official = data['Is_Official'] ?? false;
 
     return Info(
+        date: date,
         Material_Path: Material_Path,
         Material_Path_List: Material_Path_List,
         Tip_Title: Tip_Title,

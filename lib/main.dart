@@ -1,13 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:nebu_guide/providers/FirestoreDataBase.dart';
-import 'package:nebu_guide/providers/GuideProvider.dart';
-import 'package:nebu_guide/screens/Info_Bank_Screen.dart';
-import 'package:nebu_guide/screens/Info_Details_Screen.dart';
-import 'package:nebu_guide/screens/Restrictions_Screen.dart';
 import 'package:provider/provider.dart';
 
+import './providers/FirestoreDataBase.dart';
+import './providers/GuideProvider.dart';
+import './screens/Info_Bank_Screen.dart';
+import './screens/Info_Details_Screen.dart';
+import './screens/Info_Section_Screen.dart';
+import './screens/Restrictions_Screen.dart';
 import 'firebase_options.dart';
+import 'models/Info.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,8 +25,6 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
-  /// todo add firebase project config and init.
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           ),
           home: const MyHomePage(title: 'NEBU Guide'),
           routes: {
-            MyHomePage.id: (context) => MyHomePage(),
+            MyHomePage.id: (context) => const MyHomePage(title: 'NEBU Guide'),
             InfoBankScreen.id: (context) => InfoBankScreen(),
             InfoDetailsScreen.id: (context) => InfoDetailsScreen(
                   isForAppOfficialFAQ: true,
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, this.title});
+  const MyHomePage({super.key, required this.title});
 
   final String? title;
   static String id = "MyHomePage";
@@ -73,11 +73,167 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    var guideProvider = Provider.of<GuideProvider>(context, listen: false);
+    final TextEditingController searchController = TextEditingController();
+    List<Info> searchResults = [];
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title ?? ""),
-      ),
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Center(child: Text(widget.title ?? "")),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                searchController.clear(); // clear the search field
+                setState(() {
+                  searchResults =
+                      guideProvider.allInfo; // show all items initially
+                });
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true, // allow the sheet to be scrollable
+                  builder: (BuildContext context) {
+                    return StatefulBuilder(
+                      builder: (context, setState) {
+                        return SizedBox(
+                          height: MediaQuery.of(context).size.height *
+                              0.8, // adjust the height
+                          child: Column(
+                            children: [
+                              TextField(
+                                controller: searchController,
+                                decoration: const InputDecoration(
+                                  labelText: 'Search in Info Bank',
+                                  prefixIcon: Icon(Icons.search),
+                                ),
+                                onChanged: (text) {
+                                  setState(() {
+                                    if (text.isEmpty) {
+                                      searchResults = guideProvider.allInfo;
+                                    } else if (text.toLowerCase() == 'new') {
+                                      searchResults = guideProvider.allInfo
+                                          .where((element) =>
+                                              element.Is_New == true)
+                                          .toList();
+                                    } else {
+                                      searchResults = guideProvider.allInfo
+                                          .where((element) {
+                                        final title =
+                                            element.Tip_Title?.toLowerCase() ??
+                                                '';
+                                        final section = element.Tip_Section
+                                                ?.toLowerCase() ??
+                                            '';
+                                        final description =
+                                            element.Tip_Description_Info
+                                                    ?.toLowerCase() ??
+                                                '';
+
+                                        return title
+                                                .contains(text.toLowerCase()) ||
+                                            section
+                                                .contains(text.toLowerCase()) ||
+                                            description
+                                                .contains(text.toLowerCase());
+                                      }).toList();
+                                    }
+                                  });
+                                },
+                              ),
+                              Expanded(
+                                child: ListView.builder(
+                                  itemCount: searchResults.length,
+                                  itemBuilder: (context, index) {
+                                    final item = searchResults[index];
+                                    return GestureDetector(
+                                        child: Container(
+                                          padding: const EdgeInsets.all(10),
+                                          height: 300,
+                                          child: Card(
+                                            margin: const EdgeInsets.all(10),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                SizedBox(
+                                                  width: width / 2.5,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        item.Tip_Title ?? '',
+                                                        style: const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 20),
+                                                      ),
+                                                      Text(
+                                                        item.Tip_Description_Info ??
+                                                            '',
+                                                        style: const TextStyle(
+                                                            fontSize: 16),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 250,
+                                                  width: width / 2.5,
+                                                  child: Stack(
+                                                    children: [
+                                                      Positioned(
+                                                        top: 7,
+                                                        left: 25,
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                          child: Image.asset(
+                                                            'assets/images/openaccount1.jpg',
+                                                            height: 230,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Center(
+                                                        child: Image.asset(
+                                                          'assets/images/mobleIphone.png', // Use local asset
+                                                          height: 250,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    InfoScreen(
+                                                        infoBank: searchResults[
+                                                            index]),
+                                              ));
+                                        });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+            ),
+          ]),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
