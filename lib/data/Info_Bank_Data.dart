@@ -48,7 +48,7 @@ import '../models/Info.dart';
 
 List<Info> infoBankList = [
 
-Info(
+  Info(
 Material_Path: "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
 Material_Path_List: [],
 Tip_Title: "sales",

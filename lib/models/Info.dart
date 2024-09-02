@@ -41,7 +41,8 @@ class Info {
   bool? Is_Official;
 
   Info({
-    required this.Material_Path,  this. date,
+    required this.Material_Path,
+    this. date,
     this.Material_Path_List,
     required this.Tip_Title,
     required this.Tip_Section,

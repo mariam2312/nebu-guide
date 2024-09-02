@@ -36,10 +36,10 @@ List<Restriction> restrictions = [
   ),
   Restriction(
       Short_Description: "The process of Scrap purchase",
-      Description: "It is the process of purchasing scrap from a customer.",
+      Description: "It is the process of purchasing scrap from a customer and determine its condition, whether good or bad With commission specified.",
       Short_Description_Ar: "عملية شراء الكسر",
       Description_Ar:
-      "هي عملية شراء كسر من العميل .",
+      "هي عملية شراء كسر من العميل وتحديد حالتها سواء جيدة او سيئة مع تحديد العمولة",
       Role_Permission: [
         "Owner",
         "Admin",
@@ -63,10 +63,10 @@ List<Restriction> restrictions = [
   ),
   Restriction(
       Short_Description: "Cash entry into the store.",
-      Description: "Cash entry operations into the store.",
+      Description: "Cash entry operations into the store and enter its value, details and a reference image.",
       Short_Description_Ar: "دخول نقدية للمحل",
       Description_Ar:
-      "عمليات دخول نقدية للمحل",
+      "عمليات دخول نقدية للمحل      وادخال قيمتها وتفاصيلها وصورة مرجعية لها",
       Role_Permission: [
         "Owner",
         "Admin",
@@ -92,10 +92,10 @@ List<Restriction> restrictions = [
   ),
   Restriction(
       Short_Description: "Cash exit from the store.",
-      Description: "Cash exit operations from the store.",
+      Description: "Cash exit operations from the store and enter its value, details and reference image",
       Short_Description_Ar: "خروج نقدية من المحل",
       Description_Ar:
-      "عمليات خروج نقدية من المحل",
+      "عمليات خروج نقدية من المحل     وادخال قيمتها وتفاصيلها وصورة مرجعية لها",
       Role_Permission: [
         "Owner",
         "Admin",
@@ -124,7 +124,7 @@ List<Restriction> restrictions = [
       Description: "Goods entry operations from the store.",
       Short_Description_Ar: "دخول بضاعة من المحل",
       Description_Ar:
-      "عمليات دخول بضاعة من المحل",
+      " عمليات دخول بضاعة من محل( انجرارة)",
       Role_Permission: [
         "Owner",
         "Admin",
@@ -149,10 +149,10 @@ List<Restriction> restrictions = [
   ),
   Restriction(
       Short_Description: "Goods exit from the store.",
-      Description: "Goods exit operations from the store.",
+      Description: "Goods exit operations from the store  (returns, clearances) and manufacturing defects.",
       Short_Description_Ar: "خروج بضاعة من المحل",
       Description_Ar:
-      "عمليات خروج بضاعة من المحل",
+      " عمليات خروج بضاعة من المحل(انجرارة مرتجع)تصفيات او عيوب صناعة ",
       Role_Permission: [
         "Owner",
         "Admin",
@@ -177,10 +177,10 @@ List<Restriction> restrictions = [
   ),
   Restriction(
       Short_Description: "Scrap entry to the store.",
-      Description: "Scrap entry operations to the store.",
+      Description: "Scrap entry operations to the store with entering its weight, details and a reference photo of it.",
       Short_Description_Ar: "دخول كسر من المحل",
       Description_Ar:
-      "عمليات دخول كسر من المحل",
+      "عمليات دخول كسر من محل مع ادخال وزنه وتفاصيله وصورة مرجعية له",
       Role_Permission: [
         "Owner",
         "Admin",
@@ -204,10 +204,10 @@ List<Restriction> restrictions = [
   ),
   Restriction(
       Short_Description: "Scrap exit from the store.",
-      Description: "Scrap exit operations from the store.",
+      Description: "Scrap exit operations from the store with entering its weight, details and a reference photo of it.",
       Short_Description_Ar: "خروج كسر من المحل",
       Description_Ar:
-      "عمليات خروج كسر من المحل",
+      "عمليات خروج كسر من محل مع ادخال وزنه وتفاصيله وصورة مرجعية له",
       Role_Permission: [
         "Owner",
         "Admin",
@@ -283,10 +283,10 @@ List<Restriction> restrictions = [
   ),
   Restriction(
       Short_Description: "The workshop is where modifications are made to the goods,",
-      Description: "The workshop is where modifications are made to the goods, such as drilling or welding",
+      Description: "The workshop includes gold and silver restoration work, such as polishing, welding, installing stones, plating, laser engraving, and other maintenance work. ",
       Short_Description_Ar: "الورشة يتم فيها عمل تعديل علي البضاعه.",
       Description_Ar:
-      "الورشة يتم فيها عمل تعديل علي البضاعه مثل حفر او لحام",
+      "الورشة يتم فيها عمل ترميم الذهب والفضة مثل التلميع واللحام وتركيب الفصوص والطلاء والحفر بالليزر وغيرها من اعمال الصيانة",
       Role_Permission: [
         "Owner",
         "Admin",
@@ -309,10 +309,10 @@ List<Restriction> restrictions = [
   ),
   Restriction(
       Short_Description: "The process of selling silver",
-      Description: "It is the process of selling silver to the customer, either manually or with code.",
+      Description: "It is a process through which silver is sold and the carat and price are determined based on the weight and carat",
       Short_Description_Ar: "عملية بيع الفضه",
       Description_Ar:
-      "هي عملية بيع الفضه للعميل اما يدويا او بالكود.",
+      "هي عملية يتم من خلالها بيع الفضة وتحديد العيار والسعر بناء علي الوزن والعيار",
       Role_Permission: [
         "Owner",
         "Admin",
@@ -335,7 +335,753 @@ List<Restriction> restrictions = [
       date: Timestamp.fromDate(DateTime.now())
 
   ),
+  //main
+Restriction(
+Short_Description: "Reference photos of operations",
+Description: " Reference images of the operations are used to save product details and archive the weight in a way that is not subject to dispute in the reviewwith the customer.",
+Short_Description_Ar: "   الصور المرجعية للعمليات ",
+Description_Ar:
+" الصور المرجعية للعمليات يتم من خلالها حفظ تفاصيل المنتج وارشفة الوزن بشكل لايقبل الجدال في المراجعه مع الزبون. ",
+//check
+Role_Permission: [
+"Owner",
+"Admin",
+"Accountant",
+"Manager",
+        "Supervisor",
+        "Purchaser",
+        "Salesman",
+        "Marketingmanager",
+
+      ],
+      Allowed_Plans: ["start","basic", "pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'الصور المرجعية للعمليات '
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Returned",
+      Description: " The return is used if the customer wants to return the goods and get their price for any reason. ",
+  Short_Description_Ar: "مرتجع ",
+      Description_Ar:
+      "           يستخدم المرتجع اذا اراد العميل ارجاع البضاعة واخذ ثمنها لأي سبب",
+      //check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+        "Purchaser",
+        "Salesman",
+        "Marketingmanager",
+
+      ],
+      Allowed_Plans: ["start","basic", "pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'مرتجع'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Linking salesman",
+      Description: " Used to connect vendors to the store to perform sales tasks. ",
+      Short_Description_Ar: "  ربط البائعين ",
+      Description_Ar:
+      "        تستخدم لربط البائعين بالمحل لاداء مهام البيع",
+      //check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+        "Purchaser",
+        "Salesman",
+        "Marketingmanager",
+
+      ],
+      Allowed_Plans: ["start","basic", "pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'ربط البائعين '
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Double data encryption",
+      Description: " Double data encryption is used to protect and secure user and customer data. ",
+      Short_Description_Ar: "   تشفير مزدوج للبيانات",
+      Description_Ar:
+      "         تشفير مزدوج للبيانات يستخدم لحماية وامن بيانات المستخدم والعميل.",
+      Role_Permission: [
+      ],
+      Allowed_Plans: ["start","basic", "pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'تشففير مزدوج للبيانات'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Google drive backup",
+      Description: " Backup to Google account to avoid data loss ",
+      Short_Description_Ar: "     نسخة احتياطية علي حساب جوجل ",
+      Description_Ar:
+      "        نسخة احتياطية علي حساب جوجل لعدم فقدان البيانات.  ",
+
+      Role_Permission: [
+      ],
+      Allowed_Plans: ["start","basic", "pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'نسخة احتياطية علي حساب جوجل '
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Anti duplicate invoice Qr code",
+      Description: "Anti duplicate invoice Qr code to avoid fraud and forgery ",
+      Short_Description_Ar: "   كود حماية الفواتير",
+      Description_Ar:
+      "     كود حماية الفواتيرمن التزوير والغش  ",
+
+      Role_Permission: [
+      ],
+      Allowed_Plans: ["start","basic", "pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'كود حماية الفواتير'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Support ticket",
+      Description: " Request technical support where the customer sends the problem and requests a solution for it ",
+  Short_Description_Ar: "   طلب دعم فني ",
+      Description_Ar:
+      "   طلب دعم فني حيث يقوم العميل بارسال المشكلة وطلب حل لها .",
+
+      Role_Permission: [
+      ],
+      Allowed_Plans: ["start","basic", "pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'طلب دعم فني'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+Restriction(
+Short_Description: "Client search by phone",
+Description: " Search for the customer by phone by entering the mobile number.If the customer is previously registered, his data will appear. If he is not registered, his data must be entered. ",
+Short_Description_Ar: "    البحث عن العميل بالهاتف",
+Description_Ar:
+"البحث عن العميل بالهاتف عن طريق ادخال رقم الموبايل فاذا كان العميل مسجل من قبل تظهر بياناته واذا كان غير مسجل فيجب ادخال بيانات.",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+        "Purchaser",
+        "Salesman",
+        "Marketingmanager",
+      ],
+      Allowed_Plans: ["start","basic", "pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'البحث عن العميل بالهاتف'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Instant sales approval",
+      Description: " Instant approval of invoices by the store management for review to avoid any errors that may have occurred ",
+  Short_Description_Ar: "   اعتماد الفواتير اللحظي",
+      Description_Ar:
+      "             اعتماد الفواتير اللحظي من قبل ادارة المحل للمراجعة لتفادي اي خطأ قد حدث.",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+
+      ],
+      Allowed_Plans: ["basic", "pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'اعتماد الفواتير اللحظي'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+
+  Restriction(
+      Short_Description: "Dual taxes for national and international",
+      Description: " Dual Taxes on local and imported work to determine the tax according to the work, whether a percentage or value ",
+  Short_Description_Ar: "     الضريبة لشغل المحلي و المستورد",
+      Description_Ar:
+      "              الضريبة لشغل المحلي و المستورد لتحديد الضريبة علي حسب الشغل سواء نسبة او قيمة",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'الضريبة لشغل المحلي و المستورد'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Custom expenses -income types",
+      Description: "Custom expenses -income types",
+      Short_Description_Ar: "بنود خاصة للمصاريف و الدخل ",
+      Description_Ar:
+      "بنود خاصة للمصاريف و الدخل .",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'بنود خاصة للمصاريف و الدخل '
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Goods reservation",
+      Description: " You can reserve a product with the code to avoid selling it to another customer. ",
+      Short_Description_Ar: "   حجز بضاعة بالكود",
+      Description_Ar:
+      "        يمكنك حجز بضاعة بالكود لعدم بيعها لعميل اخر",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+        "Purchaser",
+        "Salesman",
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'حجز بضاعة بالكود'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Original photo for every item",
+      Description: "Original photo for every item",
+      Short_Description_Ar: "تصوير كل قطعة",
+      Description_Ar:
+      "تصوير كل قطعة",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+        "Purchaser",
+        "Salesman",
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'تصوير كل قطعة'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Workshop order by voice",
+      Description: "Workshop order by voice",
+      Short_Description_Ar: "تسجيل طلب للورشه بالصوت",
+      Description_Ar:
+      "تسجيل طلب للورشه بالصوت",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+        "Purchaser",
+        "Salesman",
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'تسجيل طلب للورشه بالصوت'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Cashback system",
+      Description: "Cashback system",
+      Short_Description_Ar: "استرداد النقدية",
+      Description_Ar:
+      "استرداد النقدية",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+        "Purchaser",
+        "Salesman",
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'استرداد النقدية'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Multiple gift receipts",
+      Description: "Multiple gift receipts",
+      Short_Description_Ar: "تجزئه الفاتورة لاكتر من بيان",
+      Description_Ar:
+      "تجزئه الفاتورة لاكتر من بيان",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+        "Purchaser",
+        "Salesman",
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'تجزئه الفاتورة لاكتر من بيان'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Linking successors",
+      Description: "Linking successors",
+      Short_Description_Ar: "تعيين نائبين",
+      Description_Ar:
+      "تعيين نائبين",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'تعيين نائبين'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Linking stores",
+      Description: "Linking stores",
+      Short_Description_Ar: "ربط اكتر من فرع",
+      Description_Ar:
+      "ربط اكتر من فرع",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'ربط اكتر من فرع'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Daily logs",
+      Description: "Daily logs",
+      Short_Description_Ar: "الاشعارات اللحظية",
+      Description_Ar:
+      "الاشعارات اللحظية",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'الاشعارات اللحظية'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "CRM",
+      Description: "CRM",
+      Short_Description_Ar: "ادارة العملاء",
+      Description_Ar:
+      "ادارة العملاء",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'ادارة العملاء'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Instant client's transactions summary ",
+      Description: "Instant client's transactions summary ",
+      Short_Description_Ar: "عرض لحظي لاجمالي حركات العميل ",
+      Description_Ar:
+      "عرض لحظي لاجمالي حركات العميل ",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'عرض لحظي لاجمالي حركات العميل '
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "System shut down",
+      Description: "System shut down",
+      Short_Description_Ar: "التحكم في غلق السيستم ",
+      Description_Ar:
+      "التحكم في غلق السيستم",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'التحكم في غلق السيستم'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Goods purchaser role",
+      Description: "Goods purchaser role",
+      Short_Description_Ar: "مسؤل مشتريات ",
+      Description_Ar:
+      "مسؤل مشتريات ",
+//check
+      Role_Permission: [
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'دور مسؤل مشتريات '
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Accountant role",
+      Description: "Accountant role",
+      Short_Description_Ar: "محاسب ",
+      Description_Ar:
+      " محاسب ",
+//check
+      Role_Permission: [
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'دور المحاسب'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "General manager role",
+      Description: "General manager role",
+      Short_Description_Ar: "مدير عام ",
+      Description_Ar:
+      " مدير عام ",
+//check
+      Role_Permission: [
+
+      ],
+      Allowed_Plans: [ "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'دور مدير عام'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Cashier system",
+      Description: "Cashier system",
+      Short_Description_Ar: "منظومة الكاشير ",
+      Description_Ar:
+      " منظومة الكاشير  ",
+//check
+      Role_Permission: [
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'منظومة الكاشير '
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Serial number reader",
+      Description: "Serial number reader",
+      Short_Description_Ar: "قارئ رقم السبائك ",
+      Description_Ar:
+      " قارئ رقم السبائك ",
+//check
+      Role_Permission: [
+
+      ],
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'قارئ رقم السبائك '
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
   //icons
+                                                                                                              Restriction(
+      Short_Description: " for uploading photos and pending invoices",
+      Description: "To display the list of pending invoices and images that are uploaded.",
+      Short_Description_Ar: " تحميل الصور والفواتير المعلقة",
+      Description_Ar:
+      "لعرض قائمة الفواتير و الصور المعلقة التي يتم رفعها..",
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+        "Purchaser",
+        "Salesman",
+        "Marketingmanager",
+
+      ],
+      Allowed_Plans: [ "basic", "pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail",],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: ' تحميل الصور والفواتير المعلقة'
+      ,
+      date: Timestamp.fromDate(DateTime.now())
+
+  ),
+  Restriction(
+      Short_Description: "Detailed control screen.",
+      Description: "To control the system controls according to the store’s policy.",
+      Short_Description_Ar: "شاشة التحكم التفصيلية.",
+      Description_Ar:
+      "للتحكم بضوابط النظام علي حسب سياسة المحل ",
+      Role_Permission: [
+        "Owner",
+        "Admin",
+      ],
+      Allowed_Plans: ["start", "basic" "pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail","GoldTrader"],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'شاشة التحكم التفصيلية',
+      date:Timestamp.fromDate(DateTime.now())
+  ),
+  Restriction(
+      Short_Description: "Management screen.",
+      Description: "The Management screen contains an overview of the important administrative details in the system.",
+      Short_Description_Ar: "شاشة الادارة.",
+      Description_Ar:
+      "شاشة الادارة فيها نظرة عامه علي للتفاصيل الادارية المهمة في نظام.",
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+      ],
+      Allowed_Plans: [ "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail","GoldTrader"],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: ' شاشة الادارة',
+      date:Timestamp.fromDate(DateTime.now())
+  ),
+  Restriction(
+      Short_Description: "Management Bars.",
+      Description: "The Management Bars includes available and reserved bullion, daily movements of bullion, and accumulated balances.",
+      Short_Description_Ar: "شاشة الادارة.",
+      Description_Ar:
+      "ادارة السبائك تضم السبائك المتاحة و المحجوزة و حركات اليومية للسبائك و الارصدة المجمعه .",
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Manager",
+        "Accountant",
+      ],
+      //check
+      Allowed_Plans: [ "pro","vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail","GoldTrader"],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: ' شاشة الادارة',
+      date:Timestamp.fromDate(DateTime.now())
+  ),
+
+
+
 //gold price ....
   Restriction(
       Short_Description: "Live international gold prices.",
@@ -451,25 +1197,6 @@ List<Restriction> restrictions = [
       date:Timestamp.fromDate(DateTime.now())
 
 
-  ),
-  Restriction(
-      Short_Description: "Detailed control screen.",
-      Description: "The detailed control screen contains an overview of the important administrative details in the system.",
-      Short_Description_Ar: "شاشة التحكم التفصيلية.",
-      Description_Ar:
-      "شاشة التحكم التفصيلية فيها نظرة عامه علي للتفاصيل الادارية المهمة في نظام.",
-      Role_Permission: [
-        "Owner",
-        "Admin",
-      ],
-      Allowed_Plans: ["start", "basic" "pro", "vip"],
-      Store_Type: ["Retail", "Wholesale", "HalfRetail","GoldTrader"],
-      Material_Type: ["Gold", "Silver", "Gold_Silver"],
-      Photo_Url:"",
-      Visible: true,
-      Blurred: false,
-      Title: 'شاشة التحكم التفصيلية',
-      date:Timestamp.fromDate(DateTime.now())
   ),
 
 
@@ -1385,6 +2112,30 @@ List<Restriction> restrictions = [
       Title: 'رصيد مجمع',
       date:Timestamp.fromDate(DateTime.now())
   ),
+  Restriction(
+      Short_Description: "My balance now",
+      Description: "My balance now is gold and cash, in open accounts, merchandise balance, reservation, and merchandise costs.",
+      Short_Description_Ar: "رصيدي الان",
+      Description_Ar:
+      "رصيدي الان من الدهب و النقدية ،في الحسابات المفتوحة ، رصيد البضاعة، الحجز و تكاليف البضاعه.",
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+      ],
+      //check
+      Allowed_Plans: ["pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail","GoldTrader"],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'رصيدي الان',
+      date:Timestamp.fromDate(DateTime.now())
+  ),
+
+
+
   //accounts ....
   Restriction(
       Short_Description: "Including all accounts",
@@ -1905,7 +2656,77 @@ List<Restriction> restrictions = [
   ),
 
 //coding
-
+  Restriction(
+      Short_Description: "Create goods codes",
+      Description: "A complete file of tickets is created, ready for printing.",
+      Short_Description_Ar: 'إنشاء اكواد البضاعة',
+      Description_Ar:
+      "يتم انشاء ملف كامل من التيكتات يكون جاهز للطباعة.",
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+        "Purchaser",
+      ],
+      Allowed_Plans: ["basic","pro","vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail","GoldTrader"],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'إنشاء اكواد البضاعة',
+      date:Timestamp.fromDate(DateTime.now())
+  ),
+  Restriction(
+      Short_Description: "Create codes for The workshop",
+      Description: "A complete file of tickets for the workshop is created, ready for printing.",
+      Short_Description_Ar: 'إنشاء اكواد للورشة',
+      Description_Ar:
+      "يتم انشاء ملف كامل من التيكتات خاص بالورشة يكون جاهز للطباعة.",
+      //check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+        "Purchaser",
+      ],
+      Allowed_Plans: ["basic","pro","vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail","GoldTrader"],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'إنشاء اكواد للورشة',
+      date:Timestamp.fromDate(DateTime.now())
+  ),
+  Restriction(
+      Short_Description: "Create detailed codes",
+      Description: "A complete file of tickets containing data is created, ready for printing.",
+      Short_Description_Ar: 'انشاء اكواد مفصلة',
+      Description_Ar:
+      "يتم انشاء ملف كامل من التيكتات التي تحتوي علي داتا ،يكون جاهز للطباعة.",
+      //check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+        "Purchaser",
+      ],
+      Allowed_Plans: ["pro","vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail","GoldTrader"],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url:"",
+      Visible: true,
+      Blurred: false,
+      Title: 'انشاء اكواد مفصلة',
+      date:Timestamp.fromDate(DateTime.now())
+  ),
 
   //tools ....
   Restriction(

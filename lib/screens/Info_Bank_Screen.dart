@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
-import '../data/Info_Bank_Data.dart';
 import '../main.dart';
 import '../models/Info.dart';
 import '../providers/FirestoreDataBase.dart';

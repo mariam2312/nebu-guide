@@ -136,9 +136,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 child: Column(mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
 
-                                                    Text(item.Tip_Title ?? '',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                                                    Text(item.Tip_Title ?? '',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
 
-                                                    Text(item.Tip_Description_Info ?? '',style: TextStyle( fontSize: 16),),
+                                                    Text(item.Tip_Description_Info ?? '',style: const TextStyle( fontSize: 16),),
                                                   ],
                                                 ),
                                               ),
@@ -149,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                                     Positioned(
                                                       top: 7,
-                                                      left: 18,
+                                                      left: 25,
                                                       child: ClipRRect(
                                                         borderRadius: BorderRadius.circular(20),
                                                         child: Image.asset(

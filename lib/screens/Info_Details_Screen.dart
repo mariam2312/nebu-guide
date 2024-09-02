@@ -21,16 +21,16 @@ class InfoDetailsScreen extends StatefulWidget {
   bool isForAppTips;
 
   InfoDetailsScreen(
-      {required this.tips,
+      {super.key, required this.tips,
         required this.isForAppOfficialInfoTip,
         required this.isForAppOfficialFAQ,
         required this.isForAppTips});
 
   @override
-  _InfoDetailsScreenState createState() => _InfoDetailsScreenState();
+  InfoDetailsScreenState createState() => InfoDetailsScreenState();
 }
 
-class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
+class InfoDetailsScreenState extends State<InfoDetailsScreen> {
   PageController controller = PageController();
   PageController pictureListController = PageController();
   ScrollController faqController = ScrollController();
@@ -81,7 +81,7 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
             }),
         centerTitle: true,
         backgroundColor: const Color(0xff212D45),
-        title: Text("NEBU GUIDE"),
+        title: const Text("NEBU GUIDE"),
       ),
       body: (isFAQ == false && isOfficial == false)
           ? Stack(
@@ -145,7 +145,7 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                   }
                                 },
                                 text:
-                                " youtube link : https://www.youtube.com/watch?v=${youTubeLink}",
+                                " youtube link : https://www.youtube.com/watch?v=$youTubeLink",
                                 style: GoogleFonts.markaziText(
                                     fontSize: 20,
                                     color: Colors.black),
@@ -318,9 +318,12 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                           (widget.isForAppTips == true &&
                               allInfo[index]?.Is_Step_By_Step == true)
                               ? Container(
+                            color: Colors.white,
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     (widget.isForAppTips == true &&
@@ -360,11 +363,8 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                     ),
                                   ),
                                 ],
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
                               ),
                             ),
-                            color: Colors.white,
                           )
                               : const SizedBox(),
                         ],
@@ -562,7 +562,6 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                     ),
                   ],
                 );
-                ;
               }),
           Container(
             color: const Color(0xff212D45),
@@ -647,6 +646,31 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                             ),
                           ]),
                       child: ExpansionTile(
+                        title: Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "${index + 1}",
+                              style: GoogleFonts.cairo(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Text(
+                                "${allInfo[index]?.Tip_Title}",
+                                style: GoogleFonts.markaziText(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
                         children: [
                           const SizedBox(
                             height: 10,
@@ -687,7 +711,7 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                     color:
                                     Colors.white),
                                 child:
-                                Text("${youtubeLink}")
+                                Text("$youtubeLink")
                               // YoutubePlayer(
                               //     controller:
                               //         youtubeController,
@@ -893,31 +917,6 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                     color: Colors.blue),
                               )),
                         ],
-                        title: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "${index + 1}",
-                              style: GoogleFonts.cairo(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "${allInfo[index]?.Tip_Title}",
-                                style: GoogleFonts.markaziText(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
                     ),
                   );
@@ -1048,6 +1047,9 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                     child: Row(
                                       children: [
                                         Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment
+                                              .center,
                                           children: [
                                             Padding(
                                               padding:
@@ -1065,9 +1067,6 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                               ),
                                             ),
                                           ],
-                                          mainAxisAlignment:
-                                          MainAxisAlignment
-                                              .center,
                                         ),
                                       ],
                                     ),
@@ -1082,6 +1081,8 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                               child: Column(
                                 children: [
                                   Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.end,
                                     children: [
                                       Container(
                                         decoration:
@@ -1097,7 +1098,7 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                             left: 8,
                                             right: 8.0),
                                         child: Text(
-                                          "${time.showDate2(allInfo[index]!.date!.toDate())}",
+                                          time.showDate2(allInfo[index]!.date!.toDate()),
                                           style:
                                           GoogleFonts.cairo(
                                               fontSize: 16,
@@ -1106,8 +1107,6 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                         ),
                                       ),
                                     ],
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.end,
                                   ),
                                   const SizedBox(
                                     height: 10,
@@ -1183,7 +1182,7 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                           color: Colors
                                               .white),
                                       child: Text(
-                                          "${youTubeLink}"),
+                                          "$youTubeLink"),
                                       // YoutubePlayer(
                                       //     controller:
                                       //         youtubeController,
