@@ -12,6 +12,8 @@ import '../models/Info.dart';
 import '../providers/FirestoreDataBase.dart';
 import '../providers/GuideProvider.dart';
 import '../screens/Info_Section_Screen.dart';
+import 'Info_Details_Screen.dart';
+import 'Official_News_Screen.dart';
 
 class InfoBankScreen extends StatefulWidget {
   static String id = "InfoBankScreen";
@@ -56,14 +58,14 @@ class _InfoBankScreenState extends State<InfoBankScreen> {
       infoBankSubscription = infoBankStream?.listen((event) {
         if (event.exists) {
           Map<String, dynamic> bigMap = event.data() as Map<String, dynamic>;
-          Map<String, dynamic> allRestrictionsData = bigMap['info'];
+          Map<String, dynamic> allInfosData = bigMap['info'];
 
           List<Info> infoList = [];
 
           // Iterate over the allRestrictionsData map
-          allRestrictionsData.forEach((key, value) {
-            Info restriction = Info.fromMap(value);
-            infoList.add(restriction);
+          allInfosData.forEach((key, value) {
+            Info infos = Info.fromMap(value);
+            infoList.add(infos);
           });
 
           setState(() {
@@ -246,6 +248,12 @@ class _InfoBankScreenState extends State<InfoBankScreen> {
                               //     isForAppOfficialInfoTip: false,
                               //     isForAppInfo: true,
                               //   );
+                              // return InfoDetailsScreen(
+                              //   //Info: stepByStepInfo,
+                              //   isForAppOfficialFAQ: false,
+                              //   isForAppOfficialInfoTip: false,
+                              //    tips: allInfo, isForAppTips: true,
+                              // );
                               // }));
                             },
                             child: Stack(
@@ -394,15 +402,17 @@ class _InfoBankScreenState extends State<InfoBankScreen> {
                       children: [
                         Expanded(
                           child: GestureDetector(
+                            // onTap: () {
+                            //   Navigator.push(context,
+                            //       MaterialPageRoute(builder: (context) {
+                            //         return InfoSectionScreen(info: allInfo);
+                            //       }));
+                            // },
                             onTap: () {
-                              // Navigator.push(context,
-                              //     MaterialPageRoute(builder: (context) {
-                              //   return InfoDetailsScreen(
-                              //       isForAppInfo: false,
-                              //       isForAppOfficialInfoTip: true,
-                              //       isForAppOfficialFAQ: false,
-                              //       Info: Info.allInfo);
-                              // }));
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return OfficialNewsScreen();
+                              }));
                             },
                             child: Stack(
                               alignment: Alignment.bottomCenter,

@@ -30,7 +30,7 @@ var tip_1 = {
   "Android_Ver": 133,
   "IOS_Ver": 94,
 
-  // خقيثق
+  // num
   "Tip_Order_Number": "1",
 
   // material
@@ -47,7 +47,6 @@ var tip_1 = {
   "Is_FAQ": false,
   "Is_Official": false,
 };
-
 var tip_2 = {
   "Material_Path":
       "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmin_max_compressed.json?alt=media&token=20698e56-d5cd-49f5-952c-a7ee82b4b390",

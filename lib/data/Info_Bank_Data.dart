@@ -3561,15 +3561,17 @@ Map<String, dynamic> infoBank = {
     Is_Step_By_Step: false,
 
     // material type , lottie => animation
-    Is_Material_Lottie: true,
-    Is_Material_Picture: false,
+    Is_Material_Lottie: false,
+    Is_Material_Picture: true,
     Is_Material_YouTube: false,
 
     // todo development part
     Related_App_Screen: "Sales_Screen",
-    Material_Path:
-        "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
-    Material_Path_List: [],
+    Material_Path:"",
+        // "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
+    Material_Path_List: ['assets/images/openaccount1.jpg',
+      'assets/images/openaccount2.jpg',
+      'assets/images/openaccount3.jpg',],
     Android_Ver: 133,
     IOS_Ver: 94,
 
@@ -4795,4 +4797,28 @@ Map<String, dynamic> infoBank = {
     Is_For_SalesTeam: true,
     Is_ForOwner: true,
   ),
+
+
+"FAQ1":Info (
+Material_Path:"",
+Material_Path_List: [],
+Tip_Title: "هل هناك نسخة تجريبية من نظام نيبو ؟",
+//details
+Tip_Main_Description: "نعم هناك نسخة تجريبية من نظام نيبو صالحة لمدة ٧ ايام",
+Tip_Order_Number: "8",
+
+// material
+Is_Material_Lottie: false ,
+Is_Material_Picture: false,
+Is_Material_YouTube: false,
+
+// basic types
+Is_Step_By_Step: false,
+Is_New: false,
+Is_Basic: false ,
+Is_FAQ: true,
+Is_Official: false,
+  Tip_Section: '', Related_Screen: '', Related_App_Screen: '', Is_ForOwner: null, Is_For_Admin: null, Is_For_SalesTeam: null, Android_Ver: null, IOS_Ver: null,
+)
+
 };
