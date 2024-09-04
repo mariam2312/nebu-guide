@@ -8,21 +8,24 @@ class FirestoreDataBase extends ChangeNotifier {
     return FirebaseFirestore.instance.collection('InfoBankData').doc('AllInfoData')
         .snapshots();
   }
-  // Stream <QuerySnapshot>infoBankStream(){
-  //   String infoBankPath= "/InfoBankData";
-  //   final CollectionReference<Map<String, dynamic>> restrictionsCollectionReference =
-  //   FirebaseFirestore.instance.collection(infoBankPath);
-  //   return restrictionsCollectionReference.snapshots();
-  // }
+
 
   Stream<DocumentSnapshot> allRestrictionsStream() {
     return FirebaseFirestore.instance.collection('RestrictionsData').doc('AllRestrictionsData').snapshots();
   }
 
-  // Stream<QuerySnapshot> restrictionsStream() {
-  //   final CollectionReference<Map<String, dynamic>> restrictionsCollectionReference =
-  //   FirebaseFirestore.instance.collection('/RestrictionsData');
-  //   return restrictionsCollectionReference.snapshots();
+  // Future<void> infoToFirestore() async {
+  //   final CollectionReference restrictionsDataCollection =
+  //   FirebaseFirestore.instance.collection('InfoBankData');
+  //   final Map<String, dynamic> bigMap = {'info': {}};
+  //
+  //   for (var infoBank in infoBank.values.toList()) {
+  //     final Map<String, dynamic> infoMap =
+  //     infoBank.toMap(Path: 'InfoBankData/AllInfoData');
+  //     bigMap['info'][infoBank.Tip_Title!] = infoMap;
+  //   }
+  //
+  //   restrictionsDataCollection.doc('AllInfoData').set(bigMap);
   // }
 
 

@@ -10,6 +10,7 @@ class GuideProvider extends ChangeNotifier {
   /// for state management of the app
   ///
   List<Info> allInfo = [];
+
   List<Restriction> restrictionsList = [];
   Info? infobank;
   Restriction? restriction;
@@ -57,42 +58,10 @@ class GuideProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateInfo(Info updatedInfo) {
-    final index = allInfo.indexWhere((info) => info.Tip_Title == updatedInfo.Tip_Title);
-    if (index != -1) {
-      allInfo[index] = updatedInfo;
-      notifyListeners();
-    }
-  }
-  Future<bool> updateInfoDetails(
-      {required Info info,
-        required DateTime trueDate}) async {
-    bool result = false;
+  // void updateInfoList(List<Info> newList) {
+  //   allInfo = newList;
+  //   notifyListeners(); // Notify the widgets that depend on this provider
+  // }
 
-    final reference = FirebaseFirestore.instance.batch();
-
-    /// Firestore Documents
-    final DocumentReference<Map<String, dynamic>?> infoDetailsReference =
-   FirebaseFirestore.instance.collection('InfoBankData').doc('AllInfoData');
-
-
-    reference.update(infoDetailsReference,  info.toMap(Path: 'AllInfoData'));
-
-    /// commit
-    await reference.commit().whenComplete(() {
-      result = true;
-      if (kDebugMode) {
-        print('Batch Is Done');
-      }
-    }).onError((error, stackTrace) {
-      result = false;
-
-      if (kDebugMode) {
-        print('Batch Error');
-      }
-    });
-
-    return result;
-  }
 
 }
