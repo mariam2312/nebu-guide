@@ -481,14 +481,13 @@ class _InfoBankScreenState extends State<InfoBankScreen> {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              // Navigator.push(context,
-                              //     MaterialPageRoute(builder: (context) {
-                              //   return InfoDetailsScreen(
-                              //       isForAppInfo: false,
-                              //       isForAppOfficialInfoTip: false,
-                              //       isForAppOfficialFAQ: true,
-                              //       Info: Info.allInfo);
-                              // }));
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return InfoDetailsScreen(
+                                    isForAppOfficialInfoTip: false,
+                                    isForAppOfficialFAQ: true,
+                                    tips: allInfo, isForAppTips: false,);
+                              }));
                             },
                             child: Stack(
                               alignment: Alignment.bottomCenter,

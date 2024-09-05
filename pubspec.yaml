@@ -70,6 +70,7 @@ dependencies:
   reorderables: ^0.5.1
   flutter_staggered_grid_view: ^0.7.0
   firebase_storage: ^11.0.3
+  easy_stepper: ^0.1.2
 
 
 
