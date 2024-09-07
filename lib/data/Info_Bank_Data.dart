@@ -3077,7 +3077,7 @@ Map<String, dynamic> infoBank = {
     Is_Basic: true,
     Is_New: false,
     Is_FAQ: false,
-    Is_Official: false,
+    Is_Official: true,
     Is_Step_By_Step: false,
 
     // material type , lottie => animation
@@ -3107,6 +3107,7 @@ Map<String, dynamic> infoBank = {
     Is_ForOwner: true,
   ),
   'LogoutOfPersonalAccount': Info(
+
     Tip_Title: "الخروج من الحساب الشخصي",
     Tip_Section: "االرئيسية",
     Related_Screen: "الشاشة الرئيسية",
@@ -3122,19 +3123,21 @@ Map<String, dynamic> infoBank = {
     Is_Basic: true,
     Is_New: false,
     Is_FAQ: false,
-    Is_Official: false,
+    Is_Official: true,
     Is_Step_By_Step: false,
 
     // material type , lottie => animation
-    Is_Material_Lottie: true,
-    Is_Material_Picture: false,
+    Is_Material_Lottie: false,
+    Is_Material_Picture: true,
     Is_Material_YouTube: false,
 
     // todo development part
     Related_App_Screen: "Sales_Screen",
-    Material_Path:
-        "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
-    Material_Path_List: [],
+    Material_Path:"",
+     //   "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
+     Material_Path_List:['assets/images/openaccount1.jpg',
+    'assets/images/openaccount2.jpg',
+    'assets/images/openaccount3.jpg',],
     Android_Ver: 133,
     IOS_Ver: 94,
 

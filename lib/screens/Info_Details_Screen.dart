@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 // import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -32,6 +34,8 @@ class InfoDetailsScreen extends StatefulWidget {
 }
 
 class InfoDetailsScreenState extends State<InfoDetailsScreen> {
+  final CarouselSliderController _carouselController =
+  CarouselSliderController();
   PageController controller = PageController();
   PageController pictureListController = PageController();
   ScrollController faqController = ScrollController();
@@ -49,20 +53,29 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
     pictureListController.dispose();
     faqController.dispose();
     controller.dispose();
+
   }
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController searchController = TextEditingController();
     var tips = Provider.of<GuideProvider>(context, listen: false);
+    int _currentIndex = 0;
 
+    bool _isAutoPlay = true;
     List<Info?> allInfo = widget.tips;
-
+    void onTap() {
+      setState(() {
+        // _carouselController.stopAutoPlay();
+        _isAutoPlay = false;
+        print(_isAutoPlay);// Stop autoplay when a step is tapped
+      });
+    }
     bool isFAQ = widget.isForAppOfficialFAQ;
     bool isOfficial = widget.isForAppOfficialInfoTip;
     List<Info?> searchResults = [];
     var guideProvider = Provider.of<GuideProvider>(context, listen: false);
-
+    int activeStep = 0;
     //
     // allInfo.sort((a, b) =>
     //     (a?.Tip_Order_Number ?? 1).compareTo(b?.Tip_Order_Number ?? 1));
@@ -1024,46 +1037,65 @@ child:Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         ],
       )
           : (isOfficial == true)
-          ? Column(
+          ?Column(crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius:
-                const BorderRadius.all(Radius.circular(3)),
-                color: Colors.yellow[700],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "الاخبار الرسمية",
-                          style: GoogleFonts.cairo(
-                            color:  Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          "(${allInfo.length})",
-                          style: GoogleFonts.cairo(
-                            color: const Color(0xff212D45),
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    )),
+          Container(
+
+            height:
+           100,
+            decoration: BoxDecoration(
+              color: const Color(0xff212D45) ,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade600,
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+
+            child: Padding(
+              padding: const EdgeInsets.only(right: 50),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "(${allInfo.length})",
+                    style: GoogleFonts.cairo(
+                      color:  Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    "الاخبار الرسمية",
+                    style: GoogleFonts.cairo(
+                      color:  Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                ],
               ),
             ),
           ),
 
           /// todo re-enable the youtube part when it's working soon
-          Expanded(
+          // NotificationListener<ScrollNotification>(
+          //   onNotification: (notification) {
+          //     if (notification is ScrollStartNotification) {
+          //       onTap();
+          //     } else if (notification is ScrollEndNotification) {
+          //       setState(() {
+          //         _isAutoPlay = true;
+          //       });
+          //     }
+          //     return true;
+          //   },
+          //   child:
+            Expanded(
             child: ListView.builder(
                 itemCount: allInfo.length,
                 controller: faqController,
@@ -1081,353 +1113,553 @@ child:Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   //     mute: false,
                   //   ),
                   // );
+return Column(crossAxisAlignment: CrossAxisAlignment.end,
+  children: [
+  SizedBox(height: 30,),
+    CarouselSlider(
+      items: allInfo.map((info) {
+        // Check if Material_Path_List is not null and has at least one item
+        final imagePath = info?.Material_Path_List?.isNotEmpty == true
+            ? info?.Material_Path_List?.first
+            : '';
 
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                                Radius.circular(8)),
-                            color: const Color(0xff212D45),
-                            boxShadow: [
-                              BoxShadow(
-                                color:
-                                Colors.black.withOpacity(0.5),
-                                spreadRadius: 3,
-                                blurRadius: 2,
-                                offset: const Offset(0,
-                                    3), // changes position of shadow
-                              ),
-                            ]),
-                        child: ExpansionTile(
-                          onExpansionChanged: (value) {
-                            tips.setTitleAvailability(
-                                value: value);
-                          },
-                          trailing: const Icon(
-                            Icons.keyboard_arrow_down_outlined,
-                            color: Colors.white,
-                          ),
-                          initiallyExpanded: true,
-                          title: Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                  const BorderRadius.all(
-                                      Radius.circular(2)),
-                                  color: Colors.yellow[700],
-                                ),
-                                padding: const EdgeInsets.only(
-                                    left: 8, right: 8.0),
-                                child: Text(
-                                  "${index + 1}",
-                                  style: GoogleFonts.cairo(
-                                      fontSize: 16,
-                                      color: Colors.black),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Expanded(
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.all(
-                                        Radius.circular(2)),
-                                    color: Colors.white,
-                                  ),
-                                  child: Padding(
-                                    padding:
-                                    const EdgeInsets.only(
-                                        left: 8.0,
-                                        right: 8.0),
-                                    child: Row(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment
-                                              .center,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                              const EdgeInsets
-                                                  .all(4.0),
-                                              child: Text(
-                                                "${allInfo[index]?.Tip_Title}",
-                                                style: GoogleFonts.markaziText(
-                                                    fontSize: 20,
-                                                    fontWeight:
-                                                    FontWeight
-                                                        .bold,
-                                                    color: Colors
-                                                        .black),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          children: [
-                            Card(
-                              color: const Color(0xff212D45),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.end,
-                                    children: [
-                                      Container(
-                                        decoration:
-                                        const BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.all(
-                                              Radius.circular(
-                                                  2)),
-                                          color: Colors.grey,
-                                        ),
-                                        padding:
-                                        const EdgeInsets.only(
-                                            left: 8,
-                                            right: 8.0),
-                                        child: Text(
-                                          time.showDate2(allInfo[index]!.date!.toDate()),
-                                          style:
-                                          GoogleFonts.cairo(
-                                              fontSize: 16,
-                                              color: Colors
-                                                  .black),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding:
-                                    const EdgeInsets.all(8.0),
-                                    child: Padding(
-                                        padding:
-                                        const EdgeInsets.all(
-                                            8.0),
-                                        child: Linkify(
-                                          onOpen: (link) async {
-                                            if (await canLaunch(
-                                                link.url)) {
-                                              await launch(
-                                                  link.url);
-                                            } else {
-                                              throw 'Could not launch $link';
-                                            }
-                                          },
-                                          text:
-                                          "${allInfo[index]?.Tip_Description_Info}",
-                                          style: GoogleFonts
-                                              .markaziText(
-                                              fontSize: 20,
-                                              color: Colors
-                                                  .white),
-                                          linkStyle:
-                                          const TextStyle(
-                                              color: Colors
-                                                  .blue),
-                                        )),
-                                  ),
-                                  (allInfo[index]?.Is_Material_Lottie ==
-                                      true &&
-                                      allInfo[index]?.Material_Path !=
-                                          "" &&
-                                      allInfo[index]?.Material_Path !=
-                                          null)
-                                      ? Container(
-                                    decoration:
-                                    const BoxDecoration(
-                                        color: Colors
-                                            .white),
-                                    child: Lottie.network(
-                                      "${allInfo[index]?.Material_Path}",
-                                      width: MediaQuery.of(
-                                          context)
-                                          .size
-                                          .width -
-                                          30,
-                                      height: MediaQuery.of(
-                                          context)
-                                          .size
-                                          .height /
-                                          1.50,
-                                    ),
-                                  )
-                                      : (allInfo[index]?.Is_Material_YouTube ==
-                                      true &&
-                                      allInfo[index]?.Material_Path !=
-                                          "" &&
-                                      allInfo[index]?.Material_Path !=
-                                          null)
-                                      ? Padding(
-                                    padding:
-                                    const EdgeInsets
-                                        .all(8.0),
-                                    child: Container(
-                                      decoration:
-                                      const BoxDecoration(
-                                          color: Colors
-                                              .white),
-                                      child: Text(
-                                          "$youTubeLink"),
-                                      // YoutubePlayer(
-                                      //     controller:
-                                      //         youtubeController,
-                                      //     showVideoProgressIndicator:
-                                      //         true),
-                                    ),
-                                  )
-                                      : ((allInfo[index]?.Material_Path_List?.length ?? 0) == 0 &&
-                                      allInfo[index]
-                                          ?.Material_Path !=
-                                          "" &&
-                                      allInfo[index]
-                                          ?.Material_Path !=
-                                          null)
-                                      ? Container(
-                                      width: MediaQuery.of(context)
-                                          .size
-                                          .width -
-                                          30,
-                                      height: MediaQuery.of(context)
-                                          .size
-                                          .height /
-                                          1.50,
-                                      decoration:
-                                      const BoxDecoration(
-                                        color: Color(
-                                            0xff212D45),
-                                      ),
-                                      child:
-                                      CachedNetworkImage(
-                                        imageUrl:
-                                        "${allInfo[index]?.Material_Path}",
-                                        progressIndicatorBuilder: (context,
-                                            url,
-                                            downloadProgress) =>
-                                            CircularProgressIndicator(
-                                                value:
-                                                downloadProgress.progress),
-                                        errorWidget: (context,
-                                            url,
-                                            error) =>
-                                        const Icon(
-                                            Icons
-                                                .error),
-                                      ))
-                                      : ((allInfo[index]?.Material_Path_List?.length ??
-                                      0) >
-                                      0 &&
-                                      (allInfo[index]?.Material_Path ==
-                                          "" ||
-                                          allInfo[index]?.Material_Path ==
-                                              null))
-                                      ? Padding(
-                                    padding:
-                                    const EdgeInsets
-                                        .all(
-                                        12.0),
-                                    child:
-                                    Stack(
-                                      alignment:
-                                      Alignment
-                                          .bottomCenter,
-                                      children: [
-                                        Container(
-                                          width:
-                                          MediaQuery.of(context).size.width - 30,
-                                          height:
-                                          MediaQuery.of(context).size.height / 1.50,
-                                          decoration: BoxDecoration(
-                                              borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                              color: const Color(0xff212D45),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black.withOpacity(0.5),
-                                                  spreadRadius: 3,
-                                                  blurRadius: 2,
-                                                  offset: const Offset(0, 3), // changes position of shadow
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(40),
+          child: GestureDetector(onTap:(){onTap();},
+            child: Container(width: 300,color: Colors.blueGrey,
+              child: Center(
+                child: Stack(
+                  children: [Image.asset(
+                    imagePath,
+                     fit: BoxFit.cover,
+                  //  scale: 2,
+
+                  ),
+                Positioned(
+                  bottom: 0,right: 0,
+                  child: Text("${allInfo[index]?.Tip_Title}",
+                        style: GoogleFonts.markaziText(
+                                 fontSize: 14,
+                                     fontWeight:
+                                 FontWeight
+                                         .bold,
+                                  color: Colors
+                                   .black),
                                                 ),
-                                              ]),
-                                          child:
-                                          PageView.builder(
-                                            itemBuilder:
-                                                (context, item) {
-                                              return CachedNetworkImage(
-                                                imageUrl: "${allInfo[index]?.Material_Path_List?[item]}",
-                                                progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
-                                                errorWidget: (context, url, error) => const Icon(Icons.error),
-                                              );
-                                            },
-                                            controller:
-                                            pictureListController,
-                                            itemCount:
-                                            allInfo[index]?.Material_Path_List?.length ?? 1,
-                                            scrollDirection:
-                                            Axis.horizontal,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets
-                                              .all(
-                                              8.0),
-                                          child:
-                                          Container(
-                                            decoration:
-                                            const BoxDecoration(
-                                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                                              color: Colors.white,
-                                            ),
-                                            child:
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.only(bottom: 5, top: 5),
-                                                  child: SmoothPageIndicator(
-                                                    // key: keyButton1,
-                                                      controller: pictureListController,
-                                                      count: allInfo[index]?.Material_Path_List?.length ?? 1,
-                                                      effect: WormEffect(
-                                                        activeDotColor: Colors.yellow[700]!,
-                                                        radius: 15,
-                                                        strokeWidth: 1,
-                                                        dotHeight: 10,
-                                                        dotWidth: 10,
-                                                        dotColor: Colors.grey,
-                                                      )),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                      : const SizedBox(),
-                                ],
-                              ),
-                            )
-                          ],
-                        )),
+                ),
+
+                  ]
+                ),
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+      carouselController: _carouselController,
+      options: CarouselOptions(
+        height: 300, // Adjust height as needed
+        autoPlay: _isAutoPlay,
+        autoPlayInterval: const Duration(seconds: 2),
+        enlargeCenterPage: true,
+        viewportFraction: 0.8,
+        aspectRatio: 1.0,
+        initialPage: 0,
+        reverse: false,
+        onPageChanged: (index, reason) {
+          setState(() {
+            _currentIndex = index;
+            activeStep = index;
+          });
+        },
+      ),
+    ),
+
+                  SizedBox(height: 10), // Spacing between the slider and dots
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: allInfo.asMap().entries.map((entry) {
+                  int index = entry.key;
+                  return Container(
+                  margin: EdgeInsets.symmetric(horizontal: 4),
+                  width: 10,
+                  height: 10,
+                  decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: _currentIndex == index
+                  ? Colors.black // Active color
+                      : Colors.grey, // Inactive color
+                  ),
                   );
-                }),
+                  }).toList(),),
+  Padding(
+    padding: const EdgeInsets.only(right: 50),
+    child: Text("اخر الاخبار",style: GoogleFonts.cairo(
+      color:  Color(0xff212D45),
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    ),),
+  ),
+  Padding(
+    padding: const EdgeInsets.all(20),
+    child: GestureDetector(onTap:(){
+      onTap();
+      print(_isAutoPlay);
+      },
+        child:Container(
+        height:
+    150,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+        color:Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade400,
+            spreadRadius: 1,
+            blurRadius: 2,
+            offset: const Offset(0, 1),
           ),
         ],
-      )
+      ),
+                        child: Center(
+                          child: Column(
+
+                            children: [
+                             //  Container(
+                             //    decoration:
+                             //    const BoxDecoration(
+                             //      borderRadius:
+                             //      BorderRadius.all(
+                             //          Radius.circular(
+                             //              2)),
+                             //      color: Colors.grey,
+                             //    ),
+                             //    padding:
+                             //    const EdgeInsets.only(
+                             //        left: 8,
+                             //        right: 8.0),
+                             //    child: Text(
+                             //
+                             // " ${time.showDate2(allInfo[index]!.date!.toDate())}",
+                             //      style:
+                             //      GoogleFonts.cairo(
+                             //          fontSize: 16,
+                             //          color: Colors
+                             //              .black),
+                             //    ),
+                             //  ),
+                              Text("${allInfo[index]!.date}"),
+                              Linkify(
+                                                  onOpen: (link) async {
+                                                    if (await canLaunch(
+                                                        link.url)) {
+                                                      await launch(
+                                                          link.url);
+                                                    } else {
+                                                      throw 'Could not launch $link';
+                                                    }
+                                                  },
+                                                  text:
+                                                  "${allInfo[index]?.Tip_Description_Info}",
+                                                  style: GoogleFonts
+                                                      .markaziText(
+                                                      fontSize: 20,
+                                                      color:Color(0xff212D45)),
+                                                  linkStyle:
+                                                  const TextStyle(
+                                                      color: Colors
+                                                          .blue),
+                                                ),
+                            ],
+                          ),
+                        ))),
+  ),
+    Padding(
+      padding: const EdgeInsets.all(20),
+      child: Container(
+        height: 500,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(30)),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade400,
+              spreadRadius: 1,
+              blurRadius: 2,
+              offset: const Offset(0, 1),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                physics: ClampingScrollPhysics(), // Add this
+                itemCount: allInfo[_currentIndex]?.Material_Path_List!.length,
+
+                itemBuilder: (context, index) {
+                  return Image.asset(
+                    allInfo[_currentIndex]?.Material_Path_List![index],
+                    scale: 3,
+                  );
+                },
+                itemExtent: 300,
+      padding: EdgeInsets.all(30),
+
+              ),
+            ),
+          ],
+        ),
+      ),
+    )]);
+                  // return Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Container(
+                  //       decoration: BoxDecoration(
+                  //           borderRadius: const BorderRadius.all(
+                  //               Radius.circular(8)),
+                  //           color: const Color(0xff212D45),
+                  //           boxShadow: [
+                  //             BoxShadow(
+                  //               color:
+                  //               Colors.black.withOpacity(0.5),
+                  //               spreadRadius: 3,
+                  //               blurRadius: 2,
+                  //               offset: const Offset(0,
+                  //                   3), // changes position of shadow
+                  //             ),
+                  //           ]),
+                  //       child: ExpansionTile(
+                  //         onExpansionChanged: (value) {
+                  //           tips.setTitleAvailability(
+                  //               value: value);
+                  //         },
+                  //         trailing: const Icon(
+                  //           Icons.keyboard_arrow_down_outlined,
+                  //           color: Colors.white,
+                  //         ),
+                  //         initiallyExpanded: true,
+                  //         title: Row(
+                  //           children: [
+                  //             Container(
+                  //               decoration: BoxDecoration(
+                  //                 borderRadius:
+                  //                 const BorderRadius.all(
+                  //                     Radius.circular(2)),
+                  //                 color: Colors.yellow[700],
+                  //               ),
+                  //               padding: const EdgeInsets.only(
+                  //                   left: 8, right: 8.0),
+                  //               child: Text(
+                  //                 "${index + 1}",
+                  //                 style: GoogleFonts.cairo(
+                  //                     fontSize: 16,
+                  //                     color: Colors.black),
+                  //               ),
+                  //             ),
+                  //             const SizedBox(
+                  //               width: 5,
+                  //             ),
+                  //             Expanded(
+                  //               child: Container(
+                  //                 decoration: const BoxDecoration(
+                  //                   borderRadius:
+                  //                   BorderRadius.all(
+                  //                       Radius.circular(2)),
+                  //                   color: Colors.white,
+                  //                 ),
+                  //                 child: Padding(
+                  //                   padding:
+                  //                   const EdgeInsets.only(
+                  //                       left: 8.0,
+                  //                       right: 8.0),
+                  //                   child: Row(
+                  //                     children: [
+                  //                       Row(
+                  //                         children: [
+                  //                           Padding(
+                  //                             padding:
+                  //                             const EdgeInsets
+                  //                                 .all(4.0),
+                  //                             child: Text(
+                  //                               "${allInfo[index]?.Tip_Title}",
+                  //                               style: GoogleFonts.markaziText(
+                  //                                   fontSize: 20,
+                  //                                   fontWeight:
+                  //                                   FontWeight
+                  //                                       .bold,
+                  //                                   color: Colors
+                  //                                       .black),
+                  //                             ),
+                  //                           ),
+                  //                         ],
+                  //                         mainAxisAlignment:
+                  //                         MainAxisAlignment
+                  //                             .center,
+                  //                       ),
+                  //                     ],
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //         children: [
+                  //           Card(
+                  //             color: const Color(0xff212D45),
+                  //             child: Column(
+                  //               children: [
+                  //                 Row(
+                  //                   children: [
+                  //                     Container(
+                  //                       decoration:
+                  //                       const BoxDecoration(
+                  //                         borderRadius:
+                  //                         BorderRadius.all(
+                  //                             Radius.circular(
+                  //                                 2)),
+                  //                         color: Colors.grey,
+                  //                       ),
+                  //                       padding:
+                  //                       const EdgeInsets.only(
+                  //                           left: 8,
+                  //                           right: 8.0),
+                  //                       child: Text(
+                  //                         "${time.showDate2(allInfo[index]!.date!.toDate())}",
+                  //                         style:
+                  //                         GoogleFonts.cairo(
+                  //                             fontSize: 16,
+                  //                             color: Colors
+                  //                                 .black),
+                  //                       ),
+                  //                     ),
+                  //                   ],
+                  //                   mainAxisAlignment:
+                  //                   MainAxisAlignment.end,
+                  //                 ),
+                  //                 const SizedBox(
+                  //                   height: 10,
+                  //                 ),
+                  //                 Padding(
+                  //                   padding:
+                  //                   const EdgeInsets.all(8.0),
+                  //                   child: Padding(
+                  //                       padding:
+                  //                       const EdgeInsets.all(
+                  //                           8.0),
+                  //                       child: Linkify(
+                  //                         onOpen: (link) async {
+                  //                           if (await canLaunch(
+                  //                               link.url)) {
+                  //                             await launch(
+                  //                                 link.url);
+                  //                           } else {
+                  //                             throw 'Could not launch $link';
+                  //                           }
+                  //                         },
+                  //                         text:
+                  //                         "${allInfo[index]?.Tip_Description_Info}",
+                  //                         style: GoogleFonts
+                  //                             .markaziText(
+                  //                             fontSize: 20,
+                  //                             color: Colors
+                  //                                 .white),
+                  //                         linkStyle:
+                  //                         const TextStyle(
+                  //                             color: Colors
+                  //                                 .blue),
+                  //                       )),
+                  //                 ),
+                  //                 (allInfo[index]?.Is_Material_Lottie ==
+                  //                     true &&
+                  //                     allInfo[index]?.Material_Path !=
+                  //                         "" &&
+                  //                     allInfo[index]?.Material_Path !=
+                  //                         null)
+                  //                     ? Container(
+                  //                   decoration:
+                  //                   const BoxDecoration(
+                  //                       color: Colors
+                  //                           .white),
+                  //                   child: Lottie.network(
+                  //                     "${allInfo[index]?.Material_Path}",
+                  //                     width: MediaQuery.of(
+                  //                         context)
+                  //                         .size
+                  //                         .width -
+                  //                         30,
+                  //                     height: MediaQuery.of(
+                  //                         context)
+                  //                         .size
+                  //                         .height /
+                  //                         1.50,
+                  //                   ),
+                  //                 )
+                  //                     : (allInfo[index]?.Is_Material_YouTube ==
+                  //                     true &&
+                  //                     allInfo[index]?.Material_Path !=
+                  //                         "" &&
+                  //                     allInfo[index]?.Material_Path !=
+                  //                         null)
+                  //                     ? Padding(
+                  //                   padding:
+                  //                   const EdgeInsets
+                  //                       .all(8.0),
+                  //                   child: Container(
+                  //                     decoration:
+                  //                     const BoxDecoration(
+                  //                         color: Colors
+                  //                             .white),
+                  //                     child: Text(
+                  //                         "${youTubeLink}"),
+                  //                     // YoutubePlayer(
+                  //                     //     controller:
+                  //                     //         youtubeController,
+                  //                     //     showVideoProgressIndicator:
+                  //                     //         true),
+                  //                   ),
+                  //                 )
+                  //                     : ((allInfo[index]?.Material_Path_List?.length ?? 0) == 0 &&
+                  //                     allInfo[index]
+                  //                         ?.Material_Path !=
+                  //                         "" &&
+                  //                     allInfo[index]
+                  //                         ?.Material_Path !=
+                  //                         null)
+                  //                     ? Container(
+                  //                     width: MediaQuery.of(context)
+                  //                         .size
+                  //                         .width -
+                  //                         30,
+                  //                     height: MediaQuery.of(context)
+                  //                         .size
+                  //                         .height /
+                  //                         1.50,
+                  //                     decoration:
+                  //                     const BoxDecoration(
+                  //                       color: Color(
+                  //                           0xff212D45),
+                  //                     ),
+                  //                     child:
+                  //                     CachedNetworkImage(
+                  //                       imageUrl:
+                  //                       "${allInfo[index]?.Material_Path}",
+                  //                       progressIndicatorBuilder: (context,
+                  //                           url,
+                  //                           downloadProgress) =>
+                  //                           CircularProgressIndicator(
+                  //                               value:
+                  //                               downloadProgress.progress),
+                  //                       errorWidget: (context,
+                  //                           url,
+                  //                           error) =>
+                  //                       const Icon(
+                  //                           Icons
+                  //                               .error),
+                  //                     ))
+                  //                     : ((allInfo[index]?.Material_Path_List?.length ??
+                  //                     0) >
+                  //                     0 &&
+                  //                     (allInfo[index]?.Material_Path ==
+                  //                         "" ||
+                  //                         allInfo[index]?.Material_Path ==
+                  //                             null))
+                  //                     ? Padding(
+                  //                   padding:
+                  //                   const EdgeInsets
+                  //                       .all(
+                  //                       12.0),
+                  //                   child:
+                  //                   Stack(
+                  //                     alignment:
+                  //                     Alignment
+                  //                         .bottomCenter,
+                  //                     children: [
+                  //                       Container(
+                  //                         width:
+                  //                         MediaQuery.of(context).size.width - 30,
+                  //                         height:
+                  //                         MediaQuery.of(context).size.height / 1.50,
+                  //                         decoration: BoxDecoration(
+                  //                             borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  //                             color: const Color(0xff212D45),
+                  //                             boxShadow: [
+                  //                               BoxShadow(
+                  //                                 color: Colors.black.withOpacity(0.5),
+                  //                                 spreadRadius: 3,
+                  //                                 blurRadius: 2,
+                  //                                 offset: const Offset(0, 3), // changes position of shadow
+                  //                               ),
+                  //                             ]),
+                  //                         child:
+                  //                         PageView.builder(
+                  //                           itemBuilder:
+                  //                               (context, item) {
+                  //                             return CachedNetworkImage(
+                  //                               imageUrl: "${allInfo[index]?.Material_Path_List?[item]}",
+                  //                               progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
+                  //                               errorWidget: (context, url, error) => const Icon(Icons.error),
+                  //                             );
+                  //                           },
+                  //                           controller:
+                  //                           pictureListController,
+                  //                           itemCount:
+                  //                           allInfo[index]?.Material_Path_List?.length ?? 1,
+                  //                           scrollDirection:
+                  //                           Axis.horizontal,
+                  //                         ),
+                  //                       ),
+                  //                       Padding(
+                  //                         padding: const EdgeInsets
+                  //                             .all(
+                  //                             8.0),
+                  //                         child:
+                  //                         Container(
+                  //                           decoration:
+                  //                           const BoxDecoration(
+                  //                             borderRadius: BorderRadius.all(Radius.circular(8)),
+                  //                             color: Colors.white,
+                  //                           ),
+                  //                           child:
+                  //                           Row(
+                  //                             mainAxisAlignment: MainAxisAlignment.center,
+                  //                             children: [
+                  //                               Padding(
+                  //                                 padding: const EdgeInsets.only(bottom: 5, top: 5),
+                  //                                 child: SmoothPageIndicator(
+                  //                                   // key: keyButton1,
+                  //                                     controller: pictureListController,
+                  //                                     count: allInfo[index]?.Material_Path_List?.length ?? 1,
+                  //                                     effect: WormEffect(
+                  //                                       activeDotColor: Colors.yellow[700]!,
+                  //                                       radius: 15,
+                  //                                       strokeWidth: 1,
+                  //                                       dotHeight: 10,
+                  //                                       dotWidth: 10,
+                  //                                       dotColor: Colors.grey,
+                  //                                     )),
+                  //                               ),
+                  //                             ],
+                  //                           ),
+                  //                         ),
+                  //                       ),
+                  //                     ],
+                  //                   ),
+                  //                 )
+                  //                     : const SizedBox(),
+                  //               ],
+                  //             ),
+                  //           )
+                  //         ],
+                  //       )),
+                  // );
+                }),
+          ),
+       // )
+    ],
+        )
           : const SizedBox(),
+
+
     );
   }
 }

@@ -402,18 +402,17 @@ class _InfoBankScreenState extends State<InfoBankScreen> {
                       children: [
                         Expanded(
                           child: GestureDetector(
-                            // onTap: () {
-                            //   Navigator.push(context,
-                            //       MaterialPageRoute(builder: (context) {
-                            //         return InfoSectionScreen(info: allInfo);
-                            //       }));
-                            // },
                             onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return OfficialNewsScreen();
-                              }));
-                            },
+
+               Navigator.push(context,
+                    MaterialPageRoute(builder: (context) {
+                  return InfoDetailsScreen(
+                      isForAppTips: false,
+                      isForAppOfficialInfoTip: true,
+                      isForAppOfficialFAQ: false,
+                      tips: allInfo);
+                }));
+            },
                             child: Stack(
                               alignment: Alignment.bottomCenter,
                               children: [
