@@ -1,10 +1,10 @@
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../data/Info_Bank_Data.dart';
 import '../models/Info.dart';
 
@@ -16,7 +16,9 @@ class InfoEditDetails extends StatefulWidget {
   @override
   State<InfoEditDetails> createState() => _InfoEditDetailsState();
 }
+
 class _InfoEditDetailsState extends State<InfoEditDetails> {
+
   late TextEditingController _titleController;
   late TextEditingController _sectionController;
   late TextEditingController _relatedScreenController;
@@ -45,19 +47,15 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
   late TextEditingController _isForAdminController;
   late TextEditingController _isForSalesTeamController;
   late TextEditingController _isForOwnerController;
-  List? _selectedImages = []; // List to store selected images
+  List<File> _selectedImages =[];
   final List<String> imageUrls = [];
+  // late  XFile pickedFile;
   String imageUrl="";
   final ImagePicker _picker = ImagePicker();
-  List<Widget> _initialImages = [];
   @override
   void initState() {
     super.initState();
     // Initialize controllers with the infoBank values
-    List? initialAssetPaths = widget.infoBank.Material_Path_List;
-    if (initialAssetPaths != null) {
-      _initialImages = initialAssetPaths.map((path) => Image.asset(path)).toList();
-    }
     _titleController = TextEditingController(text: widget.infoBank.Tip_Title ?? '');
     _sectionController = TextEditingController(text: widget.infoBank.Tip_Section ?? '');
     _relatedScreenController = TextEditingController(text: widget.infoBank.Related_Screen ?? '');
@@ -120,45 +118,43 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
     _isForOwnerController.dispose();
     super.dispose();
   }
-  late XFile pickedFile;
-  Future<void> _pickImage() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
-    // Check if pickedFile is not null
-    if (pickedFile != null) {
+  Future<void> _pickImages() async {
+    try {
+      final List<XFile> pickedImages = await _picker.pickMultiImage();
       setState(() {
-        if (_selectedImages == null) {
-          _selectedImages = [File(pickedFile.path)];
-        } else {
-          _selectedImages!.add(File(pickedFile.path));
-        }
-        _initialImages.add(Image.file(File(pickedFile.path)));
+        _selectedImages.addAll(pickedImages.map((e) => File(e.path)));
+        widget.infoBank.Material_Path_List?.addAll(_selectedImages);
       });
-      // Update the InfoScreen with the new image path
-      widget.infoBank.Material_Path_List!.add(pickedFile.path);
-    } else {
-      // Handle the case where no image was picked
-      print("No image selected.");
+    } catch (e) {
+      print('Error picking images: $e');
     }
   }
 
-  Future<void> _removeImage(int index) async {
+  void _removeImage(int index) {
     setState(() {
-      _selectedImages?.removeAt(index);
+      widget.infoBank.Material_Path_List!.removeAt(index);
     });
   }
   final storage = FirebaseStorage.instance;
   Future<void> _saveAndUpdate() async {
-    //    Reference referenceRoot = FirebaseStorage.instance.ref();
-    //    Reference referenceImage=referenceRoot.child('images');
-    //    String Name =DateTime.now().microsecondsSinceEpoch.toString();
-    //  ///  try
-    //  Reference referenceImageToUpload=referenceImage.child(Name);
-    // await   referenceImageToUpload.putFile(File(pickedFile.path));
-    //    imageUrl=await referenceImageToUpload.getDownloadURL();
-    //    print(imageUrl);
-    //    imageUrls.add(imageUrl);
-    //  // Find the Info object with the title "widget.infoBank.Tip_Title"
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceImage = referenceRoot.child('images');
+    try {
+      for (var index = 0; index < _selectedImages.length; index++) {
+        String name = 'image_$index';
+        Reference referenceImageToUpload = referenceImage.child(name);
+        await referenceImageToUpload.putFile(_selectedImages[index]);
+        imageUrl = await referenceImageToUpload.getDownloadURL();
+        print(imageUrl);
+        imageUrls.add(imageUrl);
+      }
+    } catch (e) {
+      print('Error uploading image: $e');
+    }
+
+
+    // Find the Info object with the title "widget.infoBank.Tip_Title"
     Info? infoToEdit;
     for (var info in infoBank.values) {
       if (info.Tip_Title == widget.infoBank.Tip_Title) {
@@ -187,10 +183,9 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
       infoToEdit.Is_Material_YouTube = _isMaterialYouTubeController.text == 'true';
       infoToEdit.Related_App_Screen = _relatedAppScreenController.text;
       infoToEdit.Material_Path = _materialPathController.text;
-      // infoToEdit.Material_Path_List = imageUrls??[];
-      infoToEdit.Material_Path_List = _selectedImages?.map((image) => image.path).toList();
-      infoToEdit.Android_Ver = int.parse(_androidVerController.text);
-      infoToEdit.IOS_Ver = int.parse(_iosVerController.text);
+      infoToEdit.Material_Path_List = imageUrls??[];
+      infoToEdit.Android_Ver = _androidVerController.text;
+      infoToEdit.IOS_Ver = _iosVerController.text;
       infoToEdit.Is_Optional = _isOptionalController.text == 'true';
       infoToEdit.Is_Required = _isRequiredController.text == 'true';
       infoToEdit.Is_Take_Time = _isTakeTimeController.text == 'true';
@@ -220,15 +215,7 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
 
   @override
   Widget build(BuildContext context) {
-    List? initialAssetPaths=widget.infoBank.Material_Path_List;
-    List<Widget> _initialImages = initialAssetPaths!.map((path) => Image.asset(path)).toList();
-
-
-    void _removeImage(int index) {
-      setState(() {
-        _selectedImages!.removeAt(index);
-      });
-    }
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.infoBank.Tip_Title ?? 'Info Details'),
@@ -236,171 +223,134 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
           IconButton(
             icon: const Icon(Icons.save),
             onPressed: () {
-              _saveAndUpdate();
-            },
-          ),
+              if (_formKey.currentState!.validate()) {
+                _saveAndUpdate();
+              }}
+              )
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: [
-          _buildTextField('Tip_Title', _titleController),
-          _buildTextField('Tip_Section', _sectionController),
-          _buildTextField('Related_Screen', _relatedScreenController),
-          _buildTextField('Tip_Order_Number', _orderNumberController),
-          _buildTextField('Tip_Main_Description', _mainDescriptionController),
-          _buildTextField('Tip_Description_Idea', _descriptionIdeaController),
-          _buildTextField('Tip_Description_Info', _descriptionInfoController),
-          _buildTextField('Tip_Tech_Details', _techDetailsController),
-          _buildTextField('Is_Basic', _isBasicController,),
-          _buildTextField('Is_New', _isNewController,),
-          _buildTextField('Is_FAQ', _isFAQController,),
-          _buildTextField('Is_Official', _isOfficialController,),
-          _buildTextField('Is_Step_By_Step', _isStepByStepController,),
-          _buildTextField('Is_Material_Lottie', _isMaterialLottieController,),
-          _buildTextField(
-            'Is_Material_Picture', _isMaterialPictureController,),
-          _buildTextField(
-            'Is_Material_YouTube', _isMaterialYouTubeController,),
-          _buildTextField('Related_App_Screen', _relatedAppScreenController),
-          _buildTextField('Material_Path', _materialPathController),
-          _buildTextField('Material_Path_List', _materialPathListController, isPicutreList: true),
-          _selectedImages!.isEmpty
-              ? const Center(child: Text('No images selected'))
-              : SizedBox(
-              height: 400,
-              child:ReorderableListView(
-                onReorder: (oldIndex, newIndex) {
-                  if (oldIndex < newIndex) {
-                    newIndex -= 1;
-                  }
-                  final item = _selectedImages!.removeAt(oldIndex);
-                  _selectedImages!.insert(newIndex, item);
-                },
-                children: List.generate(_initialImages.length + _selectedImages!.length, (index) {
-                  if (index < _initialImages!.length) {
-                    final assetPath = initialAssetPaths![index];
-                    return Dismissible(
-                      key: ValueKey(assetPath),
-                      onDismissed: (direction) {
-                        setState(() {
-                          initialAssetPaths.removeAt(index);
-                          _initialImages.removeAt(index);
-                        });
-                      },
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.all(8.0),
-                        leading: _initialImages[index],
-                        title: Text('Image ${index + 1}'),
-                      ),
-                    );
-                  } else {
-                    final image = _selectedImages![index - _initialImages.length];
-                    return Dismissible(
-                      key: ValueKey(image.path),
-                      onDismissed: (direction) {
-                        _removeImage(index - _initialImages.length);
-                      },
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.all(8.0),
-                        leading: Image.file(
-                          image,
-                          height: 200,
-                          width: 100,
-                        ),
-                        title: Text('Image ${index + 1}'),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.remove_circle, color: Colors.red),
-                          onPressed: () {
-                            _removeImage(index - _initialImages.length);
-                          },
-                        ),
-                      ),
-                    );
-                  }
-                }),
-              )
+      body: Form(
+        child: ListView(   key: _formKey,
+          padding: const EdgeInsets.all(16.0),
+          children: [
+            _buildTextField('Tip_Title', _titleController),
+            _buildTextField('Tip_Section', _sectionController),
+            _buildTextField('Related_Screen', _relatedScreenController),
+            _buildTextField('Tip_Order_Number', _orderNumberController,isNumeric: true),
+            _buildTextField('Tip_Main_Description', _mainDescriptionController),
+            _buildTextField('Tip_Description_Idea', _descriptionIdeaController),
+            _buildTextField('Tip_Description_Info', _descriptionInfoController),
+            _buildTextField('Tip_Tech_Details', _techDetailsController),
+            _buildTextField('Is_Basic', _isBasicController,isbool:true),
+            _buildTextField('Is_New', _isNewController,isbool:true),
+            _buildTextField('Is_FAQ', _isFAQController,isbool:true),
+            _buildTextField('Is_Official', _isOfficialController,isbool:true),
+            _buildTextField('Is_Step_By_Step', _isStepByStepController,isbool:true),
+            _buildTextField('Is_Material_Lottie', _isMaterialLottieController,isbool:true),
+            _buildTextField(
+              'Is_Material_Picture', _isMaterialPictureController,isbool:true),
+            _buildTextField(
+              'Is_Material_YouTube', _isMaterialYouTubeController,isbool:true),
+            _buildTextField('Related_App_Screen', _relatedAppScreenController),
+            _buildTextField('Material_Path', _materialPathController),
+            _buildTextField('Material_Path_List', _materialPathListController,
+                isPicutreList: true),
+            widget.infoBank.Material_Path_List!.isEmpty
+                ? const Center(child: Text('No images selected'))
+                : SizedBox(
+                height: 400,
 
-
-            // child: ReorderableListView(
-            //   onReorder: (oldIndex, newIndex) {
-            //     // Update the list of images based on the reorder
-            //     if (oldIndex < newIndex) {
-            //       newIndex -= 1;
-            //     }
-            //     final item = _selectedImages?.removeAt(oldIndex);
-            //     _selectedImages?.insert(newIndex, item);
-            //   },
-            //   children: List.generate(_selectedImages!.length, (index) {
-            //     final image = _selectedImages![index];
-            //     return Dismissible(
-            //       key: ValueKey(image.path), // Use unique key for each item
-            //       onDismissed: (direction) {
-            //         _removeImage(index);
-            //       },
-            //       child: Column(
-            //         children: [
-            //           ListTile(
-            //             contentPadding: const EdgeInsets.all(8.0),
-            //             leading:
-            //             Image.file(
-            //               image,
-            //               height: 200,
-            //               width: 100,
-            //               //  fit: BoxFit.cover,
-            //             ),
-            //             title: Text('Image ${index + 1}'),
-            //             trailing: IconButton(
-            //               icon: const Icon(
-            //                   Icons.remove_circle, color: Colors.red),
-            //               onPressed: () {
-            //                 _removeImage(index);
-            //               },
-            //             ),
-            //           ),   ListTile(
-            //             contentPadding: const EdgeInsets.all(8.0),
-            //             leading:
-            //             Image.file(
-            //               image,
-            //               height: 200,
-            //               width: 100,
-            //               //  fit: BoxFit.cover,
-            //             ),
-            //             title: Text('Image ${index + 1}'),
-            //             trailing: IconButton(
-            //               icon: const Icon(
-            //                   Icons.remove_circle, color: Colors.red),
-            //               onPressed: () {
-            //                 _removeImage(index);
-            //               },
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     );
-            //   }),
-            // )
-          ),
-          _buildTextField(
-              'Android_Ver', _androidVerController, isNumeric: true),
-          _buildTextField('IOS_Ver', _iosVerController, isNumeric: true),
-          _buildTextField('Is_Optional', _isOptionalController,),
-          _buildTextField('Is_Required', _isRequiredController,),
-          _buildTextField('Is_Take_Time', _isTakeTimeController,),
-          _buildTextField('Is_ComingSoon', _isComingSoonController,),
-          _buildTextField('Is_For_Admin', _isForAdminController,),
-          _buildTextField('Is_For_SalesTeam', _isForSalesTeamController,),
-          _buildTextField('Is_ForOwner', _isForOwnerController,),
-        ],
+           child:ReorderableListView(
+             onReorder: (oldIndex, newIndex) {
+               // Update the list of images based on the reorder
+               if (oldIndex < newIndex) {
+                 newIndex -= 1;
+               }
+               setState(() {
+                 final item = widget.infoBank.Material_Path_List!.removeAt(oldIndex);
+                 widget.infoBank.Material_Path_List!.insert(newIndex, item);
+               });
+             },
+             children: List.generate(widget.infoBank.Material_Path_List!.length, (index) {
+               final image = widget.infoBank.Material_Path_List![index];
+               return Dismissible(
+                 key: ValueKey(image), // Use unique key for each item
+                 onDismissed: (direction) {
+                   _removeImage(index);
+                 },
+                 child: ListTile(
+                   contentPadding: const EdgeInsets.all(8.0),
+                   leading: image is String
+                       ? image.startsWith('assets/')
+                       ? Image.asset(image)
+                       : Image.file(File(image),  height: 200, // Add a height to resize the image
+                     width: 100,)
+                       :  Image.file(image as File,   height: 200, // Add a height to resize the image
+                     width: 100,),
+                   title: Text('Image ${index + 1}'),
+                   trailing: IconButton(
+                     icon: const Icon(
+                         Icons.remove_circle, color: Colors.red),
+                     onPressed: () {
+                       _removeImage(index);
+                     },
+                   ),
+                 ),
+               );
+             }),
+           )
+            ),
+            _buildTextField(
+                'Android_Ver', _androidVerController, isNumeric: true),
+            _buildTextField('IOS_Ver', _iosVerController, isNumeric: true),
+            _buildTextField('Is_Optional', _isOptionalController,isbool:true),
+            _buildTextField('Is_Required', _isRequiredController,isbool:true),
+            _buildTextField('Is_Take_Time', _isTakeTimeController,isbool:true),
+            _buildTextField('Is_ComingSoon', _isComingSoonController,isbool:true),
+            _buildTextField('Is_For_Admin', _isForAdminController,isbool:true),
+            _buildTextField('Is_For_SalesTeam', _isForSalesTeamController,isbool:true),
+            _buildTextField('Is_ForOwner', _isForOwnerController,isbool:true),
+          ],
+        ),
       ),
     );
   }
+  Widget _buildTextField(String label, TextEditingController controller, {bool isNumeric = false,bool isPicutreList = false,bool isbool=false}) {
+    if (isbool) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          children: [
+            Text(label),
+            Spacer(),
+            Row(
+              children: [
+                Text(' ${controller.text.toLowerCase() == 'true' ? 'True' : 'False'}'),
+                Switch(
+                  value: controller.text.toLowerCase() == 'true',
+                  onChanged: (bool value) {
+                    setState(() {
+                      controller.text = value.toString();
+                    });
+                  },
+                ),
 
-  Widget _buildTextField(String label, TextEditingController controller, {bool isNumeric = false,bool isPicutreList = false}) {
-    return Padding(
+              ],
+            ),
+          ],
+        ),
+      );
+    } else { return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
+        readOnly: isPicutreList,
         controller: controller,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter a value';
+          }
+          return null;
+        },
         onChanged: (value) async {
           setState(() {
 
@@ -422,12 +372,13 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
             widget.infoBank.   Is_Material_Lottie = _isMaterialLottieController.text.toLowerCase() == 'true';
             widget.infoBank.Is_Material_Picture = _isMaterialPictureController.text.toLowerCase() == 'true';
             widget.infoBank. Is_Material_YouTube = _isMaterialYouTubeController.text.toLowerCase() == 'true';
-
             widget.infoBank.Related_App_Screen = _relatedAppScreenController.text;
             widget.infoBank.Material_Path = _materialPathController.text;
-            widget.infoBank.Material_Path_List = _selectedImages?.map((image) => image.path).toList();
-            widget.infoBank.Android_Ver = int.tryParse(_androidVerController.text);
-            widget.infoBank.IOS_Ver = int.tryParse(_iosVerController.text);
+            // Save image paths in Material_Path_List
+            List<String> imagePaths = _selectedImages.map((image) => image.path).toList();
+            widget.infoBank.Material_Path_List = imagePaths;
+            widget.infoBank.Android_Ver = _androidVerController.text;
+            widget.infoBank.IOS_Ver = _iosVerController.text;
             widget.infoBank.Is_Optional = _isOptionalController.text.toLowerCase() == 'true';
             widget.infoBank.Is_Required = _isRequiredController.text.toLowerCase() == 'true';
             widget.infoBank.Is_Take_Time = _isTakeTimeController.text.toLowerCase() == 'true';
@@ -443,13 +394,14 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
           labelText: label,
           suffixIcon: (isPicutreList==true)?IconButton(
             icon: const Icon(Icons.add_a_photo),
-            onPressed: _pickImage,
+            onPressed: _pickImages,
           ):null,
           border: const OutlineInputBorder(),
         ),
       ),
-    );
+    );}
   }
+
 }
 
 class InfoAddDetails extends StatefulWidget {
@@ -491,7 +443,7 @@ class _InfoAddDetailsState extends State<InfoAddDetails> {
   late TextEditingController _isForAdminController;
   late TextEditingController _isForSalesTeamController;
   late TextEditingController _isForOwnerController;
-  List<File> _selectedImages = []; // List to store selected images
+  final List<File> _selectedImages = []; // List to store selected images
   final List<String> imageUrls = [];
   String imageUrl="";
   final ImagePicker _picker = ImagePicker();
@@ -563,18 +515,21 @@ class _InfoAddDetailsState extends State<InfoAddDetails> {
     super.dispose();
   }
   // late XFile pickedFile;
-  Future<void> _pickImage() async {
-    final  pickedFile = (await _picker.pickImage(source: ImageSource.gallery))!;
-    print("path:${pickedFile?.path}");
-    if (pickedFile != null) {
+  Future<void> _pickImages() async {
+    try {
+      final List<XFile> pickedImages = await _picker.pickMultiImage();
       setState(() {
-        _selectedImages.add(File(pickedFile.path));
+        _selectedImages.addAll(pickedImages.map((e) => File(e.path)));
+        widget.infoBank.Material_Path_List?.addAll(pickedImages.map((e) => e.path).toList());
+
       });
+    } catch (e) {
+      print('Error picking images: $e');
     }
   }
   Future<void> _removeImage(int index) async {
     setState(() {
-      _selectedImages.removeAt(index);
+      widget.infoBank.Material_Path_List!.removeAt(index);
     });
   }
   final storage = FirebaseStorage.instance;
@@ -608,9 +563,10 @@ class _InfoAddDetailsState extends State<InfoAddDetails> {
       Is_Material_YouTube: _isMaterialYouTubeController.text == 'true',
       Related_App_Screen: _relatedAppScreenController.text??"",
       Material_Path: _materialPathController.text??"",
-      Material_Path_List: imageUrls??[],
-      Android_Ver: int.parse(_androidVerController.text)??0,
-      IOS_Ver: int.parse(_iosVerController.text)??0,
+      // Material_Path_List: imageUrls??[],
+      Material_Path_List: widget.infoBank.Material_Path_List??[],
+  Android_Ver: _androidVerController.text,
+IOS_Ver: _iosVerController.text,
       Is_Optional: _isOptionalController.text == 'true',
       Is_Required: _isRequiredController.text == 'true',
       Is_Take_Time: _isTakeTimeController.text == 'true',
@@ -645,6 +601,7 @@ class _InfoAddDetailsState extends State<InfoAddDetails> {
 
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.infoBank.Tip_Title ?? 'Info Details'),
@@ -652,98 +609,134 @@ class _InfoAddDetailsState extends State<InfoAddDetails> {
           IconButton(
             icon: const Icon(Icons.save),
             onPressed: () {
-              _saveAndUpdate();
+              if (_formKey.currentState!.validate()) {
+                _saveAndUpdate();
+              }
             },
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: [
-          _buildTextField('Tip_Title', _titleController),
-          _buildTextField('Tip_Section', _sectionController),
-          _buildTextField('Related_Screen', _relatedScreenController),
-          _buildTextField('Tip_Order_Number', _orderNumberController),
-          _buildTextField('Tip_Main_Description', _mainDescriptionController),
-          _buildTextField('Tip_Description_Idea', _descriptionIdeaController),
-          _buildTextField('Tip_Description_Info', _descriptionInfoController),
-          _buildTextField('Tip_Tech_Details', _techDetailsController),
-          _buildTextField('Is_Basic', _isBasicController,),
-          _buildTextField('Is_New', _isNewController,),
-          _buildTextField('Is_FAQ', _isFAQController,),
-          _buildTextField('Is_Official', _isOfficialController,),
-          _buildTextField('Is_Step_By_Step', _isStepByStepController,),
-          _buildTextField('Is_Material_Lottie', _isMaterialLottieController,),
-          _buildTextField(
-            'Is_Material_Picture', _isMaterialPictureController,),
-          _buildTextField(
-            'Is_Material_YouTube', _isMaterialYouTubeController,),
-          _buildTextField('Related_App_Screen', _relatedAppScreenController),
-          _buildTextField('Material_Path', _materialPathController),
-          _buildTextField('Material_Path_List', _materialPathListController,
-              isPicutreList: true),
-          _selectedImages.isEmpty
-              ? const Center(child: Text('No images selected'))
-              : SizedBox(
-              height: 400,
+      body: Form(    key: _formKey,
+        child: ListView(
+          padding: const EdgeInsets.all(16.0),
+          children: [
+            _buildTextField('Tip_Title', _titleController),
+            _buildTextField('Tip_Section', _sectionController),
+            _buildTextField('Related_Screen', _relatedScreenController),
+            _buildTextField('Tip_Order_Number', _orderNumberController,isNumeric: true),
+            _buildTextField('Tip_Main_Description', _mainDescriptionController),
+            _buildTextField('Tip_Description_Idea', _descriptionIdeaController),
+            _buildTextField('Tip_Description_Info', _descriptionInfoController),
+            _buildTextField('Tip_Tech_Details', _techDetailsController),
+            _buildTextField('Is_Basic', _isBasicController,isbool:true),
+            _buildTextField('Is_New', _isNewController,isbool:true),
+            _buildTextField('Is_FAQ', _isFAQController,isbool:true),
+            _buildTextField('Is_Official', _isOfficialController,isbool:true),
+            _buildTextField('Is_Step_By_Step', _isStepByStepController,isbool:true),
+            _buildTextField('Is_Material_Lottie', _isMaterialLottieController,isbool:true),
+            _buildTextField(
+              'Is_Material_Picture', _isMaterialPictureController,isbool:true),
+            _buildTextField(
+              'Is_Material_YouTube', _isMaterialYouTubeController,isbool:true),
+            _buildTextField('Related_App_Screen', _relatedAppScreenController),
+            _buildTextField('Material_Path', _materialPathController),
+            _buildTextField('Material_Path_List', _materialPathListController, isPicutreList: true),
+            _selectedImages.isEmpty
+                ? const Center(child: Text('No images selected'))
+                : SizedBox(
+                height: 400,
 
-              child: ReorderableListView(
-                onReorder: (oldIndex, newIndex) {
-                  // Update the list of images based on the reorder
-                  if (oldIndex < newIndex) {
-                    newIndex -= 1;
-                  }
-                  final item = _selectedImages.removeAt(oldIndex);
-                  _selectedImages.insert(newIndex, item);
-                },
-                children: List.generate(_selectedImages.length, (index) {
-                  final image = _selectedImages[index];
-                  return Dismissible(
-                    key: ValueKey(image.path), // Use unique key for each item
-                    onDismissed: (direction) {
-                      _removeImage(index);
-                    },
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.all(8.0),
-                      leading: Image.file(
-                        image,
-                        height: 200,
-                        width: 100,
-                        //  fit: BoxFit.cover,
+                child: ReorderableListView(
+                  onReorder: (oldIndex, newIndex) {
+                    // Update the list of images based on the reorder
+                    if (oldIndex < newIndex) {
+                      newIndex -= 1;
+                    }
+                    setState(() {
+                      final item = _selectedImages.removeAt(oldIndex);
+                      _selectedImages.insert(newIndex, item);
+                    });
+
+                  },
+                  children: List.generate(_selectedImages.length, (index) {
+                    final image =_selectedImages[index];
+                    return Dismissible(
+                      key: ValueKey(image), // Use unique key for each item
+                      onDismissed: (direction) {
+                        _removeImage(index);
+                      },
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.all(8.0),
+                        leading: Image.file(
+                          image,
+                          height: 200,
+                          width: 100,
+                          //  fit: BoxFit.cover,
+                        ),
+                        title: Text('Image ${index + 1}'),
+                        trailing: IconButton(
+                          icon: const Icon(
+                              Icons.remove_circle, color: Colors.red),
+                          onPressed: () {
+                            _removeImage(index);
+                          },
+                        ),
                       ),
-                      title: Text('Image ${index + 1}'),
-                      trailing: IconButton(
-                        icon: const Icon(
-                            Icons.remove_circle, color: Colors.red),
-                        onPressed: () {
-                          _removeImage(index);
-                        },
-                      ),
-                    ),
-                  );
-                }),
-              )
-          ),
-          _buildTextField(
-              'Android_Ver', _androidVerController, isNumeric: true),
-          _buildTextField('IOS_Ver', _iosVerController, isNumeric: true),
-          _buildTextField('Is_Optional', _isOptionalController,),
-          _buildTextField('Is_Required', _isRequiredController,),
-          _buildTextField('Is_Take_Time', _isTakeTimeController,),
-          _buildTextField('Is_ComingSoon', _isComingSoonController,),
-          _buildTextField('Is_For_Admin', _isForAdminController,),
-          _buildTextField('Is_For_SalesTeam', _isForSalesTeamController,),
-          _buildTextField('Is_ForOwner', _isForOwnerController,),
-        ],
+                    );
+                  }),
+                )
+            ),
+            _buildTextField('Android_Ver', _androidVerController, isNumeric: true),
+            _buildTextField('IOS_Ver', _iosVerController, isNumeric: true),
+            _buildTextField('Is_Optional', _isOptionalController,isbool:true),
+            _buildTextField('Is_Required', _isRequiredController,isbool:true),
+            _buildTextField('Is_Take_Time', _isTakeTimeController,isbool:true),
+            _buildTextField('Is_ComingSoon', _isComingSoonController,isbool:true),
+            _buildTextField('Is_For_Admin', _isForAdminController,isbool:true),
+            _buildTextField('Is_For_SalesTeam', _isForSalesTeamController,isbool:true),
+            _buildTextField('Is_ForOwner', _isForOwnerController,isbool:true),
+          ],
+        ),
       ),
     );
   }
+  Widget _buildTextField(String label, TextEditingController controller, {bool isNumeric = false,bool isPicutreList = false,bool isbool=false}) {
+    if (isbool) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          children: [
+            Text(label),
+            Spacer(),
+            Row(
+              children: [
+                Text(' ${controller.text.toLowerCase() == 'true' ? 'True' : 'False'}'),
+                Switch(
+                  value: controller.text.toLowerCase() == 'true',
+                  onChanged: (bool value) {
+                    setState(() {
+                      controller.text = value.toString();
+                    });
+                  },
+                ),
 
-  Widget _buildTextField(String label, TextEditingController controller, {bool isNumeric = false,bool isPicutreList = false}) {
-    return Padding(
+              ],
+            ),
+          ],
+        ),
+      );
+    } else
+    { return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
+        readOnly: isPicutreList,
         controller: controller,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter a value';
+          }
+          return null;
+        },
         onChanged: (value) async {
           setState(() {
 
@@ -769,12 +762,12 @@ class _InfoAddDetailsState extends State<InfoAddDetails> {
             widget.infoBank.Related_App_Screen = _relatedAppScreenController.text;
             widget.infoBank.Material_Path = _materialPathController.text;
 // Save image paths in Material_Path_List
-// List<String> imagePaths = _selectedImages.map((image) => image.path).toList();
-// widget.infoBank.Material_Path_List = imagePaths;
-            widget.infoBank.Android_Ver = int.tryParse(_androidVerController.text);
-            widget.infoBank.IOS_Ver = int.tryParse(_iosVerController.text);
-
-
+//             List<String> imagePaths = _selectedImages.map((image) => image.path).toList();
+//             widget.infoBank.Material_Path_List = imagePaths;
+            List<String> imagePaths = _selectedImages.map((image) => image.path).toList();
+            widget.infoBank.Material_Path_List = imagePaths.isEmpty ? [] : imagePaths;
+              widget.infoBank.Android_Ver = _androidVerController.text;
+            widget.infoBank.IOS_Ver = _iosVerController.text;
             widget.infoBank.Is_Optional = _isOptionalController.text.toLowerCase() == 'true';
             widget.infoBank.Is_Required = _isRequiredController.text.toLowerCase() == 'true';
             widget.infoBank.Is_Take_Time = _isTakeTimeController.text.toLowerCase() == 'true';
@@ -788,13 +781,45 @@ class _InfoAddDetailsState extends State<InfoAddDetails> {
 
         decoration: InputDecoration(
           labelText: label,
-          suffixIcon: (isPicutreList==true)?IconButton(
-            icon: const Icon(Icons.add_a_photo),
-            onPressed: _pickImage,
+          suffixIcon: (isPicutreList==true)?Row(mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.add_a_photo),
+                onPressed: _pickImages,
+              ), IconButton(
+                icon: const Icon(Icons.edit),
+                onPressed: (){
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        content: Text(""),
+                        title: const Text("تعديل الصورة"),
+                        actions: [
+                          TextButton(
+                            child: const Text("الغاء"),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                            child: const Text("تعديل"),
+                            onPressed: () async {
+
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+            ],
           ):null,
           border: const OutlineInputBorder(),
         ),
       ),
-    );
+    );}
   }
 }
+

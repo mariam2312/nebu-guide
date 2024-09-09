@@ -13,7 +13,6 @@ import '../providers/FirestoreDataBase.dart';
 import '../providers/GuideProvider.dart';
 import '../screens/Info_Section_Screen.dart';
 import 'Info_Details_Screen.dart';
-import 'Official_News_Screen.dart';
 
 class InfoBankScreen extends StatefulWidget {
   static String id = "InfoBankScreen";

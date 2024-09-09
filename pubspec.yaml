@@ -72,6 +72,7 @@ dependencies:
   firebase_storage: ^11.0.3
   easy_stepper: ^0.1.2
   multi_image_picker_view: ^1.0.3
+  image_editor: ^1.5.1
 
 
 

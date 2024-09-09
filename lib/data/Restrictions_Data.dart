@@ -31,7 +31,9 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'عمليات البيع',
-      date: Timestamp.fromDate(DateTime.now())),
+      //change date
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
+  )),
   Restriction(
       Short_Description: "The process of Scrap purchase",
       Description:
@@ -58,7 +60,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'عمليات الشراء',
-      date: Timestamp.fromDate(DateTime.now())),
+date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
+)  ),
   Restriction(
       Short_Description: "Cash entry into the store.",
       Description:
@@ -83,7 +86,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'دخول نقدية',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Cash exit from the store.",
       Description:
@@ -108,7 +112,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'خروج نقدية',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
+      )  ),
   Restriction(
       Short_Description: "Goods entry from the store.",
       Description: "Goods entry operations from the store.",
@@ -129,7 +134,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'دخول بضاعة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Goods exit from the store.",
       Description:
@@ -152,7 +158,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'خروج بضاعة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
+      )  ),
   Restriction(
       Short_Description: "Scrap entry to the store.",
       Description:
@@ -178,7 +185,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'دخول كسر',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Scrap exit from the store.",
       Description:
@@ -204,7 +212,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'خروج كسر',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
+      )  ),
   Restriction(
       Short_Description:
           "Including all orders of goods that have not delivered yet",
@@ -227,7 +236,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'طلبيات البضاعة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
+      )  ),
   Restriction(
       Short_Description: "Scrap Tevet",
       Description:
@@ -254,7 +264,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تيفيت كسر',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
+      )  ),
   Restriction(
       Short_Description:
           "The workshop is where modifications are made to the goods,",
@@ -282,7 +293,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'الورشة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
+      )  ),
   Restriction(
       Short_Description: "The process of selling silver",
       Description:
@@ -311,7 +323,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: ' عمليات بيع الفضه ',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
+      )  ),
   //main
   Restriction(
       Short_Description: "Reference photos of operations",
@@ -342,7 +355,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'الصور المرجعية للعمليات ',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Returned",
       Description:
@@ -372,7 +386,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'مرتجع',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Linking salesman",
       Description:
@@ -401,7 +416,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'ربط البائعين ',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Double data encryption",
       Description:
@@ -421,7 +437,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تشففير مزدوج للبيانات',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Google drive backup",
       Description: " Backup to Google account to avoid data loss ",
@@ -440,7 +457,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'نسخة احتياطية علي حساب جوجل ',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Anti duplicate invoice Qr code",
       Description: "Anti duplicate invoice Qr code to avoid fraud and forgery ",
@@ -458,7 +476,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'كود حماية الفواتير',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Support ticket",
       Description:
@@ -478,7 +497,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'طلب دعم فني',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Client search by phone",
       Description:
@@ -508,7 +528,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'البحث عن العميل بالهاتف',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Instant sales approval",
       Description:
@@ -534,7 +555,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'اعتماد الفواتير اللحظي',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
 
   Restriction(
       Short_Description: "Dual taxes for national and international",
@@ -561,7 +583,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'الضريبة لشغل المحلي و المستورد',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Custom expenses -income types",
       Description: "Custom expenses -income types",
@@ -585,7 +608,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'بنود خاصة للمصاريف و الدخل ',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Goods reservation",
       Description:
@@ -613,7 +637,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'حجز بضاعة بالكود',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Original photo for every item",
       Description: "Original photo for every item",
@@ -640,7 +665,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تصوير كل قطعة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Workshop order by voice",
       Description: "Workshop order by voice",
@@ -667,7 +693,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تسجيل طلب للورشه بالصوت',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Cashback system",
       Description: "Cashback system",
@@ -694,7 +721,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'استرداد النقدية',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Multiple gift receipts",
       Description: "Multiple gift receipts",
@@ -721,7 +749,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تجزئه الفاتورة لاكتر من بيان',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Linking successors",
       Description: "Linking successors",
@@ -743,7 +772,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تعيين نائبين',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Linking stores",
       Description: "Linking stores",
@@ -765,7 +795,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'ربط اكتر من فرع',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Daily logs",
       Description: "Daily logs",
@@ -787,7 +818,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'الاشعارات اللحظية',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "CRM",
       Description: "CRM",
@@ -809,7 +841,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'ادارة العملاء',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Instant client's transactions summary ",
       Description: "Instant client's transactions summary ",
@@ -831,7 +864,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'عرض لحظي لاجمالي حركات العميل ',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "System shut down",
       Description: "System shut down",
@@ -853,7 +887,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'التحكم في غلق السيستم',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Goods purchaser role",
       Description: "Goods purchaser role",
@@ -872,7 +907,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'دور مسؤل مشتريات ',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Accountant role",
       Description: "Accountant role",
@@ -891,7 +927,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'دور المحاسب',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "General manager role",
       Description: "General manager role",
@@ -910,7 +947,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'دور مدير عام',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Cashier system",
       Description: "Cashier system",
@@ -929,7 +967,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'منظومة الكاشير ',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Serial number reader",
       Description: "Serial number reader",
@@ -948,7 +987,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'قارئ رقم السبائك ',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   //icons
   Restriction(
       Short_Description: " for uploading photos and pending invoices",
@@ -977,7 +1017,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: ' تحميل الصور والفواتير المعلقة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Detailed control screen.",
       Description:
@@ -995,7 +1036,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'شاشة التحكم التفصيلية',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Management screen.",
       Description:
@@ -1015,7 +1057,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: ' شاشة الادارة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Management Bars.",
       Description:
@@ -1037,7 +1080,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: ' شاشة الادارة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
 
 //gold price ....
   Restriction(
@@ -1065,7 +1109,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'أسعار حية للذهب الدولي',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Live local gold prices.",
       Description:
@@ -1091,7 +1136,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'أسعار حية للذهب المحلي',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Adjusting the gold price of the system.",
       Description: "Adjust the price of gold completely at any time.",
@@ -1116,7 +1162,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تعديل سعر الذهب للنظام',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description:
           "Adjusting the price of gold for the system and sharing it to the team.",
@@ -1139,7 +1186,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'مشاركة تعديل سعر الذهب للنظام',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
 
   //search icon
   Restriction(
@@ -1165,7 +1213,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'ايقونة بحث الكيو ار كود',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description:
           "We use it to inquire about the goods data by scaning their barcode",
@@ -1192,7 +1241,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'ايقونة بحث الباركود',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description:
           "We use it to inquire about the goods data by scaning their qrcode",
@@ -1219,7 +1269,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'ايقونة بحث بالكود',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Search for qr number",
       Description: "Search for qr numberby item details like the widget",
@@ -1244,7 +1295,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'ايقونة بحث بتفاصيل المنتج',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   //reports
   Restriction(
       Short_Description: "Including all reports of main operations ",
@@ -1267,7 +1319,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تقارير العمليات',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "sales reports",
       Description: "Including all reports of sales",
@@ -1287,7 +1340,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تقارير المبيعات',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Reports of Scrap exchange ",
       Description:
@@ -1310,7 +1364,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تقارير بدل الكسر',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Including all reports of purchases",
       Description: " Including all reports of purchases ",
@@ -1330,7 +1385,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تقارير المشتريات',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Including all reports of  transactions of cash",
       Description: "  Including all reports of  entering and exiting of cash ",
@@ -1351,7 +1407,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تقرير حركة النقدية',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Including all reports of transactions of scrap",
       Description: "  Including all reports of entering and exiting of scrap ",
@@ -1372,7 +1429,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقرير حركة الكسر',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Including all reports of transactions of goods",
       Description: "  Including reports of entering and exiting of goods ",
@@ -1393,7 +1451,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقرير حركة البضاعة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description:
           "reports contain more details about inventory of goods",
@@ -1413,7 +1472,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقارير الجرد',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Including reports of costs of goods",
       Description: "  Including reports of costs of goods ",
@@ -1432,7 +1492,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: ' تقارير تكاليف البضاعة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description:
           "Including reports of scrap keeping for each seller seperately",
@@ -1453,7 +1514,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقارير عهدة الكسر',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description:
           "Including reports of transactions of gold with goldtraders",
@@ -1474,7 +1536,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقارير قطع الذهب',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description:
           "Including reports of the flow of gold bars specially in goldtrader store ",
@@ -1495,7 +1558,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقارير السبائك',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description:
           "Including reports of monthly record of attendance and departure of staff",
@@ -1517,7 +1581,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقارير الحضور و الانصراف',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Including reports of monthly clients data",
       Description: "Including reports of monthly record of clients data ",
@@ -1535,7 +1600,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقارير شهري العملاء',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Including reports of all clients data",
       Description: "Including reports of all record of clients data ",
@@ -1553,7 +1619,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقارير لكل العملاء',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Including reports of records of generated codes",
       Description: " Including reports of all generated codes ",
@@ -1573,7 +1640,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقارير ملفات التكويد',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Including reports of all photos of transactions ",
       Description:
@@ -1593,7 +1661,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقارير الصور المرفوعة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "reports contain the excel files",
       Description: "reports contain the excel files ",
@@ -1613,7 +1682,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'مستخرج اكسيل',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "reports contain the extracted reports files",
       Description: "reports contain the extracted reports files ",
@@ -1633,7 +1703,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'مستخرج تقارير',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Including reports of endorsements",
       Description: "Including reports of all endorsements of buying scrap ",
@@ -1653,7 +1724,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقارير اقرارات الشراء',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Including all Daily invoice ",
       Description: "  Including all Daily invoice",
@@ -1674,7 +1746,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تقارير فواتير اليوم',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Including all transactions of invoice reliance",
       Description: "  Including all transactions of reliances ",
@@ -1694,7 +1767,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تقارير اعتمادات الفواتير',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Including all reservations during the day",
       Description: " Including all reservations during the day ",
@@ -1714,7 +1788,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تقارير الحجز',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description:
           "Including all reports of goods that have not delivered yet",
@@ -1736,7 +1811,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقارير طلبيات البضاعة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description:
           "It includes monthly  reports of goods flow, sales, cash flow, and reservations",
@@ -1758,7 +1834,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقارير محاسبية',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Open accounts reports",
       Description:
@@ -1780,7 +1857,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقارير الحسابات المفتوحة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Daily Open accounts reports",
       Description:
@@ -1802,7 +1880,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقارير يومي للحسابات المفتوحة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Coverage reports",
       Description:
@@ -1823,7 +1902,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'تقارير التغطية',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
 
   //balance ....
   Restriction(
@@ -1847,7 +1927,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'ترصيد يومية',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Today's balance",
       Description:
@@ -1868,7 +1949,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تقفيل يومية',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Temporary balance.",
       Description: "Temporary balance.",
@@ -1887,7 +1969,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'رصيد مؤقت',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Total balance",
       Description: "Total balance",
@@ -1906,7 +1989,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'رصيد مجمع',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "My balance now",
       Description:
@@ -1927,7 +2011,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'رصيدي الان',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
 
   //accounts ....
   Restriction(
@@ -1948,7 +2033,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'الحسابات المفتوحة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
 
   //goods ....
   Restriction(
@@ -1973,7 +2059,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'جرد البضاعة لحظي',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Daily inventory of goods ",
       Description:
@@ -1997,7 +2084,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'جرد يومي للبضاعة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Comprehensive inventory of goods",
       Description: "Comprehensive inventory of goods.",
@@ -2018,7 +2106,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'جرد البضاعة الشامل',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Quick inventory of goods by entering codes",
       Description: "Quick inventory of goods by entering codes",
@@ -2040,7 +2129,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'جرد بالاكواد',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Add new goods",
       Description: "It is the process of bringing new goods into the store.",
@@ -2061,7 +2151,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'اضافة بضاعة جديدة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Adding previous goods",
       Description:
@@ -2084,7 +2175,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'اضافة بضاعة سابقة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Converting the goods",
       Description: "Transferring goods between items.",
@@ -2105,7 +2197,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تحويل بضاعة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Recording goods in Excel",
       Description:
@@ -2126,7 +2219,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تسجيل بضاعة بالاكسيل',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
 
   //invoices
   Restriction(
@@ -2147,7 +2241,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'فواتير اليوم',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "review of tax invoices",
       Description: "Includes all tax invoices throughout the day",
@@ -2166,7 +2261,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'مراجعة الفواتير الضريبية',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: " tax invoices",
       Description: " tax invoices throughout the day",
@@ -2185,7 +2281,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: true,
       Title: 'فواتير مصلحة الضرايب',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   //diamond ....
   Restriction(
       Short_Description: "The diamond system",
@@ -2211,7 +2308,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'نظام الماظ',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Recording of diamond plots",
       Description: "Recording of diamond plots",
@@ -2232,7 +2330,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تسجيل قطع الماظ',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
 
   //lists .....
   Restriction(
@@ -2257,7 +2356,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'قائمة الاسعار',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "الانجرارة list.",
       Description: "The الانجرارة list for stores .",
@@ -2278,7 +2378,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'قائمة الانجرارة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "الانجرارة list.",
       Description: "The الانجرارة list for stores .",
@@ -2298,7 +2399,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'قائمة العجز',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Record prices list in Excel",
       Description: "Quick recording of price list by Excel",
@@ -2317,7 +2419,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تسجيل قائمه الاسعار بالاكسيل',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
 
   //Marketing management .....
   Restriction(
@@ -2340,7 +2443,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'السوق الالكتروني',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Adding goods to the market ",
       Description: "Adding goods to the market to display them to customers",
@@ -2361,7 +2465,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'اضافة للسوق الالكتروني',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Search in e market ",
       Description: "Search for items available in the e market",
@@ -2382,7 +2487,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'اضافة للسوق الالكتروني',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Create a gold price publication",
       Description: "Create a gold price brochure to send to clients.",
@@ -2403,7 +2509,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'انشاء منشور اسعار الدهب',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
 
 //coding
   Restriction(
@@ -2426,7 +2533,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'إنشاء اكواد البضاعة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Create codes for The workshop",
       Description:
@@ -2450,7 +2558,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'إنشاء اكواد للورشة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Create detailed codes",
       Description:
@@ -2474,7 +2583,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'انشاء اكواد مفصلة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
 
   //tools ....
   Restriction(
@@ -2496,7 +2606,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'التغطية اليومية',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Weekly Coverage .",
       Description:
@@ -2516,7 +2627,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'التغطية الاسبوعية',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Coverage over a period.",
       Description:
@@ -2536,7 +2648,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'التغطية خلال فترة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Bar calculation.",
       Description: "Bar calculation",
@@ -2555,7 +2668,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'حسابات السبيكة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Currency conversion.",
       Description: "Currency conversion",
@@ -2574,7 +2688,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تحويل عملات',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Shortcuts.",
       Description:
@@ -2597,7 +2712,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'اختصارات',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Recording previous codes.",
       Description: "Recording previous codes.",
@@ -2617,7 +2733,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تسجيل اكواد سابقة',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "External reader.",
       Description: "External reader.",
@@ -2638,7 +2755,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'القارئ الخارجي',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
 
   //Attendance - departure ....
   Restriction(
@@ -2666,7 +2784,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تسجيل حضور وانصراف',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Create an attendance code.",
       Description:
@@ -2688,7 +2807,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'انشاء كود حضور',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
 
   //others ...
   Restriction(
@@ -2717,7 +2837,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'مركز المعلومات',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Education and training.",
       Description:
@@ -2744,7 +2865,8 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'تعليم وتدريب',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
   Restriction(
       Short_Description: "Version number.",
       Description: "Indicates your application version number.",
@@ -2769,5 +2891,6 @@ List<Restriction> restrictions = [
       Visible: true,
       Blurred: false,
       Title: 'رقم الاصدار',
-      date: Timestamp.fromDate(DateTime.now())),
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
 ];

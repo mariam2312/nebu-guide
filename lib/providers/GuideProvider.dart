@@ -62,23 +62,23 @@ class GuideProvider extends ChangeNotifier {
   //   allInfo = newList;
   //   notifyListeners(); // Notify the widgets that depend on this provider
   // }
-  void searchInfo(String query) {
-    _selectedIndex = allInfo.indexWhere((info) => info.Tip_Title!.toLowerCase().contains(query.toLowerCase()));
-    if (_selectedIndex != -1) {
-      // Scroll to the selected item
-      _scrollToIndex(_selectedIndex);
-    }
-  }
-
-  void _scrollToIndex(int index) {
-    // You'll need to get a reference to the GridView's ScrollController
-    // You can do this by creating a ScrollController in your widget
-    // and passing it to the GridView
-    _scrollController.animateTo(
-      index * _itemHeight, // You'll need to calculate the height of each item
-      duration: Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
-  }
+  // void searchInfo(String query) {
+  //   _selectedIndex = allInfo.indexWhere((info) => info.Tip_Title!.toLowerCase().contains(query.toLowerCase()));
+  //   if (_selectedIndex != -1) {
+  //     // Scroll to the selected item
+  //     _scrollToIndex(_selectedIndex);
+  //   }
+  // }
+  //
+  // void _scrollToIndex(int index) {
+  //   // You'll need to get a reference to the GridView's ScrollController
+  //   // You can do this by creating a ScrollController in your widget
+  //   // and passing it to the GridView
+  //   _scrollController.animateTo(
+  //     index * _itemHeight, // You'll need to calculate the height of each item
+  //     duration: Duration(milliseconds: 500),
+  //     curve: Curves.easeInOut,
+  //   );
+  // }
 
 }

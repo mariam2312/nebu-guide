@@ -32,8 +32,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -76,8 +76,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -120,8 +120,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
 // Fixed values do not change
     Is_Optional: false,
@@ -164,8 +164,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
 // Fixed values do not change
     Is_Optional: false,
@@ -208,8 +208,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -252,8 +252,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -296,8 +296,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -340,8 +340,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -384,8 +384,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -428,8 +428,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -472,8 +472,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -516,8 +516,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -560,8 +560,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -604,8 +604,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -648,8 +648,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -692,8 +692,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -736,8 +736,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -780,8 +780,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -824,8 +824,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -868,8 +868,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -912,8 +912,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -956,8 +956,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1000,8 +1000,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1044,8 +1044,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1090,8 +1090,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
 // Fixed values do not change
     Is_Optional: false,
@@ -1134,8 +1134,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1178,8 +1178,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1222,8 +1222,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1266,8 +1266,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1309,8 +1309,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1353,8 +1353,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1395,8 +1395,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1439,8 +1439,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1481,8 +1481,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1525,8 +1525,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1569,8 +1569,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1615,8 +1615,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1661,8 +1661,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1707,8 +1707,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1751,8 +1751,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1795,8 +1795,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1836,8 +1836,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1877,8 +1877,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1921,8 +1921,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -1965,8 +1965,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2007,8 +2007,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2051,8 +2051,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2093,8 +2093,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2135,8 +2135,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2178,8 +2178,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2221,8 +2221,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2263,8 +2263,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2305,8 +2305,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2348,8 +2348,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2392,8 +2392,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2436,8 +2436,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2483,8 +2483,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2527,8 +2527,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2571,8 +2571,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2615,8 +2615,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2657,8 +2657,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2699,8 +2699,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2743,8 +2743,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2786,8 +2786,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2830,8 +2830,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2874,8 +2874,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2918,8 +2918,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -2961,8 +2961,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3004,8 +3004,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3047,8 +3047,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3092,8 +3092,8 @@ Map<String, dynamic> infoBank = {
     Material_Path_List:['assets/images/openaccount1.jpg',
       'assets/images/openaccount2.jpg',
       'assets/images/openaccount3.jpg',],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: "'133'",
+    IOS_Ver: "'94'",
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3135,11 +3135,11 @@ Map<String, dynamic> infoBank = {
     Related_App_Screen: "Sales_Screen",
     Material_Path:"",
      //   "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
-     Material_Path_List:['assets/images/openaccount1.jpg',
+     Material_Path_List:[
     'assets/images/openaccount2.jpg',
-    'assets/images/openaccount3.jpg',],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    'assets/images/openaccount3.jpg','assets/images/openaccount1.jpg',],
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3181,8 +3181,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3223,8 +3223,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3265,8 +3265,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3308,8 +3308,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3352,8 +3352,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3400,8 +3400,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3444,8 +3444,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3488,8 +3488,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3532,8 +3532,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3577,8 +3577,8 @@ Map<String, dynamic> infoBank = {
     Material_Path_List: ['assets/images/openaccount1.jpg',
       'assets/images/openaccount2.jpg',
       'assets/images/openaccount3.jpg',],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3621,8 +3621,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3664,8 +3664,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3707,8 +3707,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3751,8 +3751,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3794,8 +3794,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3837,8 +3837,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3880,8 +3880,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3923,8 +3923,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -3967,8 +3967,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4011,8 +4011,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4054,8 +4054,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4097,8 +4097,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4140,8 +4140,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4182,8 +4182,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4226,8 +4226,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4269,8 +4269,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4311,8 +4311,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4355,8 +4355,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4398,8 +4398,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4442,8 +4442,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4483,8 +4483,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4524,8 +4524,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4568,8 +4568,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4613,8 +4613,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4657,8 +4657,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4700,8 +4700,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4746,8 +4746,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,
@@ -4788,8 +4788,8 @@ Map<String, dynamic> infoBank = {
     Material_Path:
         "https://firebasestorage.googleapis.com/v0/b/nebu-6ff28.appspot.com/o/tips%2Fmargin_slider_compressed.json?alt=media&token=9b35877b-1d5b-4eb6-84aa-a7135b81b72a",
     Material_Path_List: [],
-    Android_Ver: 133,
-    IOS_Ver: 94,
+    Android_Ver: '133',
+    IOS_Ver: '94',
 
     // Fixed values do not change
     Is_Optional: false,

@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -41,6 +40,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
   ScrollController faqController = ScrollController();
 
   DateAndTime time = DateAndTime();
+  int _currentIndex = 0;
 
   // YoutubePlayerController youtubeController = YoutubePlayerController(
   //   initialVideoId: 'HVtfiQ74O5U',
@@ -52,18 +52,17 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
     controller.dispose();
     pictureListController.dispose();
     faqController.dispose();
-    controller.dispose();
 
   }
+
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController searchController = TextEditingController();
-    var tips = Provider.of<GuideProvider>(context, listen: false);
-    int _currentIndex = 0;
-
+  //  var tips = Provider.of<GuideProvider>(context, listen: false);
     bool _isAutoPlay = true;
-    List<Info?> allInfo = widget.tips;
+    ///error when faq or offical change in all infos
+    List<Info?> allInfos = widget.tips;
     void onTap() {
       setState(() {
         // _carouselController.stopAutoPlay();
@@ -79,12 +78,56 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
     //
     // allInfo.sort((a, b) =>
     //     (a?.Tip_Order_Number ?? 1).compareTo(b?.Tip_Order_Number ?? 1));
+    List<Info?> filteredInfos = [];
 
-    (isFAQ == true)
-        ? allInfo.removeWhere((element) => (element?.Is_FAQ == false))
-        : (isOfficial == true)
-        ? allInfo.removeWhere((element) => (element?.Is_Official == false))
-        : allInfo.removeWhere((element) => (element?.Is_Basic == false));
+    if (isFAQ == true) {
+      filteredInfos = allInfos.where((element) => element?.Is_FAQ == true).toList();
+    } else if (isOfficial == true) {
+      filteredInfos = allInfos.where((element) => element?.Is_Official == true).toList();
+    } else {
+      filteredInfos = allInfos.where((element) => element?.Is_Basic == true).toList();
+    }
+    final List<Widget> imageSliders =  filteredInfos.map((info) {
+      final imagePath = info?.Material_Path_List?.isNotEmpty == true
+          ? info?.Material_Path_List?.first
+          : ''; // Provide a default image path if Material_Path_List is empty
+print(imagePath);
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(40),
+        child: GestureDetector(
+          onTap: () {
+            onTap();
+          },
+          child: Container(
+            width: 300,
+            color: Colors.blueGrey,
+            child: Center(
+              child: Stack(
+                children: [
+                  Image.asset(
+                    imagePath,
+                    fit: BoxFit.cover,
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Text(
+                      "${info?.Tip_Title}",
+                      style: GoogleFonts.markaziText(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }).toList();
+
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -105,12 +148,12 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
           ? Stack(
         children: [
           PageView.builder(
-              itemCount: allInfo.length,
+              itemCount: filteredInfos.length,
               controller: controller,
               itemBuilder: (context, index) {
                 /// todo remove the hard coded part of the youtube link .
 
-                String? youTubeLink = allInfo[index]?.Material_Path;
+                String? youTubeLink = filteredInfos[index]?.Material_Path;
 
                 // YoutubePlayerController youtubeController =
                 //     YoutubePlayerController(
@@ -130,12 +173,12 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                       child: Stack(
                         alignment: Alignment.bottomCenter,
                         children: [
-                          (allInfo[index]?.Is_Material_Lottie == true)
+                          (filteredInfos[index]?.Is_Material_Lottie == true)
                               ? Container(
                             decoration: const BoxDecoration(
                                 color: Colors.white),
                             child: Lottie.network(
-                              "${allInfo[index]?.Material_Path}",
+                              "${filteredInfos[index]?.Material_Path}",
                               width: MediaQuery.of(context)
                                   .size
                                   .width -
@@ -146,7 +189,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                   1.50,
                             ),
                           )
-                              : (allInfo[index]?.Is_Material_YouTube ==
+                              : (filteredInfos[index]?.Is_Material_YouTube ==
                               true)
                               ? Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -178,7 +221,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                               //         true),
                             ),
                           )
-                              : allInfo[index]?.Material_Path_List ==
+                              : filteredInfos[index]?.Material_Path_List ==
                               []
                               ? Container(
                             width: MediaQuery.of(context)
@@ -194,7 +237,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                             ),
                             child: CachedNetworkImage(
                               imageUrl:
-                              "${allInfo[index]?.Material_Path}",
+                              "${filteredInfos[index]?.Material_Path}",
                               progressIndicatorBuilder: (context,
                                   url,
                                   downloadProgress) =>
@@ -251,7 +294,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                         (context, item) {
                                       return CachedNetworkImage(
                                         imageUrl:
-                                        "${allInfo[index]?.Material_Path_List?[item]}",
+                                        "${filteredInfos[index]?.Material_Path_List?[item]}",
                                         progressIndicatorBuilder: (context,
                                             url,
                                             downloadProgress) =>
@@ -267,7 +310,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                     },
                                     controller:
                                     pictureListController,
-                                    itemCount: allInfo[
+                                    itemCount: filteredInfos[
                                     index]
                                         ?.Material_Path_List
                                         ?.length ??
@@ -306,7 +349,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                             // key: keyButton1,
                                               controller:
                                               pictureListController,
-                                              count: allInfo[index]
+                                              count: filteredInfos[index]
                                                   ?.Material_Path_List
                                                   ?.length ??
                                                   1,
@@ -334,7 +377,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                             ),
                           ),
                           (widget.isForAppTips == true &&
-                              allInfo[index]?.Is_Step_By_Step == true)
+                              filteredInfos[index]?.Is_Step_By_Step == true)
                               ? Container(
                             color: Colors.white,
                             child: Padding(
@@ -345,19 +388,19 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                 children: [
                                   Text(
                                     (widget.isForAppTips == true &&
-                                        allInfo[index]
+                                        filteredInfos[index]
                                             ?.Is_Required ==
                                             false &&
-                                        allInfo[index]
+                                        filteredInfos[index]
                                             ?.Is_Step_By_Step ==
                                             true)
                                         ? " خطوة اختيارية "
                                         : (widget.isForAppTips ==
                                         true &&
-                                        allInfo[index]
+                                        filteredInfos[index]
                                             ?.Is_Required ==
                                             true &&
-                                        allInfo[index]
+                                        filteredInfos[index]
                                             ?.Is_Step_By_Step ==
                                             true)
                                         ? " خطوة اساسية "
@@ -367,13 +410,13 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                       fontSize: 20,
                                       color: (widget.isForAppTips ==
                                           true &&
-                                          allInfo[index]
+                                          filteredInfos[index]
                                               ?.Is_Required ==
                                               false)
                                           ? Colors.red
                                           : (widget.isForAppTips ==
                                           true &&
-                                          allInfo[index]
+                                          filteredInfos[index]
                                               ?.Is_Required ==
                                               true)
                                           ? Colors.green
@@ -418,7 +461,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                   top: 0,
                                   bottom: 0),
                               child: Text(
-                                "${allInfo[index]?.Tip_Title}",
+                                "${filteredInfos[index]?.Tip_Title}",
                                 style: GoogleFonts.cairo(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18,
@@ -431,7 +474,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                           padding: const EdgeInsets.only(
                               left: 8.0, right: 8.0, top: 0, bottom: 0),
                           child: Text(
-                            "${allInfo[index]?.Related_Screen}",
+                            "${filteredInfos[index]?.Related_Screen}",
                             style: GoogleFonts.cairo(
                                 fontSize: 16, color: Colors.black),
                           ),
@@ -475,7 +518,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                     }
                                   },
                                   text:
-                                  "${allInfo[index]?.Tip_Main_Description}",
+                                  "${filteredInfos[index]?.Tip_Main_Description}",
                                   style: GoogleFonts.markaziText(
                                       fontSize: 17, color: Colors.black),
                                   linkStyle:
@@ -520,7 +563,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                     }
                                   },
                                   text:
-                                  "${allInfo[index]?.Tip_Description_Idea}",
+                                  "${filteredInfos[index]?.Tip_Description_Idea}",
                                   style: GoogleFonts.markaziText(
                                       fontSize: 17, color: Colors.black),
                                   linkStyle:
@@ -565,7 +608,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                                     }
                                   },
                                   text:
-                                  "${allInfo[index]?.Tip_Description_Info}",
+                                  "${filteredInfos[index]?.Tip_Description_Info}",
                                   style: GoogleFonts.markaziText(
                                       fontSize: 17, color: Colors.black),
                                   linkStyle:
@@ -591,7 +634,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                   child: SmoothPageIndicator(
                     // key: keyButton1,
                       controller: controller,
-                      count: allInfo.length,
+                      count: filteredInfos.length,
                       effect: WormEffect(
                         activeDotColor: Colors.yellow[700]!,
                         radius: 15,
@@ -655,7 +698,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                     onChanged: (text) {
                       setState(() {
                         if (text.isEmpty) {
-                          searchResults = allInfo;
+                          searchResults = filteredInfos;
                         }else {
                           searchResults = guideProvider.allInfo
                               .where((element) {
@@ -697,10 +740,10 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                 ),textAlign: TextAlign.end,),),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: allInfo.length,
+                      itemCount: filteredInfos.length,
                       controller: faqController,
                       itemBuilder: (context, index) {
-                        String? youtubeLink = allInfo[index]?.Material_Path;
+                        String? youtubeLink = filteredInfos[index]?.Material_Path;
 
                         // YoutubePlayerController youtubeController =
                         //     YoutubePlayerController(
@@ -721,7 +764,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
 
                                 Expanded(
                                   child: Text(
-                                    "${allInfo[index]?.Tip_Title}",
+                                    "${filteredInfos[index]?.Tip_Title}",
                                     style: GoogleFonts.markaziText(
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold,
@@ -745,7 +788,7 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
                             ),
                             children: [
                            Text(
-                                "${allInfo[index]?.Tip_Title}",
+                                "${filteredInfos[index]?.Tip_Title}",
                                 style: GoogleFonts.markaziText(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
@@ -1061,7 +1104,7 @@ child:Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    "(${allInfo.length})",
+                    "(${filteredInfos.length})",
                     style: GoogleFonts.cairo(
                       color:  Colors.white,
                       fontSize: 20,
@@ -1096,12 +1139,12 @@ child:Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           //   },
           //   child:
             Expanded(
-            child: ListView.builder(
-                itemCount: allInfo.length,
-                controller: faqController,
-                itemBuilder: (context, index) {
-                  String? youTubeLink =
-                      allInfo[index]?.Material_Path;
+            child: ListView(
+            //     itemCount: 1,
+               controller: faqController,
+            //     itemBuilder: (context, index) {
+            //       String? youTubeLink =
+            //           filteredInfos[index]?.Material_Path;
 
                   // YoutubePlayerController youtubeController =
                   //     YoutubePlayerController(
@@ -1113,87 +1156,59 @@ child:Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   //     mute: false,
                   //   ),
                   // );
-return Column(crossAxisAlignment: CrossAxisAlignment.end,
+children:[
+Column(crossAxisAlignment: CrossAxisAlignment.end,
   children: [
   SizedBox(height: 30,),
     CarouselSlider(
-      items: allInfo.map((info) {
-        // Check if Material_Path_List is not null and has at least one item
-        final imagePath = info?.Material_Path_List?.isNotEmpty == true
-            ? info?.Material_Path_List?.first
-            : '';
-
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(40),
-          child: GestureDetector(onTap:(){onTap();},
-            child: Container(width: 300,color: Colors.blueGrey,
-              child: Center(
-                child: Stack(
-                  children: [Image.asset(
-                    imagePath,
-                     fit: BoxFit.cover,
-                  //  scale: 2,
-
-                  ),
-                Positioned(
-                  bottom: 0,right: 0,
-                  child: Text("${allInfo[index]?.Tip_Title}",
-                        style: GoogleFonts.markaziText(
-                                 fontSize: 14,
-                                     fontWeight:
-                                 FontWeight
-                                         .bold,
-                                  color: Colors
-                                   .black),
-                                                ),
-                ),
-
-                  ]
-                ),
-              ),
-            ),
-          ),
-        );
-      }).toList(),
+      items: imageSliders,
       carouselController: _carouselController,
       options: CarouselOptions(
-        height: 300, // Adjust height as needed
+        height: 300,
         autoPlay: _isAutoPlay,
         autoPlayInterval: const Duration(seconds: 2),
-        enlargeCenterPage: true,
-        viewportFraction: 0.8,
+        enlargeCenterPage: false, // Change this to false to test
+        viewportFraction: 0.8, // Adjust this if needed
         aspectRatio: 1.0,
         initialPage: 0,
         reverse: false,
-        onPageChanged: (index, reason) {
-          setState(() {
-            _currentIndex = index;
-            activeStep = index;
-          });
-        },
-      ),
+          onPageChanged: (index, reason) {
+            setState(()  {
+              _currentIndex = index;
+            print(_currentIndex);
+
+            });})
     ),
 
-                  SizedBox(height: 10), // Spacing between the slider and dots
-                  Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: allInfo.asMap().entries.map((entry) {
-                  int index = entry.key;
-                  return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 4),
-                  width: 10,
-                  height: 10,
-                  decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _currentIndex == index
-                  ? Colors.black // Active color
-                      : Colors.grey, // Inactive color
-                  ),
-                  );
-                  }).toList(),),
+    SizedBox(height: 10),
+
+    Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: filteredInfos.asMap().entries.map((entry) {
+        return GestureDetector(
+          onTap: () => _carouselController.animateToPage(entry.key),
+          child: Container(
+            width: 15.0,
+            height: 15.0,
+            margin: const EdgeInsets.symmetric(
+                vertical: 8.0, horizontal: 4.0),
+            decoration: BoxDecoration(
+              border:Border.all(color: Colors.black,width: 1),
+                shape: BoxShape.circle,
+                color: (Theme.of(context).brightness ==
+                    Brightness.dark
+                    ? Colors.white
+                    : Colors.black)
+                    .withOpacity(
+                    _currentIndex == entry.key ? 0.9 : 0)),
+          ),
+        );
+      }).toList(),
+    ),
+
   Padding(
     padding: const EdgeInsets.only(right: 50),
-    child: Text("اخر الاخبار",style: GoogleFonts.cairo(
+    child: Text("${filteredInfos[_currentIndex]!.Tip_Title}",style: GoogleFonts.cairo(
       color:  Color(0xff212D45),
       fontSize: 20,
       fontWeight: FontWeight.bold,
@@ -1224,32 +1239,8 @@ return Column(crossAxisAlignment: CrossAxisAlignment.end,
                           child: Column(
 
                             children: [
-                             //  Container(
-                             //    decoration:
-                             //    const BoxDecoration(
-                             //      borderRadius:
-                             //      BorderRadius.all(
-                             //          Radius.circular(
-                             //              2)),
-                             //      color: Colors.grey,
-                             //    ),
-                             //    padding:
-                             //    const EdgeInsets.only(
-                             //        left: 8,
-                             //        right: 8.0),
-                             //    child: Text(
-                             //
-                             // " ${time.showDate2(allInfo[index]!.date!.toDate())}",
-                             //      style:
-                             //      GoogleFonts.cairo(
-                             //          fontSize: 16,
-                             //          color: Colors
-                             //              .black),
-                             //    ),
-                             //  ),
-                              Text("${allInfo[index]!.date}"),
-                              Linkify(
-                                                  onOpen: (link) async {
+                              Text("${filteredInfos[_currentIndex]!.date}"),
+                              Linkify( onOpen: (link) async {
                                                     if (await canLaunch(
                                                         link.url)) {
                                                       await launch(
@@ -1259,7 +1250,7 @@ return Column(crossAxisAlignment: CrossAxisAlignment.end,
                                                     }
                                                   },
                                                   text:
-                                                  "${allInfo[index]?.Tip_Description_Info}",
+                                                  "${filteredInfos[_currentIndex]?.Tip_Description_Info}",
                                                   style: GoogleFonts
                                                       .markaziText(
                                                       fontSize: 20,
@@ -1294,11 +1285,11 @@ return Column(crossAxisAlignment: CrossAxisAlignment.end,
             Expanded(
               child: ListView.builder(
                 physics: ClampingScrollPhysics(), // Add this
-                itemCount: allInfo[_currentIndex]?.Material_Path_List!.length,
+                itemCount: filteredInfos[_currentIndex]?.Material_Path_List!.length,
 
                 itemBuilder: (context, index) {
                   return Image.asset(
-                    allInfo[_currentIndex]?.Material_Path_List![index],
+                    filteredInfos[_currentIndex]?.Material_Path_List![index],
                     scale: 3,
                   );
                 },
@@ -1310,7 +1301,7 @@ return Column(crossAxisAlignment: CrossAxisAlignment.end,
           ],
         ),
       ),
-    )]);
+    )])]
                   // return Padding(
                   //   padding: const EdgeInsets.all(8.0),
                   //   child: Container(
@@ -1652,10 +1643,11 @@ return Column(crossAxisAlignment: CrossAxisAlignment.end,
                   //         ],
                   //       )),
                   // );
-                }),
-          ),
+                //}
+                ),
+         // ),
        // )
-    ],
+            )],
         )
           : const SizedBox(),
 
