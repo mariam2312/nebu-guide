@@ -1,13 +1,15 @@
 
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_editor/image_editor.dart';
 import '../data/Info_Bank_Data.dart';
 import '../models/Info.dart';
-
 class InfoEditDetails extends StatefulWidget {
   final Info infoBank;
 
@@ -136,16 +138,22 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
       widget.infoBank.Material_Path_List!.removeAt(index);
     });
   }
-  final storage = FirebaseStorage.instance;
+
   Future<void> _saveAndUpdate() async {
+    String name = DateTime.now().millisecondsSinceEpoch.toString();
+    // final storage = FirebaseStorage.instance;
     Reference referenceRoot = FirebaseStorage.instance.ref();
-    Reference referenceImage = referenceRoot.child('images');
+    Reference referenceImage = referenceRoot.child('images/$name');
     try {
-      for (var index = 0; index < _selectedImages.length; index++) {
-        String name = 'image_$index';
-        Reference referenceImageToUpload = referenceImage.child(name);
-        await referenceImageToUpload.putFile(_selectedImages[index]);
-        imageUrl = await referenceImageToUpload.getDownloadURL();
+      for (var image in _selectedImages) {
+        UploadTask uploadTask = referenceImage.putFile(File(image.path));
+        TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
+        String imageUrl = await taskSnapshot.ref.getDownloadURL();
+        // var uploadTask = referenceImage.putFile(image);
+        // var downloadUrl = await (await uploadTask).ref.getDownloadURL();
+      //  Reference referenceImageToUpload = referenceImage.child(name);
+      //  await referenceImageToUpload.putFile(_selectedImages[index]);
+        //imageUrl = await referenceImageToUpload.getDownloadURL();
         print(imageUrl);
         imageUrls.add(imageUrl);
       }
@@ -153,7 +161,14 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
       print('Error uploading image: $e');
     }
 
-
+    // Reference referenceRoot = FirebaseStorage.instance.ref();
+    // Reference referenceImage = referenceRoot.child('images');
+    // String Name = DateTime.now().microsecondsSinceEpoch.toString();
+    // Reference referenceImageToUpload = referenceImage.child(Name);
+    // await referenceImageToUpload.putFile(File(pickedFile.path));
+    // imageUrl = await referenceImageToUpload.getDownloadURL();
+    // print(imageUrl);
+    // imageUrls.add(imageUrl);
     // Find the Info object with the title "widget.infoBank.Tip_Title"
     Info? infoToEdit;
     for (var info in infoBank.values) {
@@ -223,10 +238,10 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
           IconButton(
             icon: const Icon(Icons.save),
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                _saveAndUpdate();
-              }}
-              )
+              // if (_formKey.currentState!.validate()) {
+              _saveAndUpdate();
+              //   }}
+            })
         ],
       ),
       body: Form(
@@ -404,6 +419,14 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
 
 }
 
+
+class ImageEdit {
+  final MemoryImageSource imageSource;
+  final int x;
+  final int y;
+
+  ImageEdit(this.imageSource, this.x, this.y);
+}
 class InfoAddDetails extends StatefulWidget {
   final Info infoBank;
 
@@ -443,7 +466,7 @@ class _InfoAddDetailsState extends State<InfoAddDetails> {
   late TextEditingController _isForAdminController;
   late TextEditingController _isForSalesTeamController;
   late TextEditingController _isForOwnerController;
-  final List<File> _selectedImages = []; // List to store selected images
+  late   List<File> _selectedImages = []; // List to store selected images
   final List<String> imageUrls = [];
   String imageUrl="";
   final ImagePicker _picker = ImagePicker();
@@ -521,6 +544,7 @@ class _InfoAddDetailsState extends State<InfoAddDetails> {
       setState(() {
         _selectedImages.addAll(pickedImages.map((e) => File(e.path)));
         widget.infoBank.Material_Path_List?.addAll(pickedImages.map((e) => e.path).toList());
+        print( _selectedImages);    print( widget.infoBank.Material_Path_List);
 
       });
     } catch (e) {
@@ -529,7 +553,7 @@ class _InfoAddDetailsState extends State<InfoAddDetails> {
   }
   Future<void> _removeImage(int index) async {
     setState(() {
-      widget.infoBank.Material_Path_List!.removeAt(index);
+      _selectedImages.removeAt(index);
     });
   }
   final storage = FirebaseStorage.instance;
@@ -667,11 +691,29 @@ IOS_Ver: _iosVerController.text,
                       },
                       child: ListTile(
                         contentPadding: const EdgeInsets.all(8.0),
-                        leading: Image.file(
-                          image,
-                          height: 200,
-                          width: 100,
-                          //  fit: BoxFit.cover,
+                        leading: GestureDetector(
+                          onTap: () async {
+                            final editedImage = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ImageEditorScreen(
+                                        image: _selectedImages[index]),
+                              ),
+                            );
+
+                            if (editedImage != null) {
+                              setState(() {
+                                _selectedImages[index] = editedImage;
+                              });
+                            }
+                          },
+    child: Image.file(
+                            image,
+                            height: 200,
+                            width: 100,
+                            //  fit: BoxFit.cover,
+                          ),
                         ),
                         title: Text('Image ${index + 1}'),
                         trailing: IconButton(
@@ -786,33 +828,6 @@ IOS_Ver: _iosVerController.text,
               IconButton(
                 icon: const Icon(Icons.add_a_photo),
                 onPressed: _pickImages,
-              ), IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: (){
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        content: Text(""),
-                        title: const Text("تعديل الصورة"),
-                        actions: [
-                          TextButton(
-                            child: const Text("الغاء"),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          TextButton(
-                            child: const Text("تعديل"),
-                            onPressed: () async {
-
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
               ),
             ],
           ):null,
@@ -822,4 +837,407 @@ IOS_Ver: _iosVerController.text,
     );}
   }
 }
+class ImageEditorScreen extends StatefulWidget {
+  late final File image;
 
+  ImageEditorScreen({required this.image});
+
+  @override
+  _ImageEditorScreenState createState() => _ImageEditorScreenState(image: image);
+}
+class _ImageEditorScreenState extends State<ImageEditorScreen> {
+  File image;
+  File? _originalImage; // Declare _originalImage
+  List<ImageEdit> _mixedImages = []; // List to keep track of mixed images
+
+  _ImageEditorScreenState({required this.image}) {
+    _originalImage = image; // Initialize _originalImage with the original image
+  }
+
+  Future<Uint8List> _loadImageFromAsset(String path) async {
+    final byteData = await rootBundle.load(path);
+    return byteData.buffer.asUint8List();
+  }
+
+  int _x = 0;
+  int _y = 0;
+  final _xController = TextEditingController();
+  final _yController = TextEditingController();
+
+  Future<void> _applyImageEdits() async {
+    final srcBytes = await _loadImageFromAsset('assets/hand2.png');
+    final dstBytes = await image.readAsBytes();
+    final src = MemoryImageSource(srcBytes);
+
+    final optionGroup = ImageEditorOption();
+    optionGroup.outputFormat = OutputFormat.png();
+    optionGroup.addOption(
+      MixImageOption(
+        x: _x,
+        y: _y,
+        width: 150,
+        height: 150,
+        target: src,
+        blendMode: BlendMode.lighten,
+      ),
+    );
+
+    final result = await ImageEditor.editImageAndGetFile(image: dstBytes, imageEditorOption: optionGroup);
+
+    if (result != null) {
+      setState(() {
+        image = result;
+        _mixedImages.add(ImageEdit(src, _x, _y)); // Add new image edit
+      });
+    }
+  }
+
+  Future<void> _reapplyEdits() async {
+    final dstBytes = await _originalImage!.readAsBytes(); // Start with the original image
+    final optionGroup = ImageEditorOption();
+    optionGroup.outputFormat = OutputFormat.png();
+
+    for (var edit in _mixedImages) {
+      optionGroup.addOption(
+        MixImageOption(
+          x: edit.x,
+          y: edit.y,
+          width: 150,
+          height: 150,
+          target: edit.imageSource,
+          blendMode: BlendMode.lighten,
+        ),
+      );
+    }
+
+    final result = await ImageEditor.editImageAndGetFile(image: dstBytes, imageEditorOption: optionGroup);
+
+    if (result != null) {
+      setState(() {
+        image = result;
+      });
+    }
+  }
+
+  void _deleteLastMixedImage() async {
+    if (_mixedImages.isNotEmpty) {
+      setState(() {
+        _mixedImages.removeLast(); // Remove the last mixed image
+      });
+
+      // Reapply remaining edits
+      await _reapplyEdits();
+    }
+  }
+
+  void _deleteAllMixedImages() async {
+    setState(() {
+      _mixedImages.clear(); // Clear the list of mixed images
+      image = _originalImage!; // Reset the image to its original state
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Image Editor'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.check, size: 40),
+            onPressed: () async {
+              await _applyImageEdits(); // Apply edits before saving
+              Navigator.pop(context, image); // Return the edited image
+            },
+          ),
+        ],
+      ),
+      body: ListView(
+        children: [
+          Image.file(image),
+          ElevatedButton(
+            child: Text('Mix Image'),
+            onPressed: _applyImageEdits,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: _xController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: 'X',
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      // Handle parsing errors
+                      setState(() {
+                        _x = int.tryParse(value) ?? 0;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(width: 20), // Adding space between fields
+              Expanded(
+                child: Container(
+
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: _yController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: 'Y',
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      // Handle parsing errors
+                      setState(() {
+                        _y = int.tryParse(value) ?? 0;
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('X: $_x'),
+              Text('Y: $_y'),
+            ],
+          )
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [
+          //     ElevatedButton(
+          //       child: Text('Left'),
+          //       onPressed: () {
+          //         setState(() {
+          //           _x -= 5;
+          //           print(_x);
+          //         });
+          //       },
+          //     ),
+          //     ElevatedButton(
+          //       child: Text('Right'),
+          //       onPressed: () {
+          //         setState(() {
+          //           _x += 5;
+          //           print(_x);
+          //         });
+          //       },
+          //     ),
+          //     ElevatedButton(
+          //       child: Text('Top'),
+          //       onPressed: () {
+          //         setState(() {
+          //           _y -= 5;
+          //           print(_y);
+          //         });
+          //       },
+          //     ),
+          //     ElevatedButton(
+          //       child: Text('Bottom'),
+          //       onPressed: () {
+          //         setState(() {
+          //           _y += 5;
+          //           print(_y);
+          //         });
+          //       },
+          //     ),
+          //   ],
+          // ),
+          ,ElevatedButton(
+            child: Text('Delete Last Mixed Image'),
+            onPressed: _deleteLastMixedImage,
+          ),
+          ElevatedButton(
+            child: Text('Delete All Mixed Images'),
+            onPressed: _deleteAllMixedImages,
+          ),
+        ],
+      ),
+    );
+  }
+}
+//
+// class _ImageEditorScreenState extends State<ImageEditorScreen> {
+//   File image;
+//   File? _originalImage; // declare _originalImage
+//   List<MemoryImageSource> _mixedImages = [];
+//
+//   _ImageEditorScreenState({required this.image}) {
+//     _originalImage = image; // initialize _originalImage with the original image
+//   }
+//
+//   Future<Uint8List> _loadImageFromAsset(String path) async {
+//     final byteData = await rootBundle.load(path);
+//     return byteData.buffer.asUint8List();
+//   }
+//   int _x = 200;
+//   int _y = 1800;
+//
+//
+//   Future<void> _applyImageEdits() async {
+//     final srcBytes = await _loadImageFromAsset('assets/hand.png');
+//     final dstBytes = await image.readAsBytes();
+//     final src = MemoryImageSource(srcBytes);
+//
+//     final optionGroup = ImageEditorOption();
+//     optionGroup.outputFormat = OutputFormat.png();
+//     optionGroup.addOption(
+//       MixImageOption(
+//         x: _x,
+//         y: _y,
+//         width: 150,
+//         height: 150,
+//         target: src,
+//         blendMode: BlendMode.lighten,
+//       ),
+//     );
+//
+//     final result = await ImageEditor.editImageAndGetFile(image: dstBytes, imageEditorOption: optionGroup);
+//
+//     if (result != null) {
+//       setState(() {
+//         image = result;
+//         _mixedImages.add(src);
+//       });
+//     }
+//   }
+//   // Future<void> _mergeImages() async {
+//   //   final memory = await _loadImageFromAsset('assets/hand.jpg');
+//   //   final option = ImageMergeOption(
+//   //     canvasSize: Size(180.0 * 1, 180.0 * 1),
+//   //     format: OutputFormat.png(),
+//   //   );
+//   //
+//   //   for (var i = 0; i < 1; i++) {
+//   //     option.addImage(
+//   //       MergeImageConfig(
+//   //         image: MemoryImageSource(memory),
+//   //         position: ImagePosition(
+//   //           Offset(180.0 * i, 180.0 * i),
+//   //           Size.square(180.0),
+//   //         ),
+//   //       ),
+//   //     );
+//   //   }
+//   //   for (var i = 0; i < 1; i++) {
+//   //     option.addImage(
+//   //       MergeImageConfig(
+//   //         image: MemoryImageSource(memory),
+//   //         position: ImagePosition(
+//   //           Offset(
+//   //               180.0 * 1 - 180.0 * (i + 1), 180.0 * i),
+//   //           Size.square(180.0),
+//   //         ),
+//   //       ),
+//   //     );
+//   //   }
+//   //
+//   //   final result = await ImageMerger.mergeToFile(option: option);
+//   //   if (result != null) {
+//   //     setState(() {
+//   //       image = result;
+//   //     });
+//   //   }
+//   // }
+//
+//
+//   void _deleteAllMixedImages() {
+//     setState(() {
+//       _mixedImages.clear(); // clear the list of mixed images
+//       image = _originalImage!; // reset the image to its original state
+//     });
+//   }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Image Editor'),
+//         actions: [
+//           IconButton(
+//             icon: Icon(Icons.check, size: 40),
+//             onPressed: () async {
+//               await _applyImageEdits(); // Apply edits before saving
+//               Navigator.pop(context, image); // Return the edited image
+//             },
+//           ),
+//         ],
+//       ),
+//       body: ListView(
+//         children: [
+//           Image.file(image),
+//           ElevatedButton(
+//             child: Text('Mix Image'),
+//             onPressed: _applyImageEdits,
+//           ),
+//           // ElevatedButton(
+//           //   child: Text('Merge Images'),
+//           //   onPressed: _mergeImages,
+//           // ),
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//             children: [
+//               ElevatedButton(
+//                 child: Text('Left'),
+//                 onPressed: () {
+//                   setState(() {
+//                     _x -= 5;
+//                     print( _x);
+//                   });
+//                 },
+//               ),
+//               ElevatedButton(
+//                 child: Text('Right'),
+//                 onPressed: () {
+//                   setState(() {
+//                     _x += 5;
+//                     print( _x);
+//                   });
+//                 },
+//               ),
+//               ElevatedButton(
+//                 child: Text('Top'),
+//                 onPressed: () {
+//                   setState(() {
+//                     _y -= 5;
+//                     print( _y);
+//                   });
+//                 },
+//               ),
+//               ElevatedButton(
+//                 child: Text('Bottom'),
+//                 onPressed: () {
+//                   setState(() {
+//                     _y += 5;
+//                     print( _y);
+//                   });
+//                 },
+//               ),
+//             ],
+//           ),
+//
+//           ElevatedButton(
+//             child: Text('Delete Last Mixed Image'),
+//             onPressed: () {
+//
+//             },
+//           ),
+//           ElevatedButton(
+//             child: Text('Delete All Mixed Images'),
+//             onPressed: () {
+//               _deleteAllMixedImages(); // delete all mixed images
+//             },
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

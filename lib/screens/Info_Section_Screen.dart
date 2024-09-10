@@ -10,7 +10,6 @@ import '../Widgets/Info_Manage_Widget.dart';
 import '../data/Info_Bank_Data.dart';
 import '../models/Info.dart';
 import '../providers/GuideProvider.dart';
-
 class InfoSectionScreen extends StatefulWidget {
   List<Info?> info;
   InfoSectionScreen({super.key, required this.info});
