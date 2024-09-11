@@ -324,6 +324,34 @@ date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
       Blurred: false,
       Title: ' عمليات بيع الفضه ',
       date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
+      )  ), Restriction(
+      Short_Description: "goods collaboration",
+      Description:
+      "goods collaboration",       Short_Description_Ar: "حجز المبيعات",
+      Description_Ar:
+      "حجز المبيعات",
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+        "Purchaser",
+        "Salesman",
+        "Marketingmanager",
+      ],
+      Allowed_Plans: ["basic", "pro", "vip"],
+      Store_Type: [
+        "Retail",
+        "Wholesale",
+        "HalfRetail",
+      ],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url: "",
+      Visible: true,
+      Blurred: false,
+      Title:"حجز المبيعات",
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
       )  ),
   //main
   Restriction(
@@ -557,7 +585,6 @@ date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
       Title: 'اعتماد الفواتير اللحظي',
       date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
 )  ,
-
   Restriction(
       Short_Description: "Dual taxes for national and international",
       Description:
@@ -987,6 +1014,150 @@ date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
       Visible: true,
       Blurred: false,
       Title: 'قارئ رقم السبائك ',
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
+  Restriction(
+      Short_Description: "casting detailed calculator",
+      Description: "casting detailed calculator",
+      Short_Description_Ar: "حسابات السبيكة المفصلة",
+      Description_Ar: "حسابات السبيكة المفصلة",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Manager",
+        "Accountant",
+      ],
+      Allowed_Plans: [ "vip"],
+      Store_Type: [
+        "Retail",
+        "Wholesale",
+        "HalfRetail",
+      ],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url: "",
+      Visible: true,
+      Blurred: false,
+      Title: "حسابات السبيكة المفصلة",
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
+  Restriction(
+      Short_Description: "exchangg QR with branches",
+      Description: "exchangg QR with branches",
+      Short_Description_Ar: "تحويل من الانظمة السابقة",
+      Description_Ar:"تحويل من الانظمة السابقة",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Manager",
+
+      ],
+      Allowed_Plans: [ "basic", "pro", "vip"],
+      Store_Type: [
+        "Retail",
+        "Wholesale",
+        "HalfRetail",
+      ],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url: "",
+      Visible: true,
+      Blurred: false,
+      Title: "تحويل من الانظمة السابقة",
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,Restriction(
+      Short_Description: "flexible payment method",
+      Description: "flexible payment method",
+      Short_Description_Ar: "طرق الدفع المرنة",
+      Description_Ar: "طرق الدفع المرنة",
+//check
+      Role_Permission: [
+
+
+      ],
+      Allowed_Plans: [ "basic", "pro", "vip"],
+      Store_Type: [
+        "Retail",
+        "Wholesale",
+        "HalfRetail",
+      ],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url: "",
+      Visible: true,
+      Blurred: false,
+      Title:"طرق الدفع المرنة",
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
+  Restriction(
+      Short_Description: "price list versions",
+      Description: "price list versions",
+      Short_Description_Ar: "نسخ قائمه الاسعار",
+      Description_Ar: "نسخ قائمه الاسعار",
+//check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+
+      ],
+      Allowed_Plans: [ "basic", "pro", "vip"],
+      Store_Type: [
+        "Retail",
+        "Wholesale",
+        "HalfRetail",
+      ],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url: "",
+      Visible: true,
+      Blurred: false,
+      Title:"نسخ قائمه الاسعار",
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,
+  Restriction(
+      Short_Description: "daily store price history",
+      Description: "daily store price history",
+      Short_Description_Ar: " قائمة تغير اسعار المحل اليومي",
+      Description_Ar: " قائمة تغير اسعار المحل اليومي",
+//check
+      Role_Permission: [
+
+
+      ],
+      Allowed_Plans: [ "basic", "pro", "vip"],
+      Store_Type: [
+        "Retail",
+        "Wholesale",
+        "HalfRetail",
+      ],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url: "",
+      Visible: true,
+      Blurred: false,
+      Title:" قائمة تغير اسعار المحل اليومي",
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,  Restriction(
+      Short_Description: "daily national price history",
+      Description: "daily national price history",
+      Short_Description_Ar: " قائمة تغير اسعار السوق اليومي",
+      Description_Ar: " قائمة تغير اسعار السوق اليومي",
+//check
+      Role_Permission: [
+
+
+      ],
+      Allowed_Plans: [ "pro", "vip"],
+      Store_Type: [
+        "Retail",
+        "Wholesale",
+        "HalfRetail",
+      ],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url: "",
+      Visible: true,
+      Blurred: false,
+      Title:" قائمة تغير اسعار السوق اليومي",
       date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
 )  ,
   //icons
@@ -2130,6 +2301,29 @@ date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
       Blurred: false,
       Title: 'جرد بالاكواد',
       date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  , Restriction(
+      Short_Description: "inventory check by origin",
+      Description: "inventory check by origin",
+      Short_Description_Ar: "جرد حسب المنشآ",
+      Description_Ar: "جرد حسب المنشآ",
+      //check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+        "Purchaser",
+      ],
+      //check
+      Allowed_Plans: [ "pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail", "GoldTrader"],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url: "",
+      Visible: true,
+      Blurred: false,
+      Title: "جرد حسب المنشآ",
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
 )  ,
   Restriction(
       Short_Description: "Add new goods",
@@ -2197,6 +2391,28 @@ date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
       Visible: true,
       Blurred: false,
       Title: 'تحويل بضاعة',
+      date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+)  ,  Restriction(
+      Short_Description: "instant goods trasfer",
+      Description:"instant goods trasfer",
+      Short_Description_Ar: "تحويل البضاعه اللحظي",
+      Description_Ar: "تحويل البضاعه اللحظي.",
+      // check
+      Role_Permission: [
+        "Owner",
+        "Admin",
+        "Accountant",
+        "Manager",
+        "Supervisor",
+        "Purchaser",
+      ],
+      Allowed_Plans: ["basic,""pro", "vip"],
+      Store_Type: ["Retail", "Wholesale", "HalfRetail", "GoldTrader"],
+      Material_Type: ["Gold", "Silver", "Gold_Silver"],
+      Photo_Url: "",
+      Visible: true,
+      Blurred: false,
+      Title: "تحويل البضاعه اللحظي",
       date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
 )  ,
   Restriction(
@@ -2511,6 +2727,29 @@ date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),
       Title: 'انشاء منشور اسعار الدهب',
       date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
 )  ,
+  Restriction(
+    Short_Description: "telegram integrate with e market",
+    Description:"telegram integrate with e market",
+    Short_Description_Ar: "ربط السوق الالكتروني بالتلجرام",
+    Description_Ar:  "ربط السوق الالكتروني بالتلجرام",
+    //check
+    Role_Permission: [
+      "Owner",
+      "Admin",
+      "Accountant",
+      "Manager",
+      "Supervisor",
+      "Marketingmanager",
+    ],
+    Allowed_Plans: ["vip"],
+    Store_Type: ["Retail", "Wholesale", "HalfRetail", "GoldTrader"],
+    Material_Type: ["Gold", "Silver", "Gold_Silver"],
+    Photo_Url: "",
+    Visible: true,
+    Blurred: false,
+    Title:  "ربط السوق الالكتروني بالتلجرام",
+    date:  Timestamp.fromDate(DateTime.parse('2022-01-01 12:00:00'),),
+  )  ,
 
 //coding
   Restriction(

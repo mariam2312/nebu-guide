@@ -23,8 +23,8 @@ class Info {
   bool? Is_Optional;
   bool? Is_Required;
 // version num
-  String? Android_Ver;
-  String? IOS_Ver;
+  int? Android_Ver;
+  int? IOS_Ver;
   //order num
   String? Tip_Order_Number;
 
@@ -126,8 +126,8 @@ class Info {
     final bool? Is_Take_Time = data['Is_Take_Time'] ?? false;
     final bool? Is_Optional = data['Is_Optional'] ?? false;
     final bool? Is_Required = data['Is_Required'] ?? false;
-    final String? Android_Ver = data['Android_Ver'] ?? "";
-    final String? IOS_Ver = data['IOS_Ver'] ?? "";
+    final int? Android_Ver = data['Android_Ver'] ?? 0;
+    final int? IOS_Ver = data['IOS_Ver'] ?? 0;
     final String? Tip_Order_Number = data['Tip_Order_Number'] ?? "";
     final bool? Is_Material_Lottie = data['Is_Material_Lottie'] ?? false;
     final bool? Is_Material_Picture = data['Is_Material_Picture'] ?? false;

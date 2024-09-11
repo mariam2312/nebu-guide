@@ -19,6 +19,37 @@ class InfoSectionScreen extends StatefulWidget {
 }
 
 class _InfoSectionScreenState extends State<InfoSectionScreen> {
+  final TextEditingController searchController = TextEditingController();
+  List<Info?> filteredInfo = [];
+
+  @override
+  void initState() {
+    super.initState();
+    filteredInfo = widget.info;
+  }
+
+  void _searchInfo(String query) {
+    if (query.toLowerCase() == 'new') {
+      final searchedInfo = widget.info.where((info) => info!.Is_New == true).toList();
+      setState(() {
+        filteredInfo = searchedInfo;
+      });
+    } else {
+      final searchedInfo = widget.info.where((info) {
+        final title = info!.Tip_Title?.toLowerCase() ?? '';
+        final section = info.Tip_Section?.toLowerCase() ?? '';
+        final description = info.Tip_Description_Info?.toLowerCase() ?? '';
+        final screen  = info. Related_Screen?.toLowerCase() ?? '';
+
+        return title.contains(query.toLowerCase()) ||
+            section.contains(query.toLowerCase()) ||screen.contains(query.toLowerCase()) ||
+            description.contains(query.toLowerCase());
+      }).toList();
+      setState(() {
+        filteredInfo = searchedInfo;
+      });
+    }
+  }
   Future<void> infoToFirestore() async {
     final CollectionReference restrictionsDataCollection =
         FirebaseFirestore.instance.collection('InfoBankData');
@@ -52,7 +83,6 @@ class _InfoSectionScreenState extends State<InfoSectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: AppBar(
           title: const Text("Info Bank"),
@@ -67,12 +97,23 @@ class _InfoSectionScreenState extends State<InfoSectionScreen> {
                           Tip_Title: '', Related_Screen: '', Related_App_Screen: '', Tip_Section: '', Is_ForOwner: null, Is_For_Admin: null, Android_Ver: null, Is_For_SalesTeam: null, IOS_Ver: null))),
             );
 
-    }, child:const Text ("add"),)],
+          }, child:const Text ("add"),),
+
+            ],
         ),
         body: Consumer<GuideProvider>(builder: (context, guideProvider, child) {
           return Padding(
               padding: const EdgeInsets.all(10),
               child: Column(children: [
+                  TextField(
+                  controller: searchController,
+                  decoration: const InputDecoration(
+                    labelText: 'Search in Info Bank',
+                    prefixIcon: Icon(Icons.search),
+
+                  ),
+                    onChanged: (query) => _searchInfo(query),
+                  ),
                 ElevatedButton(
                     onPressed: () {
                       infoToFirestore();
@@ -83,7 +124,129 @@ class _InfoSectionScreenState extends State<InfoSectionScreen> {
                       deleteAllInfoToFirestore();
                     },
                     child: const Text("delete")),
-                (guideProvider.allInfo.isNotEmpty)
+                // (guideProvider.allInfo.isNotEmpty)
+                    // ? Expanded(
+                    //     child: GridView.builder(
+                    //       gridDelegate:
+                    //           const SliverGridDelegateWithFixedCrossAxisCount(
+                    //         crossAxisCount:
+                    //             2, // adjust the number of columns here
+                    //         mainAxisSpacing: 10, // space between rows
+                    //         crossAxisSpacing:
+                    //             10, // adjust the number of columns here
+                    //       ),
+                    //       itemCount:
+                    //           guideProvider.allInfo.length, // number of items
+                    //       itemBuilder: (context, index) {
+                    //         Info infoBank = guideProvider.allInfo[index];
+                    //         return GestureDetector(
+                    //           onTap: () {
+                    //             Navigator.push(
+                    //               context,
+                    //               MaterialPageRoute(
+                    //                 builder: (context) =>
+                    //                     InfoScreen(infoBank: infoBank),
+                    //               ),
+                    //             );
+                    //           },
+                    //           child:
+                    //           Stack(
+                    //               children:[ Container(
+                    //                   padding: const EdgeInsets.all(10),
+                    //                   decoration: BoxDecoration(
+                    //                     color: Colors.black,
+                    //                     boxShadow: [
+                    //                       BoxShadow(
+                    //                         color: Colors.grey.withOpacity(0.5),
+                    //                         spreadRadius: 2,
+                    //                         blurRadius: 7,
+                    //                         offset: const Offset(
+                    //                             0, 3), // changes position of shadow
+                    //                       ),
+                    //                     ],
+                    //                     borderRadius: BorderRadius.circular(
+                    //                         20), // circular edge
+                    //                   ),
+                    //                   child:Column(children: [
+                    //                     Center(
+                    //                         child: Text(
+                    //                           "(${index + 1})${infoBank.Tip_Title}",
+                    //                           style: const TextStyle(
+                    //                               color: Colors.amber,
+                    //                               fontSize: 20,
+                    //                               fontWeight: FontWeight.bold),
+                    //                         )),
+                    //                     Text("l:${infoBank.Is_Material_Lottie}",style: const TextStyle(
+                    //                         color: Colors.amber,
+                    //                         fontSize: 20,
+                    //                         fontWeight: FontWeight.bold),),
+                    //                     Text("P:${infoBank.Is_Material_Picture}",style: const TextStyle(
+                    //                         color: Colors.amber,
+                    //                         fontSize: 20,
+                    //                         fontWeight: FontWeight.bold),),
+                    //
+                    //                   ],)
+                    //               ),
+                    //         Positioned(
+                    //         top: 0,
+                    //         right: 0,
+                    //         child: IconButton(
+                    //         icon: const Icon(
+                    //         Icons.delete,
+                    //         color: Colors.red,
+                    //         ), onPressed: () {
+                    //         showDialog(
+                    //         context: context,
+                    //         builder: (BuildContext context) {
+                    //         return AlertDialog(
+                    //         title: const Text("حذف العنصر"),
+                    //         content: const Text("هل انت متاكد من حذف هذا العنصر؟"),
+                    //         actions: [
+                    //         TextButton(
+                    //         child: const Text("الغاء"),
+                    //         onPressed: () {
+                    //         Navigator.of(context).pop();
+                    //         },
+                    //         ),
+                    //         TextButton(
+                    //         child: const Text("حذف"),
+                    //         onPressed: () async {
+                    //         // Remove item from allInfo
+                    //         guideProvider.allInfo.removeAt(index);
+                    //
+                    //         // Create a map to store the updated data
+                    //         final Map<String, dynamic> bigMap = {'info': {}};
+                    //         // Populate the bigMap with the updated infoBank values
+                    //         for (var infoBankValue in guideProvider.allInfo) {
+                    //         final Map<String, dynamic> infoMap = infoBankValue.toMap(Path: 'InfoBankData/AllInfoData');
+                    //         bigMap['info'][infoBankValue.Tip_Title!] = infoMap;
+                    //         }
+                    //
+                    //         // Update the Firebase Firestore document with the new map
+                    //         final CollectionReference restrictionsDataCollection =
+                    //         FirebaseFirestore.instance.collection('InfoBankData');
+                    //         await restrictionsDataCollection.doc('AllInfoData').set(bigMap);
+                    //
+                    //         setState(() {}); // Update the UI
+                    //         Navigator.of(context).pop();
+                    //         ScaffoldMessenger.of(context).showSnackBar(
+                    //         const SnackBar(content: Text('Item deleted successfully!')),
+                    //         );
+                    //         },
+                    //         ),
+                    //         ],
+                    //         );
+                    //         },
+                    //         );
+                    //         },))
+                    //         ]
+                    //
+                    //           ),
+                    //         );
+                    //       },
+                    //     ),
+                    //   )  // (guideProvider.allInfo.isNotEmpty)
+                (filteredInfo.isNotEmpty)
                     ? Expanded(
                         child: GridView.builder(
                           gridDelegate:
@@ -94,17 +257,16 @@ class _InfoSectionScreenState extends State<InfoSectionScreen> {
                             crossAxisSpacing:
                                 10, // adjust the number of columns here
                           ),
-                          itemCount:
-                              guideProvider.allInfo.length, // number of items
+                          itemCount: filteredInfo.length, // number of items
                           itemBuilder: (context, index) {
-                            Info infoBank = guideProvider.allInfo[index];
+                            Info? infoBank = filteredInfo[index];
                             return GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        InfoScreen(infoBank: infoBank),
+                                        InfoScreen(infoBank: infoBank!),
                                   ),
                                 );
                               },
@@ -113,7 +275,7 @@ class _InfoSectionScreenState extends State<InfoSectionScreen> {
                                   children:[ Container(
                                       padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
-                                        color: Colors.black,
+                                        color: Color(0xff212D45),
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.grey.withOpacity(0.5),
@@ -129,7 +291,7 @@ class _InfoSectionScreenState extends State<InfoSectionScreen> {
                                       child:Column(children: [
                                         Center(
                                             child: Text(
-                                              "(${index + 1})${infoBank.Tip_Title}",
+                                              "(${index + 1})${infoBank!.Tip_Title}",
                                               style: const TextStyle(
                                                   color: Colors.amber,
                                                   fontSize: 20,

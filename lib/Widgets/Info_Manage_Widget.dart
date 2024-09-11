@@ -1,9 +1,11 @@
 
 import 'dart:io';
+import 'dart:ui';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -129,7 +131,9 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
         widget.infoBank.Material_Path_List?.addAll(_selectedImages);
       });
     } catch (e) {
-      print('Error picking images: $e');
+      if (kDebugMode) {
+        print('Error picking images: $e');
+      }
     }
   }
 
@@ -154,11 +158,15 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
       //  Reference referenceImageToUpload = referenceImage.child(name);
       //  await referenceImageToUpload.putFile(_selectedImages[index]);
         //imageUrl = await referenceImageToUpload.getDownloadURL();
-        print(imageUrl);
+        if (kDebugMode) {
+          print(imageUrl);
+        }
         imageUrls.add(imageUrl);
       }
     } catch (e) {
-      print('Error uploading image: $e');
+      if (kDebugMode) {
+        print('Error uploading image: $e');
+      }
     }
 
     // Reference referenceRoot = FirebaseStorage.instance.ref();
@@ -199,8 +207,8 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
       infoToEdit.Related_App_Screen = _relatedAppScreenController.text;
       infoToEdit.Material_Path = _materialPathController.text;
       infoToEdit.Material_Path_List = imageUrls??[];
-      infoToEdit.Android_Ver = _androidVerController.text;
-      infoToEdit.IOS_Ver = _iosVerController.text;
+      infoToEdit.Android_Ver = int.tryParse(_androidVerController.text);
+      infoToEdit.IOS_Ver = int.tryParse(_iosVerController.text);
       infoToEdit.Is_Optional = _isOptionalController.text == 'true';
       infoToEdit.Is_Required = _isRequiredController.text == 'true';
       infoToEdit.Is_Take_Time = _isTakeTimeController.text == 'true';
@@ -337,7 +345,7 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
         child: Row(
           children: [
             Text(label),
-            Spacer(),
+            const Spacer(),
             Row(
               children: [
                 Text(' ${controller.text.toLowerCase() == 'true' ? 'True' : 'False'}'),
@@ -392,8 +400,8 @@ class _InfoEditDetailsState extends State<InfoEditDetails> {
             // Save image paths in Material_Path_List
             List<String> imagePaths = _selectedImages.map((image) => image.path).toList();
             widget.infoBank.Material_Path_List = imagePaths;
-            widget.infoBank.Android_Ver = _androidVerController.text;
-            widget.infoBank.IOS_Ver = _iosVerController.text;
+            widget.infoBank.Android_Ver = int.tryParse(_androidVerController.text);
+            widget.infoBank.IOS_Ver = int.tryParse(_iosVerController.text);
             widget.infoBank.Is_Optional = _isOptionalController.text.toLowerCase() == 'true';
             widget.infoBank.Is_Required = _isRequiredController.text.toLowerCase() == 'true';
             widget.infoBank.Is_Take_Time = _isTakeTimeController.text.toLowerCase() == 'true';
@@ -457,7 +465,7 @@ class _InfoAddDetailsState extends State<InfoAddDetails> {
   late TextEditingController _relatedAppScreenController;
   late TextEditingController _materialPathController;
   late TextEditingController _materialPathListController;
-  late TextEditingController _androidVerController;
+  late TextEditingController _androidVerController ;
   late TextEditingController _iosVerController;
   late TextEditingController _isOptionalController;
   late TextEditingController _isRequiredController;
@@ -589,8 +597,8 @@ class _InfoAddDetailsState extends State<InfoAddDetails> {
       Material_Path: _materialPathController.text??"",
       // Material_Path_List: imageUrls??[],
       Material_Path_List: widget.infoBank.Material_Path_List??[],
-  Android_Ver: _androidVerController.text,
-IOS_Ver: _iosVerController.text,
+  Android_Ver: int.tryParse(_androidVerController.text),
+IOS_Ver: int.tryParse(_iosVerController.text),
       Is_Optional: _isOptionalController.text == 'true',
       Is_Required: _isRequiredController.text == 'true',
       Is_Take_Time: _isTakeTimeController.text == 'true',
@@ -749,7 +757,7 @@ IOS_Ver: _iosVerController.text,
         child: Row(
           children: [
             Text(label),
-            Spacer(),
+            const Spacer(),
             Row(
               children: [
                 Text(' ${controller.text.toLowerCase() == 'true' ? 'True' : 'False'}'),
@@ -808,8 +816,8 @@ IOS_Ver: _iosVerController.text,
 //             widget.infoBank.Material_Path_List = imagePaths;
             List<String> imagePaths = _selectedImages.map((image) => image.path).toList();
             widget.infoBank.Material_Path_List = imagePaths.isEmpty ? [] : imagePaths;
-              widget.infoBank.Android_Ver = _androidVerController.text;
-            widget.infoBank.IOS_Ver = _iosVerController.text;
+              widget.infoBank.Android_Ver = int.tryParse(_androidVerController.text);
+            widget.infoBank.IOS_Ver = int.tryParse(_iosVerController.text);
             widget.infoBank.Is_Optional = _isOptionalController.text.toLowerCase() == 'true';
             widget.infoBank.Is_Required = _isRequiredController.text.toLowerCase() == 'true';
             widget.infoBank.Is_Take_Time = _isTakeTimeController.text.toLowerCase() == 'true';
@@ -838,9 +846,9 @@ IOS_Ver: _iosVerController.text,
   }
 }
 class ImageEditorScreen extends StatefulWidget {
-  late final File image;
+   final File image;
 
-  ImageEditorScreen({required this.image});
+  const ImageEditorScreen({required this.image});
 
   @override
   _ImageEditorScreenState createState() => _ImageEditorScreenState(image: image);
@@ -863,14 +871,23 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
   int _y = 0;
   final _xController = TextEditingController();
   final _yController = TextEditingController();
-
+  int x = 0;
+  int y = 0; double xRect = 0;
+  double yRect = 0;
+  int width = 100;
+  int height = 100;  double widthRect = 100;
+  double heightRect = 100;
+  final xController = TextEditingController();
+  final yController = TextEditingController();
+  final widthController = TextEditingController();
+  final heightController = TextEditingController();
   Future<void> _applyImageEdits() async {
     final srcBytes = await _loadImageFromAsset('assets/hand2.png');
     final dstBytes = await image.readAsBytes();
     final src = MemoryImageSource(srcBytes);
 
     final optionGroup = ImageEditorOption();
-    optionGroup.outputFormat = OutputFormat.png();
+    optionGroup.outputFormat = const OutputFormat.png();
     optionGroup.addOption(
       MixImageOption(
         x: _x,
@@ -887,6 +904,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
     if (result != null) {
       setState(() {
         image = result;
+        _mixedImages.clear();
         _mixedImages.add(ImageEdit(src, _x, _y)); // Add new image edit
       });
     }
@@ -895,7 +913,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
   Future<void> _reapplyEdits() async {
     final dstBytes = await _originalImage!.readAsBytes(); // Start with the original image
     final optionGroup = ImageEditorOption();
-    optionGroup.outputFormat = OutputFormat.png();
+    optionGroup.outputFormat = const OutputFormat.png();
 
     for (var edit in _mixedImages) {
       optionGroup.addOption(
@@ -931,20 +949,159 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
   }
 
   void _deleteAllMixedImages() async {
+    setState(() async {
+      _mixedImages.clear();
+      // Reapply remaining edits
+      await _reapplyEdits();// Clear the list of mixed images
+    });
+  }
+  void originImage() async {
     setState(() {
-      _mixedImages.clear(); // Clear the list of mixed images
       image = _originalImage!; // Reset the image to its original state
     });
   }
+  Widget buildSlider(
+      String title, {
+        int min = 0,
+        int max = 1920,
+        required ValueChanged<int> onChanged,
+        required int value,
+      }) {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: Slider(
+            onChanged: (double value) {
+              setState(() {
+                onChanged.call(value.toInt());
+              });
+            },
+            value: value.toDouble(),
+            min: min.toDouble(),
+            max: max.toDouble(),
+            label: title,
+          ),
+        ),
+        SizedBox(
+          width: 50,
+          child: Text('$title:$value'),
+        ),
+      ],
+    );
+  }
 
+  void clip() async{
+    final optionGroup = ImageEditorOption();
+    final dstBytes = await _originalImage!.readAsBytes();
+    optionGroup.addOption(ClipOption(
+      x: x,
+      y: y,
+      width: width,
+      height: height,
+    ));
+    final result = await ImageEditor.editImageAndGetFile(
+      image: dstBytes,
+  imageEditorOption: optionGroup,
+    );
+
+    if (result != null) {
+      setState(() {
+        image = result;
+      });
+    }
+
+  }
+  List<DrawPart> _drawParts = [];
+
+  void addRect() async {
+    // Add the rectangle to the image
+    final optionGroup = ImageEditorOption();
+    final dstBytes = await _originalImage!.readAsBytes();
+
+    final drawPart = RectDrawPart(
+      paint:  DrawPaint(
+        lineWeight: 5,
+        paintingStyle: PaintingStyle.fill,
+        color: Colors.red.withOpacity(0.5),
+      ),
+      rect: Rect.fromPoints(
+        Offset(xRect, yRect),
+        Offset(xRect + widthRect, yRect + heightRect),
+      ),
+    );
+
+    _drawParts.add(drawPart); // Add the draw part to the list
+
+    final drawOption = DrawOption();
+    for (var part in _drawParts) {
+      drawOption.addDrawPart(part); // Add all draw parts to the draw option
+    }
+
+    optionGroup.addOption(drawOption);
+
+    final result = await ImageEditor.editImageAndGetFile(
+      image: dstBytes,
+      imageEditorOption: optionGroup,
+    );
+
+    if (result != null) {
+      setState(() {
+        image = result;
+      });
+    }
+  }
+  void _deleteLastRec() async {
+    if (_drawParts.isNotEmpty) {
+      _drawParts.removeLast(); // Remove the last draw part
+      final optionGroup = ImageEditorOption();
+      final dstBytes = await _originalImage!.readAsBytes();
+      final drawOption = DrawOption();
+      for (var part in _drawParts) {
+        drawOption.addDrawPart(part); // Add all draw parts to the draw option
+      }
+      optionGroup.addOption(drawOption);
+      final result = await ImageEditor.editImageAndGetFile(
+        image: dstBytes,
+        imageEditorOption: optionGroup,
+      );
+      if (result != null) {
+        setState(() {
+          image = result;
+        });
+      }
+    }
+  }
+
+  void _deleteAllRec() async {
+    _drawParts.clear(); // Clear the draw parts list
+
+    final optionGroup = ImageEditorOption();
+    final dstBytes = await _originalImage!.readAsBytes();
+
+    final drawOption = DrawOption();
+
+    optionGroup.addOption(drawOption);
+
+    final result = await ImageEditor.editImageAndGetFile(
+      image: dstBytes,
+      imageEditorOption: optionGroup,
+    );
+
+    if (result != null) {
+      setState(() {
+        image = result;
+      });
+    }
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Image Editor'),
+        title: const Text('Image Editor'),
         actions: [
           IconButton(
-            icon: Icon(Icons.check, size: 40),
+            icon: const Icon(Icons.check, size: 40),
             onPressed: () async {
               await _applyImageEdits(); // Apply edits before saving
               Navigator.pop(context, image); // Return the edited image
@@ -954,9 +1111,12 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
       ),
       body: ListView(
         children: [
-          Image.file(image),
+          Image.file(image), ElevatedButton(
+            onPressed: originImage,
+            child: const Text('origin image'),
+          ),
           ElevatedButton(
-            child: Text('Mix Image'),
+            child: const Text('Mix Image'),
             onPressed: _applyImageEdits,
           ),
           Row(
@@ -968,7 +1128,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                   child: TextFormField(
                     controller: _xController,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'X',
                       border: OutlineInputBorder(),
                     ),
@@ -981,15 +1141,14 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                   ),
                 ),
               ),
-              SizedBox(width: 20), // Adding space between fields
+              const SizedBox(width: 20), // Adding space between fields
               Expanded(
                 child: Container(
-
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     controller: _yController,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Y',
                       border: OutlineInputBorder(),
                     ),
@@ -1053,191 +1212,132 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
           //   ],
           // ),
           ,ElevatedButton(
-            child: Text('Delete Last Mixed Image'),
+            child: const Text('Delete Last Mixed Image'),
             onPressed: _deleteLastMixedImage,
           ),
           ElevatedButton(
-            child: Text('Delete All Mixed Images'),
+            child: const Text('Delete All Mixed Images'),
             onPressed: _deleteAllMixedImages,
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: xController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'X',
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      // Handle parsing errors
+                      setState(() {
+                        xRect = double.tryParse(value) ?? 0;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(width: 20), // Adding space between fields
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: yController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Y',
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      // Handle parsing errors
+                      setState(() {
+                        yRect = double.tryParse(value) ?? 0;
+                      });
+                    },
+                  ),
+                ),
+              ),const SizedBox(width: 20), // Adding space between fields
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: widthController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'w',
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      // Handle parsing errors
+                      setState(() {
+                        widthRect = double.tryParse(value) ?? 0;
+                      });
+                    },
+                  ),
+                ),
+              ),const SizedBox(width: 20), // Adding space between fields
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: heightController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'h',
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      // Handle parsing errors
+                      setState(() {
+                        heightRect = double.tryParse(value) ?? 0;
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('X: $xRect'),
+              Text('Y: $yRect'),  Text('w: $widthRect'),
+              Text('h: $heightRect'),
+            ],
+          ),
+          ElevatedButton(
+            onPressed: addRect,
+            child: const Text('add rect'),
+          ),
+        ElevatedButton(
+    child: const Text('Delete Last Rec'),
+    onPressed: _deleteLastRec,
+    ),
+    ElevatedButton(
+    child: const Text('Delete all Rec'),
+    onPressed: _deleteAllRec,
+    ),
+          Column(
+            children: <Widget>[
+              buildSlider('x', onChanged: (int v) => x = v, value: x),
+              buildSlider('y', onChanged: (int v) => y = v, value: y),
+              buildSlider('width',
+                  onChanged: (int v) => width = v, value: width, min: 1),
+              buildSlider('height',
+                  onChanged: (int v) => height = v, value: height, min: 1),
+              TextButton(
+                child: const Text('clip'),
+                onPressed: clip,
+              ),
+            ],
+          ),
+
         ],
       ),
     );
   }
 }
-//
-// class _ImageEditorScreenState extends State<ImageEditorScreen> {
-//   File image;
-//   File? _originalImage; // declare _originalImage
-//   List<MemoryImageSource> _mixedImages = [];
-//
-//   _ImageEditorScreenState({required this.image}) {
-//     _originalImage = image; // initialize _originalImage with the original image
-//   }
-//
-//   Future<Uint8List> _loadImageFromAsset(String path) async {
-//     final byteData = await rootBundle.load(path);
-//     return byteData.buffer.asUint8List();
-//   }
-//   int _x = 200;
-//   int _y = 1800;
-//
-//
-//   Future<void> _applyImageEdits() async {
-//     final srcBytes = await _loadImageFromAsset('assets/hand.png');
-//     final dstBytes = await image.readAsBytes();
-//     final src = MemoryImageSource(srcBytes);
-//
-//     final optionGroup = ImageEditorOption();
-//     optionGroup.outputFormat = OutputFormat.png();
-//     optionGroup.addOption(
-//       MixImageOption(
-//         x: _x,
-//         y: _y,
-//         width: 150,
-//         height: 150,
-//         target: src,
-//         blendMode: BlendMode.lighten,
-//       ),
-//     );
-//
-//     final result = await ImageEditor.editImageAndGetFile(image: dstBytes, imageEditorOption: optionGroup);
-//
-//     if (result != null) {
-//       setState(() {
-//         image = result;
-//         _mixedImages.add(src);
-//       });
-//     }
-//   }
-//   // Future<void> _mergeImages() async {
-//   //   final memory = await _loadImageFromAsset('assets/hand.jpg');
-//   //   final option = ImageMergeOption(
-//   //     canvasSize: Size(180.0 * 1, 180.0 * 1),
-//   //     format: OutputFormat.png(),
-//   //   );
-//   //
-//   //   for (var i = 0; i < 1; i++) {
-//   //     option.addImage(
-//   //       MergeImageConfig(
-//   //         image: MemoryImageSource(memory),
-//   //         position: ImagePosition(
-//   //           Offset(180.0 * i, 180.0 * i),
-//   //           Size.square(180.0),
-//   //         ),
-//   //       ),
-//   //     );
-//   //   }
-//   //   for (var i = 0; i < 1; i++) {
-//   //     option.addImage(
-//   //       MergeImageConfig(
-//   //         image: MemoryImageSource(memory),
-//   //         position: ImagePosition(
-//   //           Offset(
-//   //               180.0 * 1 - 180.0 * (i + 1), 180.0 * i),
-//   //           Size.square(180.0),
-//   //         ),
-//   //       ),
-//   //     );
-//   //   }
-//   //
-//   //   final result = await ImageMerger.mergeToFile(option: option);
-//   //   if (result != null) {
-//   //     setState(() {
-//   //       image = result;
-//   //     });
-//   //   }
-//   // }
-//
-//
-//   void _deleteAllMixedImages() {
-//     setState(() {
-//       _mixedImages.clear(); // clear the list of mixed images
-//       image = _originalImage!; // reset the image to its original state
-//     });
-//   }
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Image Editor'),
-//         actions: [
-//           IconButton(
-//             icon: Icon(Icons.check, size: 40),
-//             onPressed: () async {
-//               await _applyImageEdits(); // Apply edits before saving
-//               Navigator.pop(context, image); // Return the edited image
-//             },
-//           ),
-//         ],
-//       ),
-//       body: ListView(
-//         children: [
-//           Image.file(image),
-//           ElevatedButton(
-//             child: Text('Mix Image'),
-//             onPressed: _applyImageEdits,
-//           ),
-//           // ElevatedButton(
-//           //   child: Text('Merge Images'),
-//           //   onPressed: _mergeImages,
-//           // ),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//             children: [
-//               ElevatedButton(
-//                 child: Text('Left'),
-//                 onPressed: () {
-//                   setState(() {
-//                     _x -= 5;
-//                     print( _x);
-//                   });
-//                 },
-//               ),
-//               ElevatedButton(
-//                 child: Text('Right'),
-//                 onPressed: () {
-//                   setState(() {
-//                     _x += 5;
-//                     print( _x);
-//                   });
-//                 },
-//               ),
-//               ElevatedButton(
-//                 child: Text('Top'),
-//                 onPressed: () {
-//                   setState(() {
-//                     _y -= 5;
-//                     print( _y);
-//                   });
-//                 },
-//               ),
-//               ElevatedButton(
-//                 child: Text('Bottom'),
-//                 onPressed: () {
-//                   setState(() {
-//                     _y += 5;
-//                     print( _y);
-//                   });
-//                 },
-//               ),
-//             ],
-//           ),
-//
-//           ElevatedButton(
-//             child: Text('Delete Last Mixed Image'),
-//             onPressed: () {
-//
-//             },
-//           ),
-//           ElevatedButton(
-//             child: Text('Delete All Mixed Images'),
-//             onPressed: () {
-//               _deleteAllMixedImages(); // delete all mixed images
-//             },
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
