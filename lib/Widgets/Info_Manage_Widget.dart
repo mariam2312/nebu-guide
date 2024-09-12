@@ -4,12 +4,14 @@ import 'dart:ui';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_editor/image_editor.dart';
+import 'package:line_icons/line_icon.dart';
 import '../data/Info_Bank_Data.dart';
 import '../models/Info.dart';
 class InfoEditDetails extends StatefulWidget {
@@ -811,9 +813,6 @@ IOS_Ver: int.tryParse(_iosVerController.text),
 
             widget.infoBank.Related_App_Screen = _relatedAppScreenController.text;
             widget.infoBank.Material_Path = _materialPathController.text;
-// Save image paths in Material_Path_List
-//             List<String> imagePaths = _selectedImages.map((image) => image.path).toList();
-//             widget.infoBank.Material_Path_List = imagePaths;
             List<String> imagePaths = _selectedImages.map((image) => image.path).toList();
             widget.infoBank.Material_Path_List = imagePaths.isEmpty ? [] : imagePaths;
               widget.infoBank.Android_Ver = int.tryParse(_androidVerController.text);
@@ -845,6 +844,8 @@ IOS_Ver: int.tryParse(_iosVerController.text),
     );}
   }
 }
+
+
 class ImageEditorScreen extends StatefulWidget {
    final File image;
 
@@ -855,11 +856,28 @@ class ImageEditorScreen extends StatefulWidget {
 }
 class _ImageEditorScreenState extends State<ImageEditorScreen> {
   File image;
-  File? _originalImage; // Declare _originalImage
-  List<ImageEdit> _mixedImages = []; // List to keep track of mixed images
+  File? originalImage; // Declare _originalImage
+  List<ImageEdit> mixedImages = []; // List to keep track of mixed images
+  int xMix = 0;
+  int yMix = 0;
+  final xMixController = TextEditingController();
+  final yMixController = TextEditingController();
+  int xClip = 0;
+  int yClip = 0;
+  double xRect = 0;
+  double yRect = 0;
+  int widthClip = 100;
+  int heightClip = 100;
+  double widthRect = 100;
+  double heightRect = 100;
+  final xRectController = TextEditingController();
+  final yRectController = TextEditingController();
+  final widthRectController = TextEditingController();
+  final heightRectController = TextEditingController();
+  final GlobalKey<ExtendedImageEditorState> editorKey = GlobalKey();
 
   _ImageEditorScreenState({required this.image}) {
-    _originalImage = image; // Initialize _originalImage with the original image
+    originalImage = image; // Initialize _originalImage with the original image
   }
 
   Future<Uint8List> _loadImageFromAsset(String path) async {
@@ -867,31 +885,17 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
     return byteData.buffer.asUint8List();
   }
 
-  int _x = 0;
-  int _y = 0;
-  final _xController = TextEditingController();
-  final _yController = TextEditingController();
-  int x = 0;
-  int y = 0; double xRect = 0;
-  double yRect = 0;
-  int width = 100;
-  int height = 100;  double widthRect = 100;
-  double heightRect = 100;
-  final xController = TextEditingController();
-  final yController = TextEditingController();
-  final widthController = TextEditingController();
-  final heightController = TextEditingController();
-  Future<void> _applyImageEdits() async {
+  Future<void> addMixImage() async {
     final srcBytes = await _loadImageFromAsset('assets/hand2.png');
-    final dstBytes = await image.readAsBytes();
+    final dstBytes = await originalImage!.readAsBytes();
     final src = MemoryImageSource(srcBytes);
 
     final optionGroup = ImageEditorOption();
     optionGroup.outputFormat = const OutputFormat.png();
     optionGroup.addOption(
       MixImageOption(
-        x: _x,
-        y: _y,
+        x: xMix,
+        y: yMix,
         width: 150,
         height: 150,
         target: src,
@@ -904,60 +908,84 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
     if (result != null) {
       setState(() {
         image = result;
-        _mixedImages.clear();
-        _mixedImages.add(ImageEdit(src, _x, _y)); // Add new image edit
-      });
-    }
-  }
+        mixedImages.clear();
 
-  Future<void> _reapplyEdits() async {
-    final dstBytes = await _originalImage!.readAsBytes(); // Start with the original image
-    final optionGroup = ImageEditorOption();
-    optionGroup.outputFormat = const OutputFormat.png();
-
-    for (var edit in _mixedImages) {
-      optionGroup.addOption(
-        MixImageOption(
-          x: edit.x,
-          y: edit.y,
-          width: 150,
-          height: 150,
-          target: edit.imageSource,
-          blendMode: BlendMode.lighten,
-        ),
-      );
-    }
-
-    final result = await ImageEditor.editImageAndGetFile(image: dstBytes, imageEditorOption: optionGroup);
-
-    if (result != null) {
-      setState(() {
-        image = result;
+     mixedImages.add(ImageEdit(src, xMix, yMix)); // Add new image edit
+        print(mixedImages);
       });
     }
   }
 
   void _deleteLastMixedImage() async {
-    if (_mixedImages.isNotEmpty) {
-      setState(() {
-        _mixedImages.removeLast(); // Remove the last mixed image
-      });
+      if (mixedImages.isNotEmpty) {
+        mixedImages.removeLast(); // Remove the last draw part
+        final dstBytes = await originalImage!.readAsBytes();
+        final optionGroup = ImageEditorOption();
+        optionGroup.outputFormat = const OutputFormat.png();
 
-      // Reapply remaining edits
-      await _reapplyEdits();
+        for (var edit in mixedImages) {
+          optionGroup.addOption(
+            MixImageOption(
+              x: edit.x,
+              y: edit.y,
+              width: 150,
+              height: 150,
+              target: edit.imageSource,
+              blendMode: BlendMode.lighten,
+            ),
+          );
+        }
+
+
+        final result = await ImageEditor.editImageAndGetFile(
+          image: dstBytes,
+          imageEditorOption: optionGroup,
+        );
+        if (result != null) {
+          setState(() {
+            image = result;
+          });
+        }
+      }
     }
-  }
 
   void _deleteAllMixedImages() async {
-    setState(() async {
-      _mixedImages.clear();
-      // Reapply remaining edits
-      await _reapplyEdits();// Clear the list of mixed images
-    });
+
+      mixedImages.clear();
+      final dstBytes = await originalImage!.readAsBytes();
+      final optionGroup = ImageEditorOption();
+      optionGroup.outputFormat = const OutputFormat.png();
+
+      for (var edit in mixedImages) {
+        optionGroup.addOption(
+          MixImageOption(
+            x: edit.x,
+            y: edit.y,
+            width: 150,
+            height: 150,
+            target: edit.imageSource,
+            blendMode: BlendMode.lighten,
+          ),
+        );
+      }
+
+      final result = await ImageEditor.editImageAndGetFile(
+        image: dstBytes,
+        imageEditorOption: optionGroup,
+      );
+
+      if (result != null) {
+        setState(() {
+          image = result;
+        });
+      }
+
   }
+
+
   void originImage() async {
     setState(() {
-      image = _originalImage!; // Reset the image to its original state
+      image = originalImage!; // Reset the image to its original state
     });
   }
   Widget buildSlider(
@@ -989,15 +1017,14 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
       ],
     );
   }
-
   void clip() async{
     final optionGroup = ImageEditorOption();
-    final dstBytes = await _originalImage!.readAsBytes();
+    final dstBytes = await originalImage!.readAsBytes();
     optionGroup.addOption(ClipOption(
-      x: x,
-      y: y,
-      width: width,
-      height: height,
+      x: xClip,
+      y: yClip,
+      width: widthClip,
+      height: heightClip,
     ));
     final result = await ImageEditor.editImageAndGetFile(
       image: dstBytes,
@@ -1012,11 +1039,10 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
 
   }
   List<DrawPart> _drawParts = [];
-
   void addRect() async {
     // Add the rectangle to the image
     final optionGroup = ImageEditorOption();
-    final dstBytes = await _originalImage!.readAsBytes();
+    final dstBytes = await originalImage!.readAsBytes();
 
     final drawPart = RectDrawPart(
       paint:  DrawPaint(
@@ -1054,7 +1080,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
     if (_drawParts.isNotEmpty) {
       _drawParts.removeLast(); // Remove the last draw part
       final optionGroup = ImageEditorOption();
-      final dstBytes = await _originalImage!.readAsBytes();
+      final dstBytes = await originalImage!.readAsBytes();
       final drawOption = DrawOption();
       for (var part in _drawParts) {
         drawOption.addDrawPart(part); // Add all draw parts to the draw option
@@ -1076,7 +1102,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
     _drawParts.clear(); // Clear the draw parts list
 
     final optionGroup = ImageEditorOption();
-    final dstBytes = await _originalImage!.readAsBytes();
+    final dstBytes = await originalImage!.readAsBytes();
 
     final drawOption = DrawOption();
 
@@ -1094,6 +1120,31 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
     }
 
   }
+  void ClipRectFun() async {
+    final ExtendedImageEditorState? state = editorKey.currentState;
+    if (state == null) {
+      return;
+    }
+    final Rect? rect = state.getCropRect();
+
+    final ImageEditorOption option = ImageEditorOption();
+
+    option.addOption(ClipOption.fromRect(rect!));
+    final  img = state.rawImageData;
+    final result = await ImageEditor.editImageAndGetFile(
+      image: img,
+      imageEditorOption: option,
+    );
+
+    if (result != null) {
+      setState(() {
+        image = result;
+      });
+    }
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -1103,7 +1154,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
           IconButton(
             icon: const Icon(Icons.check, size: 40),
             onPressed: () async {
-              await _applyImageEdits(); // Apply edits before saving
+
               Navigator.pop(context, image); // Return the edited image
             },
           ),
@@ -1111,13 +1162,34 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
       ),
       body: ListView(
         children: [
-          Image.file(image), ElevatedButton(
+          // Image.file(image),
+          ClipRect(
+            child: ExtendedImage(
+              image: ExtendedFileImageProvider(File(image.path), cacheRawData: true),
+              height: 400,
+              width: 400,
+              extendedImageEditorKey: editorKey,
+              mode: ExtendedImageMode.editor,
+              fit: BoxFit.contain,
+              initEditorConfigHandler: (_) => EditorConfig(
+                maxScale: 8.0,
+                cropRectPadding: const EdgeInsets.all(20.0),
+                hitTestSize: 20.0,
+
+              ),
+            ),
+          ),
+          ElevatedButton(
             onPressed: originImage,
             child: const Text('origin image'),
           ),
           ElevatedButton(
+            onPressed: ClipRectFun,
+            child: const Text('ClipRect'),
+          ),
+          ElevatedButton(
             child: const Text('Mix Image'),
-            onPressed: _applyImageEdits,
+            onPressed: addMixImage,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1126,7 +1198,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                 child: Container(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
-                    controller: _xController,
+                    controller: xMixController,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       labelText: 'X',
@@ -1135,7 +1207,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                     onChanged: (value) {
                       // Handle parsing errors
                       setState(() {
-                        _x = int.tryParse(value) ?? 0;
+                        xMix = int.tryParse(value) ?? 0;
                       });
                     },
                   ),
@@ -1146,7 +1218,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                 child: Container(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
-                    controller: _yController,
+                    controller: yMixController,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       labelText: 'Y',
@@ -1155,7 +1227,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                     onChanged: (value) {
                       // Handle parsing errors
                       setState(() {
-                        _y = int.tryParse(value) ?? 0;
+                        yMix = int.tryParse(value) ?? 0;
                       });
                     },
                   ),
@@ -1166,51 +1238,11 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('X: $_x'),
-              Text('Y: $_y'),
+              Text('X: $xMix'),
+              Text('Y: $yMix'),
             ],
           )
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: [
-          //     ElevatedButton(
-          //       child: Text('Left'),
-          //       onPressed: () {
-          //         setState(() {
-          //           _x -= 5;
-          //           print(_x);
-          //         });
-          //       },
-          //     ),
-          //     ElevatedButton(
-          //       child: Text('Right'),
-          //       onPressed: () {
-          //         setState(() {
-          //           _x += 5;
-          //           print(_x);
-          //         });
-          //       },
-          //     ),
-          //     ElevatedButton(
-          //       child: Text('Top'),
-          //       onPressed: () {
-          //         setState(() {
-          //           _y -= 5;
-          //           print(_y);
-          //         });
-          //       },
-          //     ),
-          //     ElevatedButton(
-          //       child: Text('Bottom'),
-          //       onPressed: () {
-          //         setState(() {
-          //           _y += 5;
-          //           print(_y);
-          //         });
-          //       },
-          //     ),
-          //   ],
-          // ),
+
           ,ElevatedButton(
             child: const Text('Delete Last Mixed Image'),
             onPressed: _deleteLastMixedImage,
@@ -1226,7 +1258,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                 child: Container(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
-                    controller: xController,
+                    controller: xRectController,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       labelText: 'X',
@@ -1246,7 +1278,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                 child: Container(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
-                    controller: yController,
+                    controller: yRectController,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       labelText: 'Y',
@@ -1265,7 +1297,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                 child: Container(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
-                    controller: widthController,
+                    controller: widthRectController,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       labelText: 'w',
@@ -1284,7 +1316,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                 child: Container(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
-                    controller: heightController,
+                    controller: heightRectController,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       labelText: 'h',
@@ -1323,12 +1355,12 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
     ),
           Column(
             children: <Widget>[
-              buildSlider('x', onChanged: (int v) => x = v, value: x),
-              buildSlider('y', onChanged: (int v) => y = v, value: y),
+              buildSlider('x', onChanged: (int v) => xClip = v, value: xClip),
+              buildSlider('y', onChanged: (int v) => yClip = v, value: yClip),
               buildSlider('width',
-                  onChanged: (int v) => width = v, value: width, min: 1),
+                  onChanged: (int v) => widthClip = v, value: widthClip, min: 1),
               buildSlider('height',
-                  onChanged: (int v) => height = v, value: height, min: 1),
+                  onChanged: (int v) => heightClip = v, value: heightClip, min: 1),
               TextButton(
                 child: const Text('clip'),
                 onPressed: clip,
