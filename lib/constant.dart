@@ -1,27 +1,25 @@
-
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
 import 'package:url_launcher/url_launcher.dart';
-
 
 Future<void> launchWhatsapp() async {
   try {
-    String number = "201222200056";
+    // Define the phone number and message
+    String number = "+201222200056";
     String message = "اريد معرفة المزيد عن نيبو سيستم";
-    String url = 'https://wa.me/$number?text=$message';
 
-    final uri = Uri.encodeFull(url);
+    // URL encode the message
+    String encodedMessage = Uri.encodeComponent(message);
 
-    if (await canLaunchUrl(Uri.parse(uri))) {
-      await launchUrl(Uri.parse(uri));
+    // Construct the URL
+    String url = 'https://wa.me/$number?text=$encodedMessage';
+    print('Launching URL: $url');
+
+    // Check if the URL can be launched
+    if (await canLaunch(url)) {
+      await launch(url);
     } else {
-      throw 'Could not launch whatsapp ';
+      throw 'Could not launch WhatsApp';
     }
-  } catch (e) {
-    if (kDebugMode) {
-      print(e);
-    }
+  } catch (e, s) {
+    print('Error: $e');
   }
 }

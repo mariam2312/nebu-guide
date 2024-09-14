@@ -4510,7 +4510,7 @@ Map<String, dynamic> infoBank = {
     // main info type
     Is_Basic: true,
     Is_New: false,
-    Is_FAQ: false,
+    Is_FAQ: true,
     Is_Official: false,
     Is_Step_By_Step: false,
 
@@ -4554,7 +4554,7 @@ Map<String, dynamic> infoBank = {
     // main info type
     Is_Basic: true,
     Is_New: false,
-    Is_FAQ: false,
+    Is_FAQ: true,
     Is_Official: false,
     Is_Step_By_Step: false,
 
@@ -4599,7 +4599,7 @@ Map<String, dynamic> infoBank = {
     // main info type
     Is_Basic: true,
     Is_New: false,
-    Is_FAQ: false,
+    Is_FAQ: true,
     Is_Official: false,
     Is_Step_By_Step: false,
 
@@ -4643,7 +4643,7 @@ Map<String, dynamic> infoBank = {
     // main info type
     Is_Basic: true,
     Is_New: false,
-    Is_FAQ: false,
+    Is_FAQ: true,
     Is_Official: false,
     Is_Step_By_Step: false,
 
@@ -4686,7 +4686,7 @@ Map<String, dynamic> infoBank = {
     // main info type
     Is_Basic: true,
     Is_New: false,
-    Is_FAQ: false,
+    Is_FAQ: true,
     Is_Official: false,
     Is_Step_By_Step: false,
 
@@ -4732,7 +4732,7 @@ Map<String, dynamic> infoBank = {
     // main info type
     Is_Basic: true,
     Is_New: false,
-    Is_FAQ: false,
+    Is_FAQ: true,
     Is_Official: false,
     Is_Step_By_Step: false,
 
@@ -4774,7 +4774,7 @@ Map<String, dynamic> infoBank = {
     // main info type
     Is_Basic: true,
     Is_New: false,
-    Is_FAQ: false,
+    Is_FAQ: true,
     Is_Official: false,
     Is_Step_By_Step: false,
 
@@ -4810,6 +4810,27 @@ Material_Path_List: [],
 Tip_Title: "هل هناك نسخة تجريبية من نظام نيبو ؟",
 //details
 Tip_Main_Description: "نعم هناك نسخة تجريبية من نظام نيبو صالحة لمدة ٧ ايام",
+Tip_Order_Number: "8",
+
+// material
+Is_Material_Lottie: false ,
+Is_Material_Picture: false,
+Is_Material_YouTube: false,
+
+// basic types
+Is_Step_By_Step: false,
+Is_New: false,
+Is_Basic: false ,
+Is_FAQ: true,
+Is_Official: false,
+  Tip_Section: '', Related_Screen: '', Related_App_Screen: '', Is_ForOwner: null, Is_For_Admin: null, Is_For_SalesTeam: null, Android_Ver: null, IOS_Ver: null,
+),
+  "FAQ2":Info (
+Material_Path:"",
+Material_Path_List: [],
+Tip_Title: "كيف ابيع حلق عيار ٢١؟",
+//details
+Tip_Main_Description: "ادخل علي مبيعات و اختار مصنع و عيار.",
 Tip_Order_Number: "8",
 
 // material

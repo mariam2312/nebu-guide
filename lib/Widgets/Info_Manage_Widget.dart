@@ -800,8 +800,6 @@ IOS_Ver: int.tryParse(_iosVerController.text),
             widget.infoBank.Tip_Description_Idea = _descriptionIdeaController.text;
             widget.infoBank.  Tip_Description_Info = _descriptionInfoController.text;
             widget.infoBank. Tip_Tech_Details =_techDetailsController.text;
-
-// Convert string values to boolean if necessary
             widget.infoBank.Is_Basic =_isBasicController.text.toLowerCase() == 'true';
             widget.infoBank.Is_New = _isNewController.text.toLowerCase() == 'true';
             widget.infoBank.  Is_FAQ = _isFAQController.text.toLowerCase() == 'true';
@@ -810,7 +808,6 @@ IOS_Ver: int.tryParse(_iosVerController.text),
             widget.infoBank.   Is_Material_Lottie = _isMaterialLottieController.text.toLowerCase() == 'true';
             widget.infoBank.Is_Material_Picture = _isMaterialPictureController.text.toLowerCase() == 'true';
             widget.infoBank. Is_Material_YouTube = _isMaterialYouTubeController.text.toLowerCase() == 'true';
-
             widget.infoBank.Related_App_Screen = _relatedAppScreenController.text;
             widget.infoBank.Material_Path = _materialPathController.text;
             List<String> imagePaths = _selectedImages.map((image) => image.path).toList();

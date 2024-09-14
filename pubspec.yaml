@@ -74,6 +74,7 @@ dependencies:
   multi_image_picker_view: ^1.0.3
   image_editor: ^1.5.1
   extended_image: ^7.0.2
+  reorderable_grid_view: ^2.2.8
 
 
 

@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:reorderable_grid_view/reorderable_grid_view.dart';
 import 'dart:io';
 import '../Widgets/Info_Manage_Widget.dart';
 import '../data/Info_Bank_Data.dart';
@@ -59,9 +60,12 @@ class _InfoSectionScreenState extends State<InfoSectionScreen> {
       final Map<String, dynamic> infoMap =
           infoBank.toMap(Path: 'InfoBankData/AllInfoData');
       bigMap['info'][infoBank.Tip_Title!] = infoMap;
+      filteredInfo.add(infoBank);
     }
 
     restrictionsDataCollection.doc('AllInfoData').set(bigMap);
+
+
   }
 
   Future<void> deleteAllInfoToFirestore() async {
@@ -76,9 +80,10 @@ class _InfoSectionScreenState extends State<InfoSectionScreen> {
       await document.reference.delete();
     }
 
-    // Clear the restrictionsList in the GuideProvider
+    // Clear the infosList in the GuideProvider
     var guideProvider = Provider.of<GuideProvider>(context, listen: false);
     guideProvider.clearInfoList();
+
   }
 
   @override
@@ -104,7 +109,7 @@ class _InfoSectionScreenState extends State<InfoSectionScreen> {
         body: Consumer<GuideProvider>(builder: (context, guideProvider, child) {
           return Padding(
               padding: const EdgeInsets.all(10),
-              child: Column(children: [
+              child: ListView(children: [
                   TextField(
                   controller: searchController,
                   decoration: const InputDecoration(
@@ -246,135 +251,165 @@ class _InfoSectionScreenState extends State<InfoSectionScreen> {
                     //       },
                     //     ),
                     //   )  // (guideProvider.allInfo.isNotEmpty)
-                (filteredInfo.isNotEmpty)
-                    ? Expanded(
-                        child: GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount:
-                                2, // adjust the number of columns here
-                            mainAxisSpacing: 10, // space between rows
-                            crossAxisSpacing:
-                                10, // adjust the number of columns here
-                          ),
-                          itemCount: filteredInfo.length, // number of items
-                          itemBuilder: (context, index) {
-                            Info? infoBank = filteredInfo[index];
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        InfoScreen(infoBank: infoBank!),
-                                  ),
-                                );
-                              },
-                              child:
-                              Stack(
-                                  children:[ Container(
-                                      padding: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        color: Color(0xff212D45),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 2,
-                                            blurRadius: 7,
-                                            offset: const Offset(
-                                                0, 3), // changes position of shadow
-                                          ),
-                                        ],
-                                        borderRadius: BorderRadius.circular(
-                                            20), // circular edge
-                                      ),
-                                      child:Column(children: [
-                                        Center(
-                                            child: Text(
-                                              "(${index + 1})${infoBank!.Tip_Title}",
-                                              style: const TextStyle(
-                                                  color: Colors.amber,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                        Text("l:${infoBank.Is_Material_Lottie}",style: const TextStyle(
-                                            color: Colors.amber,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),),
-                                        Text("P:${infoBank.Is_Material_Picture}",style: const TextStyle(
-                                            color: Colors.amber,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),),
+                  (filteredInfo.isNotEmpty)
+                    ? SizedBox(
+                    height: MediaQuery.of(context).size.height ,
+                    child: ReorderableGridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
 
-                                      ],)
-                                  ),
-                            Positioned(
-                            top: 0,
-                            right: 0,
-                            child: IconButton(
-                            icon: const Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                            ), onPressed: () {
-                            showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                            return AlertDialog(
-                            title: const Text("حذف العنصر"),
-                            content: const Text("هل انت متاكد من حذف هذا العنصر؟"),
-                            actions: [
-                            TextButton(
-                            child: const Text("الغاء"),
-                            onPressed: () {
-                            Navigator.of(context).pop();
-                            },
-                            ),
-                            TextButton(
-                            child: const Text("حذف"),
-                            onPressed: () async {
-                            // Remove item from allInfo
-                            guideProvider.allInfo.removeAt(index);
+                  onReorder: (int oldIndex, int newIndex) {
+                      if (oldIndex < newIndex) {
+                        newIndex -= 1;
+                      }
+                      final Info? item = filteredInfo.removeAt(oldIndex);
+                      filteredInfo.insert(newIndex, item);
+                  },
+                  children: List.generate(
+                      filteredInfo.length,
+                          (index) {
+                        Info? infoBank = filteredInfo[index];
+                        return GestureDetector(
+                          key: Key('info-${index}'), // Add a unique key here
 
-                            // Create a map to store the updated data
-                            final Map<String, dynamic> bigMap = {'info': {}};
-                            // Populate the bigMap with the updated infoBank values
-                            for (var infoBankValue in guideProvider.allInfo) {
-                            final Map<String, dynamic> infoMap = infoBankValue.toMap(Path: 'InfoBankData/AllInfoData');
-                            bigMap['info'][infoBankValue.Tip_Title!] = infoMap;
-                            }
-
-                            // Update the Firebase Firestore document with the new map
-                            final CollectionReference restrictionsDataCollection =
-                            FirebaseFirestore.instance.collection('InfoBankData');
-                            await restrictionsDataCollection.doc('AllInfoData').set(bigMap);
-
-                            setState(() {}); // Update the UI
-                            Navigator.of(context).pop();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Item deleted successfully!')),
-                            );
-                            },
-                            ),
-                            ],
-                            );
-                            },
-                            );
-                            },))
-                            ]
-
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => InfoScreen(
+                                  infoBank: infoBank!,
+                                ),
                               ),
                             );
                           },
-                        ),
-                      )
-                    : const Center(
-                        child: Text(
-                          'No Items Available for now',
-                          style: TextStyle(color: Colors.red),
-                        ),
-                      )
-              ]));
-        }));
+                          child: Stack(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Color(0xff212D45),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 2,
+                                      blurRadius: 7,
+                                      offset: const Offset(0, 3),
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        "(${index + 1})${infoBank!.Tip_Title}",
+                                        style: const TextStyle(
+                                          color: Colors.amber,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      "l:${infoBank.Is_Material_Lottie}",
+                                      style: const TextStyle(
+                                        color: Colors.amber,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      "P:${infoBank.Is_Material_Picture}",
+                                      style: const TextStyle(
+                                        color: Colors.amber,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                  ),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Text("حذف العنصر"),
+                                          content: const Text("هل انت متاكد من حذف هذا العنصر؟"),
+                                          actions: [
+                                            TextButton(
+                                              child: const Text("الغاء"),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                            TextButton(
+                                              child: const Text("حذف"),
+                                              onPressed: () async {
+                                                // Remove item from allInfo
+                                                guideProvider.allInfo.removeAt(index);
+                                                // Remove item from filteredInfo
+                                                setState(() {
+                                                  filteredInfo.removeAt(index);
+                                                });
+
+                                                // Create a map to store the updated data
+                                                final Map<String, dynamic> bigMap = {'info': {}};
+                                                // Populate the bigMap with the updated infoBank values
+                                                for (var infoBankValue in guideProvider.allInfo) {
+                                                  final Map<String, dynamic> infoMap = infoBankValue.toMap(Path: 'InfoBankData/AllInfoData');
+                                                  bigMap['info'][infoBankValue.Tip_Title!] = infoMap;
+                                                }
+
+                                                // Update the Firebase Firestore document with the new map
+                                                final CollectionReference restrictionsDataCollection =
+                                                FirebaseFirestore.instance.collection('InfoBankData');
+                                                await restrictionsDataCollection.doc('AllInfoData').set(bigMap);
+
+                                                setState(() {}); // Update the UI
+                                                Navigator.of(context).pop();
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  const SnackBar(content: Text('Item deleted successfully!')),
+                                                );
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                  ),
+                ),
+                    )
+                    :
+                  const Center(
+                  child: Text(
+                    'No Items Available for now',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+              ],
+              ),
+          );
+        },
+        ),
+    );
+
   }
 }
 

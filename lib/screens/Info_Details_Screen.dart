@@ -38,14 +38,31 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
   PageController controller = PageController();
   PageController pictureListController = PageController();
   ScrollController faqController = ScrollController();
-
   DateAndTime time = DateAndTime();
   int _currentIndex = 0;
+
+  bool _isAutoPlay = true;
+  void onTap() {
+    setState(() {
+      // _carouselController.stopAutoPlay();
+      _isAutoPlay = false;
+      print(_isAutoPlay);// Stop autoplay when a step is tapped
+    });
+  }
+  int activeStep = 0;
+  late List<Info?> filteredInfos;
+
 
   // YoutubePlayerController youtubeController = YoutubePlayerController(
   //   initialVideoId: 'HVtfiQ74O5U',
   // );
 
+ //  @override
+ //  void initstate() {
+ //    super.initState();
+ // filteredInfos = widget.tips;
+ //
+ //  }
   @override
   void dispose() {
     super.dispose();
@@ -54,31 +71,26 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
     faqController.dispose();
 
   }
+  List<Info?> searchResults = [];
+  final TextEditingController searchController = TextEditingController();
 
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController searchController = TextEditingController();
   //  var tips = Provider.of<GuideProvider>(context, listen: false);
-    bool _isAutoPlay = true;
+
     ///error when faq or offical change in all infos
     List<Info?> allInfos = widget.tips;
-    void onTap() {
-      setState(() {
-        // _carouselController.stopAutoPlay();
-        _isAutoPlay = false;
-        print(_isAutoPlay);// Stop autoplay when a step is tapped
-      });
-    }
+
     bool isFAQ = widget.isForAppOfficialFAQ;
     bool isOfficial = widget.isForAppOfficialInfoTip;
-    List<Info?> searchResults = [];
+
     var guideProvider = Provider.of<GuideProvider>(context, listen: false);
-    int activeStep = 0;
+
     //
     // allInfo.sort((a, b) =>
     //     (a?.Tip_Order_Number ?? 1).compareTo(b?.Tip_Order_Number ?? 1));
-    List<Info?> filteredInfos = [];
+
 
     if (isFAQ == true) {
       filteredInfos = allInfos.where((element) => element?.Is_FAQ == true).toList();
@@ -127,7 +139,21 @@ print(imagePath);
         ),
       );
     }).toList();
+    void _searchInfo(String query) {
+      final searchedInfo =filteredInfos.where((info) {
+        final title = info!.Tip_Title?.toLowerCase() ?? '';
+        //  final description = info.Tip_Description_Info?.toLowerCase() ?? '';
 
+        return title.contains(query.toLowerCase()) ;
+        //|| description.contains(query.toLowerCase());
+      }).toList();
+
+      setState(() {
+        print("searchedInfo$searchedInfo");
+        searchResults = searchedInfo;
+        print(searchResults);
+      });
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -674,9 +700,10 @@ print(imagePath);
                   TextField(
                     cursorColor: Colors.white,
                     controller: searchController,
-
+                    textAlign: TextAlign.end,
+                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      suffix: Text('البحث عن سؤال', style: TextStyle(color: Colors.grey)), // Set the hint text as a suffix
+                      hintText: 'البحث عن سؤال',
                       hintStyle: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 20),
                       prefixIcon: Icon(Icons.search, color: Colors.grey, size: 40),
                       contentPadding: EdgeInsetsDirectional.only( top: 10, bottom: 10,end: 10), // Set the content padding
@@ -686,43 +713,13 @@ print(imagePath);
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(color: Colors.grey),
+                        borderSide: BorderSide(color: Colors.white),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
+
                       filled: true, // Set filled to true to set the background color
                       fillColor: Colors.grey[600], // Set the background color to dark grey
                     ),
-                    onChanged: (text) {
-                      setState(() {
-                        if (text.isEmpty) {
-                          searchResults = filteredInfos;
-                        }else {
-                          searchResults = guideProvider.allInfo
-                              .where((element) {
-                            final title =
-                                element.Tip_Title?.toLowerCase() ??
-                                    '';
-                            final section = element.Tip_Section
-                                ?.toLowerCase() ??
-                                '';
-                            final description =
-                                element.Tip_Description_Info
-                                    ?.toLowerCase() ??
-                                    '';
-
-                            return title
-                                .contains(text.toLowerCase()) ||
-                                section
-                                    .contains(text.toLowerCase()) ||
-                                description
-                                    .contains(text.toLowerCase());
-                          }).toList();
-                        }
-                      });
-                    },
+                    onChanged: (query) => _searchInfo(query),
                   ),
                 ],
               ),
@@ -740,10 +737,11 @@ print(imagePath);
                 ),textAlign: TextAlign.end,),),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: filteredInfos.length,
+                      itemCount: searchResults.isEmpty ? filteredInfos.length : searchResults.length,
                       controller: faqController,
                       itemBuilder: (context, index) {
                         String? youtubeLink = filteredInfos[index]?.Material_Path;
+                        Info? info = searchResults.isEmpty ? filteredInfos[index] : searchResults[index];
 
                         // YoutubePlayerController youtubeController =
                         //     YoutubePlayerController(
@@ -758,18 +756,17 @@ print(imagePath);
                             color:  Colors.white,
                           child: ExpansionTile(
                             title: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+
                               children: [
 
                                 Expanded(
                                   child: Text(
-                                    "${filteredInfos[index]?.Tip_Title}",
+                                    "${info?.Tip_Title}",
                                     style: GoogleFonts.markaziText(
-                                      fontSize: 22,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xff212D45),
-                                    ),
+                                    ),textAlign: TextAlign.end,
                                   ),
                                 ),
                                 const SizedBox(
@@ -788,7 +785,7 @@ print(imagePath);
                             ),
                             children: [
                            Text(
-                                "${filteredInfos[index]?.Tip_Title}",
+                                "${info?.Tip_Title}",
                                 style: GoogleFonts.markaziText(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
@@ -1054,18 +1051,15 @@ print(imagePath);
 child:Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
 
-  MouseRegion(
-    cursor: SystemMouseCursors.click,
-    child: GestureDetector(
-      onTap: () async {
-        launchWhatsapp();
-      },
-      child: SizedBox(
+  GestureDetector(
+    onTap: () async {
+     await launchWhatsapp();
+    },
+    child: SizedBox(
 
-        child: Center(
-             child: Image.asset("assets/images/contactUs.png", scale:5.5,)
+      child: Center(
+           child: Image.asset("assets/images/contactUs.png", scale:5.5,)
 
-        ),
       ),
     ),
   ),
