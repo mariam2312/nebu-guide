@@ -4774,9 +4774,9 @@ Map<String, dynamic> infoBank = {
     // main info type
     Is_Basic: true,
     Is_New: false,
-    Is_FAQ: true,
+    Is_FAQ: false,
     Is_Official: false,
-    Is_Step_By_Step: false,
+    Is_Step_By_Step: true,
 
     // material type , lottie => animation
     Is_Material_Lottie: true,

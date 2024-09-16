@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -94,10 +96,13 @@ class InfoDetailsScreenState extends State<InfoDetailsScreen> {
 
     if (isFAQ == true) {
       filteredInfos = allInfos.where((element) => element?.Is_FAQ == true).toList();
+      print(filteredInfos);
     } else if (isOfficial == true) {
       filteredInfos = allInfos.where((element) => element?.Is_Official == true).toList();
-    } else {
+      print(filteredInfos);
+    } else{
       filteredInfos = allInfos.where((element) => element?.Is_Basic == true).toList();
+      print(filteredInfos);
     }
     final List<Widget> imageSliders =  filteredInfos.map((info) {
       final imagePath = info?.Material_Path_List?.isNotEmpty == true
@@ -114,12 +119,20 @@ print(imagePath);
             width: 300,
             color: Colors.blueGrey,
             child: Center(
-              child: Stack(
+              child:
+              Stack(
                 children: [
-                  Image.asset(
-                    imagePath,
-                    fit: BoxFit.cover,
-                  ),
+                  imagePath is String
+                    ? imagePath.startsWith('assets/')
+                    ? Image.asset(imagePath)
+                    : Image.file(File(imagePath),height: 250,  fit: BoxFit.cover, // Add a height to resize the image
+                  width: 250,)
+                    : Image.file(imagePath as File, fit: BoxFit.cover,  height: 250, // Add a height to resize the image
+                  width: 250,),
+                  // Image.asset(
+                  //   imagePath,
+                  //   fit: BoxFit.cover,
+                  // ),
                   Positioned(
                     bottom: 0,
                     right: 0,
@@ -132,8 +145,10 @@ print(imagePath);
                       ),
                     ),
                   ),
+
                 ],
               ),
+
             ),
           ),
         ),
@@ -171,7 +186,9 @@ print(imagePath);
         title: const Text("NEBU GUIDE",style: TextStyle(color: Colors.amber),),
       ),
       body: (isFAQ == false && isOfficial == false)
-          ? Stack(
+          ?
+      //step by step
+      Stack(
         children: [
           PageView.builder(
               itemCount: filteredInfos.length,
@@ -259,7 +276,7 @@ print(imagePath);
                                 .height /
                                 1.50,
                             decoration: BoxDecoration(
-                              color: Colors.yellow[700],
+                              color: Colors.red[700],
                             ),
                             child: CachedNetworkImage(
                               imageUrl:
@@ -276,124 +293,107 @@ print(imagePath);
                               const Icon(Icons.error),
                             ),
                           )
-                              : Padding(
-                            padding:
-                            const EdgeInsets.all(12.0),
+                              :Padding(
+                            padding: const EdgeInsets.all(12.0),
                             child: Stack(
-                              alignment:
-                              Alignment.bottomCenter,
+                              alignment: Alignment.bottomCenter,
                               children: [
                                 Container(
-                                  width:
-                                  MediaQuery.of(context)
-                                      .size
-                                      .width -
-                                      30,
-                                  height:
-                                  MediaQuery.of(context)
-                                      .size
-                                      .height /
-                                      1.50,
+                                  width: MediaQuery.of(context).size.width - 30,
+                                  height: MediaQuery.of(context).size.height / 1.50,
                                   decoration: BoxDecoration(
-                                      borderRadius:
-                                      const BorderRadius
-                                          .all(Radius
-                                          .circular(
-                                          8)),
-                                      color: Colors
-                                          .yellow[700],
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors
-                                              .black
-                                              .withOpacity(
-                                              0.5),
-                                          spreadRadius: 3,
-                                          blurRadius: 2,
-                                          offset: const Offset(
-                                              0,
-                                              3), // changes position of shadow
+                                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                    color: Colors.yellow[700],
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.5),
+                                        spreadRadius: 3,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  child:    Stack(
+                                    children: [
+                                      Positioned(
+                                          top: 0,
+                                          left: 0,
+                                          bottom: 20,
+                                          right: 0,
+                                          child: CarouselSlider(
+                                            items: filteredInfos[index]?.Material_Path_List?.map((image) {
+                                              return ClipRRect(
+                                                borderRadius: BorderRadius.circular(40),
+                                                child: image is String
+                                                    ? image.startsWith('assets/')
+                                                    ? Image.asset(image)
+                                                    : Image.file(File(image),height: 250,  fit: BoxFit.cover, // Add a height to resize the image
+                                                  width: 250,)
+                                                    : Image.file(image as File, fit: BoxFit.cover,  height: 250, // Add a height to resize the image
+                                                  width: 250,),
+                                                // Image.file(
+                                                //   File(image),
+                                                //   fit: BoxFit.cover,
+                                                //   height: 250, // Add a height to resize the image
+                                                //   width: 250,
+                                                //
+                                                // ),
+                                              );
+                                            }).toList(),
+                                            carouselController: _carouselController,
+                                            options: CarouselOptions(
+                                              height: 550,
+                                              autoPlay: _isAutoPlay,
+                                              autoPlayInterval: const Duration(seconds: 2),
+                                              enlargeCenterPage: true,
+                                              viewportFraction: 1.0,
+                                              aspectRatio: 1.0,
+                                              initialPage: 0,
+                                              reverse: true,
+                                              onPageChanged: (index, reason) {
+                                                setState(() {
+                                                  _currentIndex = index;
+                                                });
+                                              },
+                                            ),
+                                          )),
+                                      Center(
+                                        child: Image.asset(
+                                          'assets/images/mobleIphone.png',
+                                          fit: BoxFit.cover,
+                                          //width: 600,
+                                          height:600,
+
                                         ),
-                                      ]),
-                                  child: PageView.builder(
-                                    itemBuilder:
-                                        (context, item) {
-                                      return CachedNetworkImage(
-                                        imageUrl:
-                                        "${filteredInfos[index]?.Material_Path_List?[item]}",
-                                        progressIndicatorBuilder: (context,
-                                            url,
-                                            downloadProgress) =>
-                                            CircularProgressIndicator(
-                                                value: downloadProgress
-                                                    .progress),
-                                        errorWidget: (context,
-                                            url,
-                                            error) =>
-                                        const Icon(Icons
-                                            .error),
-                                      );
-                                    },
-                                    controller:
-                                    pictureListController,
-                                    itemCount: filteredInfos[
-                                    index]
-                                        ?.Material_Path_List
-                                        ?.length ??
-                                        1,
-                                    scrollDirection:
-                                    Axis.horizontal,
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                  const EdgeInsets.all(
-                                      8.0),
+                                  padding: const EdgeInsets.all(8.0),
                                   child: Container(
-                                    decoration:
-                                    const BoxDecoration(
-                                      borderRadius:
-                                      BorderRadius.all(
-                                          Radius
-                                              .circular(
-                                              8)),
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(8)),
                                       color: Colors.white,
                                     ),
                                     child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment
-                                          .center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Padding(
-                                          padding:
-                                          const EdgeInsets
-                                              .only(
-                                              bottom: 5,
-                                              top: 5),
-                                          child:
-                                          SmoothPageIndicator(
+                                          padding: const EdgeInsets.only(bottom: 5, top: 5),
+                                          child: SmoothPageIndicator(
                                             // key: keyButton1,
-                                              controller:
-                                              pictureListController,
-                                              count: filteredInfos[index]
-                                                  ?.Material_Path_List
-                                                  ?.length ??
-                                                  1,
-                                              effect:
-                                              WormEffect(
-                                                activeDotColor:
-                                                Colors.yellow[700]!,
-                                                radius:
-                                                15,
-                                                strokeWidth:
-                                                1,
-                                                dotHeight:
-                                                10,
-                                                dotWidth:
-                                                10,
-                                                dotColor:
-                                                Colors.grey,
-                                              )),
+                                            controller: controller,
+                                            count: filteredInfos[index]?.Material_Path_List?.length ?? 1,
+                                            effect: WormEffect(
+                                              activeDotColor: Colors.yellow[700]!,
+                                              radius: 15,
+                                              strokeWidth: 1,
+                                              dotHeight: 10,
+                                              dotWidth: 10,
+                                              dotColor: Colors.grey,
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -402,6 +402,133 @@ print(imagePath);
                               ],
                             ),
                           ),
+                          // Padding(
+                          //   padding:
+                          //   const EdgeInsets.all(12.0),
+                          //   child: Stack(
+                          //     alignment:
+                          //     Alignment.bottomCenter,
+                          //     children: [
+                          //       Container(
+                          //         width:
+                          //         MediaQuery.of(context)
+                          //             .size
+                          //             .width -
+                          //             30,
+                          //         height:
+                          //         MediaQuery.of(context)
+                          //             .size
+                          //             .height /
+                          //             1.50,
+                          //         decoration: BoxDecoration(
+                          //             borderRadius:
+                          //             const BorderRadius
+                          //                 .all(Radius
+                          //                 .circular(
+                          //                 8)),
+                          //             color: Colors
+                          //                 .yellow[700],
+                          //             boxShadow: [
+                          //               BoxShadow(
+                          //                 color: Colors
+                          //                     .black
+                          //                     .withOpacity(
+                          //                     0.5),
+                          //                 spreadRadius: 3,
+                          //                 blurRadius: 2,
+                          //                 offset: const Offset(
+                          //                     0,
+                          //                     3), // changes position of shadow
+                          //               ),
+                          //             ]),
+                          //         child: PageView.builder(
+                          //           itemBuilder:
+                          //               (context, item) {
+                          //             return
+                          //               CachedNetworkImage(
+                          //               imageUrl:
+                          //               "${filteredInfos[index]?.Material_Path_List?[item]}",
+                          //               progressIndicatorBuilder: (context,
+                          //                   url,
+                          //                   downloadProgress) =>
+                          //                   CircularProgressIndicator(
+                          //                       value: downloadProgress
+                          //                           .progress),
+                          //               errorWidget: (context,
+                          //                   url,
+                          //                   error) =>
+                          //               const Icon(Icons
+                          //                   .error),
+                          //             );
+                          //           },
+                          //           controller:
+                          //           pictureListController,
+                          //           itemCount: filteredInfos[
+                          //           index]
+                          //               ?.Material_Path_List
+                          //               ?.length ??
+                          //               1,
+                          //           scrollDirection:
+                          //           Axis.horizontal,
+                          //         ),
+                          //       ),
+                          //       Padding(
+                          //         padding:
+                          //         const EdgeInsets.all(
+                          //             8.0),
+                          //         child: Container(
+                          //           decoration:
+                          //           const BoxDecoration(
+                          //             borderRadius:
+                          //             BorderRadius.all(
+                          //                 Radius
+                          //                     .circular(
+                          //                     8)),
+                          //             color: Colors.white,
+                          //           ),
+                          //           child: Row(
+                          //             mainAxisAlignment:
+                          //             MainAxisAlignment
+                          //                 .center,
+                          //             children: [
+                          //               Padding(
+                          //                 padding:
+                          //                 const EdgeInsets
+                          //                     .only(
+                          //                     bottom: 5,
+                          //                     top: 5),
+                          //                 child:
+                          //                 SmoothPageIndicator(
+                          //                   // key: keyButton1,
+                          //                     controller:
+                          //                     pictureListController,
+                          //                     count: filteredInfos[index]
+                          //                         ?.Material_Path_List
+                          //                         ?.length ??
+                          //                         1,
+                          //                     effect:
+                          //                     WormEffect(
+                          //                       activeDotColor:
+                          //                       Colors.yellow[700]!,
+                          //                       radius:
+                          //                       15,
+                          //                       strokeWidth:
+                          //                       1,
+                          //                       dotHeight:
+                          //                       10,
+                          //                       dotWidth:
+                          //                       10,
+                          //                       dotColor:
+                          //                       Colors.grey,
+                          //                     )),
+                          //               ),
+                          //             ],
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                           (widget.isForAppTips == true &&
                               filteredInfos[index]?.Is_Step_By_Step == true)
                               ? Container(
@@ -650,29 +777,29 @@ print(imagePath);
                   ],
                 );
               }),
-          Container(
-            color: const Color(0xff212D45),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5, top: 5),
-                  child: SmoothPageIndicator(
-                    // key: keyButton1,
-                      controller: controller,
-                      count: filteredInfos.length,
-                      effect: WormEffect(
-                        activeDotColor: Colors.yellow[700]!,
-                        radius: 15,
-                        strokeWidth: 1,
-                        dotHeight: 10,
-                        dotWidth: 10,
-                        dotColor: Colors.grey,
-                      )),
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   color: const Color(0xff212D45),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Padding(
+          //         padding: const EdgeInsets.only(bottom: 5, top: 5),
+          //         child: SmoothPageIndicator(
+          //           // key: keyButton1,
+          //             controller: controller,
+          //             count: filteredInfos.length,
+          //             effect: WormEffect(
+          //               activeDotColor: Colors.yellow[700]!,
+          //               radius: 15,
+          //               strokeWidth: 1,
+          //               dotHeight: 10,
+          //               dotWidth: 10,
+          //               dotColor: Colors.grey,
+          //             )),
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       )
           : (isFAQ == true)
@@ -1154,25 +1281,42 @@ children:[
 Column(crossAxisAlignment: CrossAxisAlignment.end,
   children: [
   SizedBox(height: 30,),
-    CarouselSlider(
-      items: imageSliders,
-      carouselController: _carouselController,
-      options: CarouselOptions(
-        height: 300,
-        autoPlay: _isAutoPlay,
-        autoPlayInterval: const Duration(seconds: 2),
-        enlargeCenterPage: false, // Change this to false to test
-        viewportFraction: 0.8, // Adjust this if needed
-        aspectRatio: 1.0,
-        initialPage: 0,
-        reverse: false,
-          onPageChanged: (index, reason) {
-            setState(()  {
-              _currentIndex = index;
-            print(_currentIndex);
+    Stack(
+        children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            bottom: 20,
+            right: 0,
+            child:  CarouselSlider(
+        items: imageSliders,
+        carouselController: _carouselController,
+        options: CarouselOptions(
+          height: 300,
+          autoPlay: _isAutoPlay,
+          autoPlayInterval: const Duration(seconds: 2),
+          enlargeCenterPage: false, // Change this to false to test
+          viewportFraction: 0.8, // Adjust this if needed
+          aspectRatio: 1.0,
+          initialPage: 0,
+          reverse: false,
+            onPageChanged: (index, reason) {
+              setState(()  {
+                _currentIndex = index;
+              print(_currentIndex);
 
-            });})
+              });})
+      ),
     ),
+          Center(
+            child: Image.asset(
+              'assets/images/mobleIphone.png',
+              fit: BoxFit.cover,
+              //width: 600,
+              height:600,
+
+            ),
+          ),]),
 
     SizedBox(height: 10),
 

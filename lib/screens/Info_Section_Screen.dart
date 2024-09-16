@@ -549,7 +549,8 @@ class _InfoScreenState extends State<InfoScreen> {
                     children: [
 
                       Flexible(flex:4,
-                        child: Stack(
+                        child:
+                        Stack(
                           children: [
                             Positioned(
                                 top: 0,

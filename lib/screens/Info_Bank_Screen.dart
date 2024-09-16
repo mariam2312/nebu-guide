@@ -239,22 +239,17 @@ class _InfoBankScreenState extends State<InfoBankScreen> {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              // Navigator.push(context,
-                              //     MaterialPageRoute(builder: (context) {
-                              //   return InfoDetailsScreen(
-                              //     Info: stepByStepInfo,
-                              //     isForAppOfficialFAQ: false,
-                              //     isForAppOfficialInfoTip: false,
-                              //     isForAppInfo: true,
-                              //   );
-                              // return InfoDetailsScreen(
-                              //   //Info: stepByStepInfo,
-                              //   isForAppOfficialFAQ: false,
-                              //   isForAppOfficialInfoTip: false,
-                              //    tips: allInfo, isForAppTips: true,
-                              // );
-                              // }));
-                            },
+              Navigator.push(context,
+              MaterialPageRoute(builder: (context) {
+              return InfoDetailsScreen(
+              tips: stepByStepInfo,
+              isForAppOfficialFAQ: false,
+              isForAppOfficialInfoTip: false,
+              isForAppTips: true,
+              );
+
+              }));
+              },
                             child: Stack(
                               alignment: Alignment.bottomCenter,
                               children: [
@@ -320,14 +315,14 @@ class _InfoBankScreenState extends State<InfoBankScreen> {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              // Navigator.push(context,
-                              //     MaterialPageRoute(builder: (context) {
-                              //   return InfoDetailsScreen(
-                              //       isForAppInfo: true,
-                              //       isForAppOfficialInfoTip: false,
-                              //       isForAppOfficialFAQ: false,
-                              //       Info: whatsNewInfo);
-                              // }));
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return InfoDetailsScreen(
+                                    isForAppTips: true,
+                                    isForAppOfficialInfoTip: false,
+                                    isForAppOfficialFAQ: false,
+                                    tips: whatsNewInfo);
+                              }));
                             },
                             child: Stack(
                               alignment: Alignment.bottomCenter,
